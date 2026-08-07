@@ -1,0 +1,161 @@
+---
+import { prepareProfileAssets } from "../core/assets/prepareAssets";
+import { filterProfileForTarget } from "../core/filtering/filterProfileForTarget";
+import type { ProfileEntry, ProfileSection, RichTextBlock } from "../core/model/profile";
+import { parseProfileFile } from "../core/parser/parseProfile";
+import { renderMarkdown } from "../core/rendering/markdown";
+import { validateProfile } from "../core/validation/validateProfile";
+import "../styles/global.css";
+
+const parsed = parseProfileFile("content/profile.md");
+if (!parsed.profile || parsed.errors.length > 0) {
+  throw new Error(parsed.errors.map((message) => message.message).join("\n"));
+}
+
+const validationErrors = validateProfile(parsed.profile).filter((message) => message.severity === "error");
+if (validationErrors.length > 0) {
+  throw new Error(validationErrors.map((message) => message.message).join("\n"));
+}
+
+const profile = prepareProfileAssets(filterProfileForTarget(parsed.profile, "web"));
+const contactAvailable = Boolean(profile.email || profile.phone || Object.values(profile.links).some(Boolean));
+const navSections = profile.sections.filter((section) => section.blocks.length > 0 || section.entries.length > 0);
+const pdfHref = `/${profile.pdf.filename}`;
+
+function sectionHref(section: ProfileSection) {
+  return `#${section.id}`;
+}
+
+function renderBlocks(blocks: RichTextBlock[]) {
+  return blocks.map((block) => {
+    const html = renderMarkdown(block.markdown);
+    if (block.kind === "detail" || block.metadata.web === "collapsed" || block.metadata.web === "expanded") {
+      return {
+        kind: "detail",
+        html,
+        open: block.metadata.web === "expanded"
+      };
+    }
+    return { kind: "html", html, open: false };
+  });
+}
+
+function primaryRole(entry: ProfileEntry) {
+  return entry.fields.Role || entry.fields.Degree || entry.fields.Category || entry.fields.Language;
+}
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{profile.name} | CV</title>
+  </head>
+  <body>
+    <header class="topbar">
+      <nav class="topbar__inner" aria-label="Profile sections">
+        <a class="topbar__brand" href="#top">{profile.name}</a>
+        <div class="topbar__links">
+          {navSections.map((section) => <a href={sectionHref(section)}>{section.title}</a>)}
+          {contactAvailable && <a href="#contact">Contact</a>}
+        </div>
+        <a class="button button--primary" href={pdfHref}>Download CV</a>
+      </nav>
+    </header>
+
+    <main id="top" class="page">
+      <section class="profile-card" aria-labelledby="profile-title">
+        <div class="profile-card__banner">
+          {profile.assets?.banner?.publicPath && (
+            <img
+              src={profile.assets.banner.publicPath}
+              alt={profile.assets.banner.alt}
+              style={`object-position: ${profile.assets.banner.position ?? "center"}`}
+            />
+          )}
+        </div>
+        <div class="profile-card__body">
+          <div class="profile-card__photo">
+            {profile.assets?.photo?.publicPath ? (
+              <img
+                src={profile.assets.photo.publicPath}
+                alt={profile.assets.photo.alt}
+                style={`object-position: ${profile.assets.photo.position ?? "center"}`}
+              />
+            ) : (
+              <span>{profile.name.split(" ").map((part) => part[0]).join("")}</span>
+            )}
+          </div>
+          <div class="profile-card__content">
+            <h1 id="profile-title">{profile.name}</h1>
+            <p class="profile-card__headline">{profile.title}</p>
+            {profile.location && <p class="muted">{profile.location}</p>}
+            <div class="actions">
+              <a class="button button--primary" href={pdfHref}>Download CV</a>
+              {profile.email && <a class="button" href={`mailto:${profile.email}`}>Contact</a>}
+              {profile.links.linkedin && <a class="button" href={profile.links.linkedin}>LinkedIn</a>}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {navSections.map((section) => (
+        <section class="section-card" id={section.id} aria-labelledby={`${section.id}-title`}>
+          <h2 id={`${section.id}-title`}>{section.title}</h2>
+
+          {renderBlocks(section.blocks).map((block) =>
+            block.kind === "detail" ? (
+              <details class="detail" open={block.open}>
+                <summary>{block.open ? "Details" : "Show details"}</summary>
+                <div set:html={block.html} />
+              </details>
+            ) : (
+              <div class="content" set:html={block.html} />
+            )
+          )}
+
+          {section.entries.map((entry) => (
+            <article class="entry">
+              <div class="entry__header">
+                <h3>{entry.title}</h3>
+                {primaryRole(entry) && <p class="entry__role">{primaryRole(entry)}</p>}
+                <p class="entry__meta">
+                  {[entry.fields.Period, entry.fields.Location, entry.fields.Date, entry.fields.Venue]
+                    .filter(Boolean)
+                    .join(" · ")}
+                </p>
+              </div>
+              {entry.fields.Level && (
+                <div class="skill-meter" aria-label={`Skill level ${entry.fields.Level} out of 100`}>
+                  <span style={`width: ${entry.fields.Level}%`}></span>
+                </div>
+              )}
+              {renderBlocks(entry.blocks).map((block) =>
+                block.kind === "detail" ? (
+                  <details class="detail" open={block.open}>
+                    <summary>{block.open ? "Details" : "Show details"}</summary>
+                    <div set:html={block.html} />
+                  </details>
+                ) : (
+                  <div class="content" set:html={block.html} />
+                )
+              )}
+            </article>
+          ))}
+        </section>
+      ))}
+
+      {contactAvailable && (
+        <section class="section-card contact" id="contact" aria-labelledby="contact-title">
+          <h2 id="contact-title">Contact</h2>
+          <div class="contact__links">
+            {profile.email && <a href={`mailto:${profile.email}`}>{profile.email}</a>}
+            {profile.phone && <span>{profile.phone}</span>}
+            {Object.entries(profile.links).map(([label, href]) => href && <a href={href}>{label}</a>)}
+          </div>
+        </section>
+      )}
+    </main>
+  </body>
+</html>

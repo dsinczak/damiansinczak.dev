@@ -253,7 +253,6 @@ Publication listed in the LinkedIn CV. Details can be expanded in a later iterat
 ## Snowflake
 <!-- target: all; web: collapsed -->
 
-Level: TBD
 Category: Data platforms
 
 Listed as a top skill in the LinkedIn CV.
@@ -265,7 +264,6 @@ Add a fuller description of how this skill was acquired and used in practice.
 ## Reactor.io
 <!-- target: all; web: collapsed -->
 
-Level: TBD
 Category: Reactive programming
 
 Listed as a top skill in the LinkedIn CV.
@@ -277,7 +275,6 @@ Add a fuller description of how this skill was acquired and used in practice.
 ## Jooq
 <!-- target: all; web: collapsed -->
 
-Level: TBD
 Category: Persistence and database tooling
 
 Listed as a top skill in the LinkedIn CV.

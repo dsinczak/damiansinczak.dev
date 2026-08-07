@@ -1,0 +1,7 @@
+node_modules/
+dist/
+public/assets/profile/
+public/*.pdf
+.astro/
+.astro-dev*.log
+coverage/
