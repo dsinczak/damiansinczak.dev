@@ -15,13 +15,18 @@ assets:
     position: center
 links:
   linkedin: https://www.linkedin.com/in/dsinczak
+  github: https://github.com/dsinczak
 pdf:
   filename: Damian_Sinczak_CV.pdf
 ---
 
 # Bio
 
-I'm an experienced engineer with over 16 years in the IT industry, dabbling in various technologies and domains. I'm known for my proactive approach and positive attitude, tackling challenges with enthusiasm and a curious mindset. I'm all about asking questions and brainstorming fresh ideas. My work ethic revolves around commitment and understanding the heart of any problem, always aiming for the best solutions.
+I’m a senior software engineer and architect with 17 years of experience building and modernizing backend systems across fintech, banking, automotive, telecommunications, and data-intensive platforms. Most of my career has been spent in the JVM ecosystem, particularly Java and Clojure, working with distributed systems, cloud infrastructure, and the messy reality of legacy software.
+
+AI-assisted engineering is now part of my everyday work, not a side experiment. I use tools such as GitHub Copilot and OpenCode extensively throughout the SDLC: understanding unfamiliar code, exploring designs, implementing and refactoring features, writing tests, reviewing changes, troubleshooting problems, and producing documentation. This hands-on experience has led me deeper into applied AI product engineering, including LLM tooling, agents, evaluation workflows, context and memory systems, automation, and AI-native product experiences.
+
+I bring a systems engineering mindset to AI, with a strong focus on reliability, observability, data flow, feedback loops, and the production infrastructure required to make these tools work consistently. I enjoy digging into difficult problems, asking awkward but necessary questions, and finding solutions that hold up in production.
 
 # Experience
 

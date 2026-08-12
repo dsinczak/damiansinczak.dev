@@ -5,7 +5,7 @@ import type { ProfileEntry, ProfileSection, RichTextBlock } from "../core/model/
 import { parseProfileFile } from "../core/parser/parseProfile";
 import { renderMarkdown } from "../core/rendering/markdown";
 import { validateProfile } from "../core/validation/validateProfile";
-import dsMarkUrl from "../assets/web/ds-mark.svg";
+import githubMarkUrl from "../assets/web/github-mark.svg";
 import linkedinMarkUrl from "../assets/web/linkedin-mark.svg";
 import "../styles/global.css";
 
@@ -20,7 +20,7 @@ if (validationErrors.length > 0) {
 }
 
 const profile = prepareProfileAssets(filterProfileForTarget(parsed.profile, "web"));
-const contactAvailable = Boolean(profile.email || profile.phone);
+const contactAvailable = Boolean(profile.email || profile.phone || profile.links.linkedin || profile.links.github);
 const navSections = profile.sections.filter((section) => section.blocks.length > 0 || section.entries.length > 0);
 const pdfHref = `/${profile.pdf.filename}`;
 
@@ -74,15 +74,6 @@ function navIcon(id: string) {
   <body>
     <header class="topbar">
       <nav class="topbar__inner" aria-label="Profile sections">
-        <div class="topbar__start">
-          <a class="topbar__brand" href="#top" aria-label={`${profile.name} profile home`}>
-            <img src={dsMarkUrl.src ?? dsMarkUrl} alt="" />
-          </a>
-          <label class="topbar__search">
-            <span aria-hidden="true">Search</span>
-            <input type="search" placeholder="Search" aria-label="Search profile" />
-          </label>
-        </div>
         <div class="topbar__links">
           {
             navSections.map((section) => (
@@ -138,12 +129,6 @@ function navIcon(id: string) {
                 </svg>
                 <span>Download CV</span>
               </a>
-              {profile.links.linkedin && (
-                <a class="button" href={profile.links.linkedin}>
-                  <img class="button__icon button__icon--linkedin" src={linkedinMarkUrl.src ?? linkedinMarkUrl} alt="" />
-                  <span>LinkedIn</span>
-                </a>
-              )}
             </div>
           </div>
         </div>
@@ -215,6 +200,18 @@ function navIcon(id: string) {
                   <path d="M7.25 3.75h2.1l1.15 4.15-1.7 1.7a14.25 14.25 0 0 0 5.6 5.6l1.7-1.7 4.15 1.15v2.1c0 1.1-.9 2-2 2C10.1 18.75 5.25 13.9 5.25 5.75c0-1.1.9-2 2-2Z"></path>
                 </svg>
                 <span>{profile.phone}</span>
+              </a>
+            )}
+            {profile.links.linkedin && (
+              <a class="contact__item" href={profile.links.linkedin}>
+                <img class="contact__icon" src={linkedinMarkUrl.src ?? linkedinMarkUrl} alt="" />
+                <span>LinkedIn</span>
+              </a>
+            )}
+            {profile.links.github && (
+              <a class="contact__item" href={profile.links.github}>
+                <img class="contact__icon" src={githubMarkUrl.src ?? githubMarkUrl} alt="" />
+                <span>GitHub</span>
               </a>
             )}
           </div>

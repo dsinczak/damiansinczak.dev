@@ -56,97 +56,6 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-}
-
-.topbar__start {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-width: 0;
-}
-
-.topbar__brand {
-  color: var(--text);
-  font-weight: 700;
-  white-space: nowrap;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.topbar__brand img {
-  width: 34px;
-  height: 34px;
-  display: block;
-}
-
-.topbar__search {
-  position: relative;
-  display: flex;
-  align-items: center;
-  width: 280px;
-  max-width: 28vw;
-}
-
-.topbar__search span {
-  position: absolute;
-  left: 12px;
-  width: 16px;
-  height: 16px;
-  overflow: hidden;
-  color: transparent;
-}
-
-.topbar__search span::before,
-.topbar__search span::after {
-  content: "";
-  position: absolute;
-  display: block;
-}
-
-.topbar__search span::before {
-  top: 1px;
-  left: 1px;
-  width: 9px;
-  height: 9px;
-  border: 2px solid #5f6f7a;
-  border-radius: 50%;
-}
-
-.topbar__search span::after {
-  top: 11px;
-  left: 11px;
-  width: 7px;
-  height: 2px;
-  background: #5f6f7a;
-  border-radius: 2px;
-  transform: rotate(45deg);
-  transform-origin: left center;
-}
-
-.topbar__search input {
-  width: 100%;
-  height: 34px;
-  border: 0;
-  border-radius: 4px;
-  background: #eef3f8;
-  color: var(--text);
-  font: inherit;
-  font-size: 14px;
-  font-weight: 400;
-  padding: 0 12px 0 40px;
-  outline: 1px solid transparent;
-}
-
-.topbar__search input::placeholder {
-  color: #5f6f7a;
-  opacity: 1;
-}
-
-.topbar__search input:focus {
-  background: #ffffff;
-  outline-color: var(--accent);
 }
 
 .topbar__links {
@@ -154,7 +63,6 @@ a:hover {
   flex: 0 0 auto;
   justify-content: flex-start;
   align-self: stretch;
-  margin-left: 36px;
   gap: 0;
   font-size: 12px;
   font-weight: 400;
@@ -467,17 +375,19 @@ h3 {
   stroke-width: 1.8;
 }
 
+.contact__icon {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  object-fit: contain;
+}
+
 @media (max-width: 760px) {
   .topbar__inner {
     gap: 10px;
   }
 
   .topbar__links {
-    display: none;
-  }
-
-  .topbar__brand span,
-  .topbar__search {
     display: none;
   }
 
