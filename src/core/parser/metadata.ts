@@ -77,19 +77,23 @@ export function parseMetadataComment(
   return { metadata };
 }
 
-export function parseDirectiveAttributes(value: string): Partial<Metadata> {
-  const metadata: Partial<Metadata> = {};
+export function parseDirectiveAttributes(value: string): Partial<Metadata> & { label?: string } {
+  const metadata: Partial<Metadata> & { label?: string } = {};
   const attributePattern = /(\w+)="([^"]+)"/g;
   let match: RegExpExecArray | null;
 
   while ((match = attributePattern.exec(value)) !== null) {
     const key = match[1].toLowerCase();
-    const attrValue = match[2].toLowerCase();
-    if (key === "target" && validTargets.has(attrValue as OutputTarget)) {
-      metadata.target = attrValue as OutputTarget;
+    const attrValue = match[2];
+    const normalizedValue = attrValue.toLowerCase();
+    if (key === "target" && validTargets.has(normalizedValue as OutputTarget)) {
+      metadata.target = normalizedValue as OutputTarget;
     }
-    if (key === "web" && validWebValues.has(attrValue as WebDisclosure)) {
-      metadata.web = attrValue as WebDisclosure;
+    if (key === "web" && validWebValues.has(normalizedValue as WebDisclosure)) {
+      metadata.web = normalizedValue as WebDisclosure;
+    }
+    if (key === "label") {
+      metadata.label = attrValue;
     }
   }
 

@@ -198,9 +198,11 @@ export function parseProfileSource(source: string, sourcePath = "content/profile
     if (trimmed.startsWith(":::detail")) {
       const startLine = lineNumber;
       const content: string[] = [];
+      const attributes = parseDirectiveAttributes(trimmed);
+      const { label, ...detailMetadata } = attributes;
       const metadata = mergeMetadata(currentEntry?.metadata ?? currentSection.metadata, {
         ...pendingMetadata,
-        ...parseDirectiveAttributes(trimmed)
+        ...detailMetadata
       });
       pendingMetadata = undefined;
 
@@ -222,6 +224,7 @@ export function parseProfileSource(source: string, sourcePath = "content/profile
         kind: "detail",
         markdown: content.join("\n").trim(),
         metadata,
+        label,
         location: { file: sourcePath, line: startLine }
       });
       continue;
@@ -259,7 +262,7 @@ export function parseProfileSource(source: string, sourcePath = "content/profile
       addBlock({
         kind: "list",
         markdown: bullets.join("\n"),
-        metadata: consumePending(currentEntry?.metadata ?? currentSection.metadata),
+        metadata: consumePending(),
         location: { file: sourcePath, line: startLine }
       });
       continue;
@@ -283,7 +286,7 @@ export function parseProfileSource(source: string, sourcePath = "content/profile
     addBlock({
       kind: "paragraph",
       markdown: paragraph.join("\n").trim(),
-      metadata: consumePending(currentEntry?.metadata ?? currentSection.metadata),
+      metadata: consumePending(),
       location: { file: sourcePath, line: startLine }
     });
   }

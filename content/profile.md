@@ -37,7 +37,7 @@ Location: King of Prussia, PA / Remote
 - Senior Clojure/Java developer working on a market-leading application for tax services for marketplaces and individual sellers involved in international trade.
 - Active participant in development of Vertex OSeries, one of the leading tax-solution products on the market.
 
-:::detail target="web" web="collapsed"
+:::detail target="web" web="collapsed" label="More info"
 The role is fully remote and focused on building tax-management systems for global online businesses. The work includes development of a market-leading application providing comprehensive tax services to marketplaces and individual sellers engaged in international trade.
 
 The work also includes active participation in the OSeries system by Vertex Inc., Taxamo's parent company.
@@ -55,7 +55,7 @@ Location: Vienna, Austria
 - Developed an application aggregating extensive real-time data sourced from electric cars.
 - Worked on performance optimization, scalability, high availability, and user experience.
 
-:::detail target="web" web="collapsed"
+:::detail target="web" web="collapsed" label="More info"
 The project served as a central hub for aggregating real-time data from electric cars. It was technically demanding, with significant focus on performance optimization, scalability, high availability, and delivering a strong user experience.
 
 Technology stack: Java 16, Project Reactor, Jooq, Postgres, Time-Series DB, Flyway, RedG, Cap'n Proto, RSocket, REST, Docker, Teamapps, Ansible, private cloud, GitLab, YouTrack.
@@ -73,7 +73,7 @@ Location: Łódź / Remote
 - Helped build a digital platform based on a microservices architecture.
 - Worked with AWS EKS, Java, Spring, PostgreSQL, Redis, Kubernetes, Terraform, Helm, and CI/CD tooling.
 
-:::detail target="web" web="collapsed"
+:::detail target="web" web="collapsed" label="More info"
 The project focused on bringing multiple Baltic financial entities onto one digital platform. The application used a microservices architecture deployed on Amazon Web Services with Elastic Kubernetes Service.
 
 Technology stack: Java 11, Spring Boot, Spring WebFlux, Query DSL, PostgreSQL, Redis, Flyway, OAuth2, JWT, Swagger, SwaggerHub, Spock, JUnit 5, Docker, Kubernetes on AWS EKS, Jenkinsfiles, Terraform, Helm, Jira, Confluence, GitLab, Jenkins.
@@ -90,7 +90,7 @@ Location: Łódź, Poland
 - Worked on mobile phone operator services for device configuration and management.
 - Designed and developed systems using Java, AWS, Kubernetes, monitoring, and testing tools.
 
-:::detail target="web" web="collapsed"
+:::detail target="web" web="collapsed" label="More info"
 Technology stack: Java 11, Maven, Undertow, Vavr, Dropwizard, Prometheus, Spock, Gatling, RestAssured, AWS EKS, EC2, DynamoDB, S3, ECR, KMS, ELB, ALB, Shield, Kubernetes, Jira, Bitbucket, Confluence, Git, Git Flow, Scrum.
 :::
 
@@ -106,7 +106,7 @@ Location: Łódź, Poland
 - Contributed to next-generation architecture for Volkswagen's electric vehicle platform.
 - Used Java 8, embedded environments, Autosar, Adaptive Autosar, MQTT, and token-based authentication.
 
-:::detail target="web" web="collapsed"
+:::detail target="web" web="collapsed" label="More info"
 The project centered on development of a telematics device for secure data exchange between vehicles and backend systems. It covered Java development as well as embedded environments using Autosar and Adaptive Autosar frameworks.
 
 The assignment was part of the next-generation MEB platform intended to supersede the MQB platform for Volkswagen's electric vehicle lineup.
@@ -123,7 +123,7 @@ Location: Lodz, Lodz District, Poland
 - Worked on Remote SIM Provisioning for Machine to Machine systems.
 - Used Scala, Akka, Typelevel libraries, persistence, streaming, testing, and containerized infrastructure.
 
-:::detail target="web" web="collapsed"
+:::detail target="web" web="collapsed" label="More info"
 Technology stack: Scala 2.12, Akka actors, Akka Camel, Akka HTTP, Akka Persistence, Akka Streams, Akka TestKit, Typelevel Cats, Monocle, Spray, Slick, ScalaTest, JBehave, Selenium, Redis, Cassandra, MariaDB, Docker, Docker Compose, Kubernetes, private cloud, Git, Jira, Confluence, Bitbucket.
 :::
 
@@ -140,7 +140,7 @@ Location: Lodz, Lodz District, Poland
 - Maintained the existing operational environment.
 - Applied CQRS, DDD, TDD, continuous integration, and Scrum.
 
-:::detail target="web" web="collapsed"
+:::detail target="web" web="collapsed" label="More info"
 The work involved planning a transition from a legacy application to a new solution while maintaining the existing operational environment. The solution used CQRS as the foundation for separating commands and queries, DDD for complex business domains, TDD for reliability, and continuous integration to keep the development workflow stable.
 
 Technology stack: Java 6, Java 8, AspectJ, Spring Core, Spring Boot, Spring Data, Spring Web Services, Spring Integration, Guava, Apache Commons, Javaslang, Mockito, Liquibase, Team Foundation Server.
@@ -156,7 +156,7 @@ Period: August 2013 - January 2015
 - Contractor from Cybercom working on large-volume data processing and conversion software.
 - Worked on batch processing and geospatial data tooling.
 
-:::detail target="web" web="collapsed"
+:::detail target="web" web="collapsed" label="More info"
 Technology stack: Spring, Apache Hadoop, Apache Crunch, Apache Commons, Apache Guava, PostgreSQL, PostGIS, JTS Topology Suite.
 :::
 
@@ -171,7 +171,7 @@ Period: January 2011 - June 2013
 - Responsible for design, architecture, and implementation.
 - Worked as project lead on client requirements analysis and deployments.
 
-:::detail target="web" web="collapsed"
+:::detail target="web" web="collapsed" label="More info"
 The role included on-site requirements analysis and deployment responsibilities, in addition to technical leadership and Android development for corporate applications.
 :::
 
@@ -186,7 +186,7 @@ Period: March 2009 - March 2012
 - Project analyst and developer for a billing reconciliation system for Nokia Life Tools.
 - Project analyst, architect, and developer for a Mobile Service Delivery Platform for Nokia Life Tools.
 
-:::detail target="web" web="collapsed"
+:::detail target="web" web="collapsed" label="More info"
 The Mobile Service Delivery Platform work included R&D and local deployments across Asia and Africa. The project involved three time zones, 17 people, and cooperation with the customer's headquarters in Finland, an R&D center in India, and local offices.
 
 Technology stack: EJB, Java EE, RichFaces, JMS, AspectJ, Spring, MySQL, ESB.

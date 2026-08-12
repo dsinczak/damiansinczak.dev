@@ -50,6 +50,7 @@ export type RichTextBlock = {
   kind: "paragraph" | "list" | "detail";
   markdown: string;
   metadata: Metadata;
+  label?: string;
   location?: SourceLocation;
 };
 

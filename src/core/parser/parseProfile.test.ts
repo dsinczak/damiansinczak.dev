@@ -33,7 +33,7 @@ Unknown Field: preserved
 
 - Shared bullet.
 
-:::detail target="web" web="collapsed"
+:::detail target="web" web="collapsed" label="More info"
 Web-only detail.
 :::
 
@@ -60,7 +60,9 @@ describe("parseProfileSource", () => {
     expect(experience?.entries[0].fields.Role).toBe("Developer");
     expect(experience?.entries[0].extraFields.UnknownField).toBe("preserved");
     expect(experience?.entries[0].blocks.map((block) => block.kind)).toEqual(["list", "detail"]);
+    expect(experience?.entries[0].blocks[0].metadata.web).toBe("none");
     expect(experience?.entries[0].blocks[1].metadata.target).toBe("web");
+    expect(experience?.entries[0].blocks[1].label).toBe("More info");
   });
 
   it("filters web-only detail out of the PDF profile", () => {
