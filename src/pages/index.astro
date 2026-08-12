@@ -5,6 +5,7 @@ import type { ProfileEntry, ProfileSection, RichTextBlock } from "../core/model/
 import { parseProfileFile } from "../core/parser/parseProfile";
 import { renderMarkdown } from "../core/rendering/markdown";
 import { validateProfile } from "../core/validation/validateProfile";
+import dsMarkUrl from "../assets/web/ds-mark.svg";
 import "../styles/global.css";
 
 const parsed = parseProfileFile("content/profile.md");
@@ -43,6 +44,22 @@ function renderBlocks(blocks: RichTextBlock[]) {
 function primaryRole(entry: ProfileEntry) {
   return entry.fields.Role || entry.fields.Degree || entry.fields.Category || entry.fields.Language;
 }
+
+const navIcons: Record<string, string> = {
+  bio: '<circle cx="12" cy="8" r="3.25"></circle><path d="M5.5 20a6.5 6.5 0 0 1 13 0"></path>',
+  experience: '<path d="M9 7V5.75A1.75 1.75 0 0 1 10.75 4h2.5A1.75 1.75 0 0 1 15 5.75V7"></path><rect x="4" y="7" width="16" height="12" rx="2"></rect><path d="M4 12h16"></path><path d="M10 12v1.5h4V12"></path>',
+  projects: '<path d="M4 7.5A2.5 2.5 0 0 1 6.5 5H10l2 2h5.5A2.5 2.5 0 0 1 20 9.5V17a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z"></path>',
+  skills: '<path d="M12 3.75 14.8 9l5.7.85-4.1 4.05.95 5.7L12 16.9 6.65 19.6l.95-5.7-4.1-4.05L9.2 9Z"></path>',
+  publications: '<path d="M7 4h7l3 3v13H7Z"></path><path d="M14 4v4h4"></path><path d="M9.5 11h5"></path><path d="M9.5 14h5"></path><path d="M9.5 17h3"></path>',
+  education: '<path d="m3.5 8.5 8.5-4 8.5 4-8.5 4Z"></path><path d="M6.5 10.25V15c1.8 1.6 3.65 2.4 5.5 2.4s3.7-.8 5.5-2.4v-4.75"></path><path d="M20.5 8.5v6"></path>',
+  languages: '<circle cx="12" cy="12" r="8.5"></circle><path d="M3.75 12h16.5"></path><path d="M12 3.5c2.15 2.3 3.2 5.15 3.2 8.5s-1.05 6.2-3.2 8.5"></path><path d="M12 3.5C9.85 5.8 8.8 8.65 8.8 12s1.05 6.2 3.2 8.5"></path>',
+  interests: '<path d="M12 20s-7-4.4-7-10a3.8 3.8 0 0 1 6.8-2.35A3.8 3.8 0 0 1 18.6 10c0 5.6-6.6 10-6.6 10Z"></path>',
+  contact: '<rect x="4" y="6" width="16" height="12" rx="2"></rect><path d="m5 8 7 5 7-5"></path>'
+};
+
+function navIcon(id: string) {
+  return navIcons[id] ?? navIcons.bio;
+}
 ---
 
 <!doctype html>
@@ -55,10 +72,30 @@ function primaryRole(entry: ProfileEntry) {
   <body>
     <header class="topbar">
       <nav class="topbar__inner" aria-label="Profile sections">
-        <a class="topbar__brand" href="#top">{profile.name}</a>
+        <div class="topbar__start">
+          <a class="topbar__brand" href="#top" aria-label={`${profile.name} profile home`}>
+            <img src={dsMarkUrl.src ?? dsMarkUrl} alt="" />
+          </a>
+          <label class="topbar__search">
+            <span aria-hidden="true">Search</span>
+            <input type="search" placeholder="Search" aria-label="Search profile" />
+          </label>
+        </div>
         <div class="topbar__links">
-          {navSections.map((section) => <a href={sectionHref(section)}>{section.title}</a>)}
-          {contactAvailable && <a href="#contact">Contact</a>}
+          {
+            navSections.map((section) => (
+              <a class="topbar__link" href={sectionHref(section)}>
+                <svg viewBox="0 0 24 24" aria-hidden="true" set:html={navIcon(section.id)} />
+                <span>{section.title}</span>
+              </a>
+            ))
+          }
+          {contactAvailable && (
+            <a class="topbar__link" href="#contact">
+              <svg viewBox="0 0 24 24" aria-hidden="true" set:html={navIcon("contact")} />
+              <span>Contact</span>
+            </a>
+          )}
         </div>
         <a class="button button--primary" href={pdfHref}>Download CV</a>
       </nav>
@@ -123,7 +160,7 @@ function primaryRole(entry: ProfileEntry) {
                 <p class="entry__meta">
                   {[entry.fields.Period, entry.fields.Location, entry.fields.Date, entry.fields.Venue]
                     .filter(Boolean)
-                    .join(" · ")}
+                    .join(" / ")}
                 </p>
               </div>
               {entry.fields.Level && (
