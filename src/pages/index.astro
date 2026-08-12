@@ -118,7 +118,17 @@ function navIcon(id: string) {
           </div>
           <div class="profile-card__content">
             <h1 id="profile-title">{profile.name}</h1>
-            <p class="profile-card__headline">{profile.title}</p>
+            <div class="profile-card__headline-row">
+              <p class="profile-card__headline">{profile.title}</p>
+              {profile.headlineInfo && (
+                <span class="headline-info">
+                  <span class="headline-info__trigger" role="img" aria-label="More information about this headline">?</span>
+                  <span class="headline-info__popup" role="tooltip">
+                    {profile.headlineInfo}
+                  </span>
+                </span>
+              )}
+            </div>
             {profile.location && <p class="muted">{profile.location}</p>}
             <div class="actions">
               <a class="button button--primary" href={pdfHref}>

@@ -20,6 +20,7 @@ import { mergeMetadata, parseDirectiveAttributes, parseMetadataComment } from ".
 const frontmatterSchema = z.object({
   name: z.string().min(1),
   title: z.string().min(1),
+  headlineInfo: z.string().min(1).optional(),
   location: z.string().optional(),
   email: z.string().optional(),
   phone: z.string().optional(),
@@ -81,6 +82,7 @@ export function parseProfileSource(source: string, sourcePath = "content/profile
   const profile: Profile = {
     name: frontmatter.data.name,
     title: frontmatter.data.title,
+    headlineInfo: frontmatter.data.headlineInfo,
     location: frontmatter.data.location,
     email: frontmatter.data.email,
     phone: frontmatter.data.phone,

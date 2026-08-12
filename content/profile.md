@@ -1,7 +1,8 @@
 ﻿---
 name: Damian Sińczak
 title: Modernizing legacy applications with brain-powered AI
-location: Lodz, Poland
+headlineInfo: Throughout my career, I've always worked with legacy systems to varying degrees. Over time, what initially seemed like a curse became a blessing and a lifelong learning experience. Now, thanks to AI and my experience, I'm able to quickly and precisely collaborate with even the most stubborn codebases, maintaining, developing, and modernizing them.
+location: Łódź, Poland
 email: damian.sinczak@gmail.com
 phone: "+48 728 866 012"
 assets:
@@ -22,7 +23,7 @@ pdf:
 
 # Bio
 
-I’m a senior software engineer and architect with 17 years of experience building and modernizing backend systems across fintech, banking, automotive, telecommunications, and data-intensive platforms. Most of my career has been spent in the JVM ecosystem, particularly Java and Clojure, working with distributed systems, cloud infrastructure, and the messy reality of legacy software.
+I’m a senior software engineer and architect with 17 years of experience building and modernizing backend systems across fintech, banking, automotive, telecommunications, and data-intensive platforms. Most of my career has been spent in the JVM ecosystem, particularly Java, Scala and Clojure, working with distributed systems, cloud infrastructure, and the messy reality of legacy software.
 
 AI-assisted engineering is now part of my everyday work, not a side experiment. I use tools such as GitHub Copilot and OpenCode extensively throughout the SDLC: understanding unfamiliar code, exploring designs, implementing and refactoring features, writing tests, reviewing changes, troubleshooting problems, and producing documentation. This hands-on experience has led me deeper into applied AI product engineering, including LLM tooling, agents, evaluation workflows, context and memory systems, automation, and AI-native product experiences.
 

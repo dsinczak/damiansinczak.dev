@@ -86,6 +86,7 @@ export type SectionId =
 export type Profile = {
   name: string;
   title: string;
+  headlineInfo?: string;
   location?: string;
   email?: string;
   phone?: string;
