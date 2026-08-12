@@ -5,10 +5,10 @@
   "type": "module",
   "scripts": {
     "prepare:assets": "tsx scripts/prepare-assets.ts",
-    "predev": "npm.cmd run prepare:assets",
+    "predev": "npm run prepare:assets",
     "dev": "astro dev",
     "build": "tsx scripts/build.ts",
-    "prebuild:web": "npm.cmd run prepare:assets",
+    "prebuild:web": "npm run prepare:assets",
     "build:web": "astro build",
     "validate:profile": "tsx scripts/validate-profile.ts",
     "generate:pdf": "tsx scripts/generate-pdf.ts",
