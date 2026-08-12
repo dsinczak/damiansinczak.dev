@@ -6,6 +6,7 @@ import { parseProfileFile } from "../core/parser/parseProfile";
 import { renderMarkdown } from "../core/rendering/markdown";
 import { validateProfile } from "../core/validation/validateProfile";
 import dsMarkUrl from "../assets/web/ds-mark.svg";
+import linkedinMarkUrl from "../assets/web/linkedin-mark.svg";
 import "../styles/global.css";
 
 const parsed = parseProfileFile("content/profile.md");
@@ -97,7 +98,6 @@ function navIcon(id: string) {
             </a>
           )}
         </div>
-        <a class="button button--primary" href={pdfHref}>Download CV</a>
       </nav>
     </header>
 
@@ -129,9 +129,20 @@ function navIcon(id: string) {
             <p class="profile-card__headline">{profile.title}</p>
             {profile.location && <p class="muted">{profile.location}</p>}
             <div class="actions">
-              <a class="button button--primary" href={pdfHref}>Download CV</a>
-              {profile.email && <a class="button" href={`mailto:${profile.email}`}>Contact</a>}
-              {profile.links.linkedin && <a class="button" href={profile.links.linkedin}>LinkedIn</a>}
+              <a class="button button--primary" href={pdfHref}>
+                <svg class="button__icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 3v11"></path>
+                  <path d="m7.5 10.5 4.5 4.5 4.5-4.5"></path>
+                  <path d="M5 18v2h14v-2"></path>
+                </svg>
+                <span>Download CV</span>
+              </a>
+              {profile.links.linkedin && (
+                <a class="button" href={profile.links.linkedin}>
+                  <img class="button__icon button__icon--linkedin" src={linkedinMarkUrl.src ?? linkedinMarkUrl} alt="" />
+                  <span>LinkedIn</span>
+                </a>
+              )}
             </div>
           </div>
         </div>
@@ -154,6 +165,7 @@ function navIcon(id: string) {
 
           {section.entries.map((entry) => (
             <article class="entry">
+              {entry.icon?.publicPath && <img class="entry__icon" src={entry.icon.publicPath} alt={entry.icon.alt} />}
               <div class="entry__header">
                 <h3>{entry.title}</h3>
                 {primaryRole(entry) && <p class="entry__role">{primaryRole(entry)}</p>}

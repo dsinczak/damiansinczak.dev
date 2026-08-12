@@ -319,12 +319,30 @@ h3 {
   min-height: 34px;
   align-items: center;
   justify-content: center;
+  gap: 8px;
   padding: 6px 14px;
   border: 1px solid var(--accent);
   border-radius: 999px;
   color: var(--accent);
   font-weight: 650;
   line-height: 1;
+}
+
+.button__icon {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.button__icon--linkedin {
+  width: 20px;
+  height: 20px;
+  flex-basis: 20px;
 }
 
 .button--primary {
@@ -346,6 +364,23 @@ h3 {
 .entry {
   padding: 18px 0;
   border-top: 1px solid var(--border);
+}
+
+.entry:has(.entry__icon) {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  column-gap: 12px;
+}
+
+.entry__icon {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  grid-row: 1;
+}
+
+.entry:has(.entry__icon) > :not(.entry__icon) {
+  grid-column: 2;
 }
 
 .entry:first-of-type {

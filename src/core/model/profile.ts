@@ -56,6 +56,7 @@ export type RichTextBlock = {
 export type ProfileEntry = {
   title: string;
   metadata: Metadata;
+  icon?: ProfileAsset;
   fields: Record<string, string>;
   extraFields: Record<string, string>;
   blocks: RichTextBlock[];

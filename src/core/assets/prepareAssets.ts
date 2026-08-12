@@ -6,14 +6,22 @@ export type AssetManifest = Record<string, ProfileAsset>;
 
 export function prepareProfileAssets(profile: Profile, workspaceRoot = process.cwd()): Profile {
   const assets = profile.assets;
-  if (!assets) return profile;
 
   return {
     ...profile,
-    assets: {
-      photo: assets.photo ? prepareAsset(assets.photo, workspaceRoot) : undefined,
-      banner: assets.banner ? prepareAsset(assets.banner, workspaceRoot) : undefined
-    }
+    assets: assets
+      ? {
+          photo: assets.photo ? prepareAsset(assets.photo, workspaceRoot) : undefined,
+          banner: assets.banner ? prepareAsset(assets.banner, workspaceRoot) : undefined
+        }
+      : undefined,
+    sections: profile.sections.map((section) => ({
+      ...section,
+      entries: section.entries.map((entry) => ({
+        ...entry,
+        icon: entry.icon ? prepareAsset(entry.icon, workspaceRoot) : undefined
+      }))
+    }))
   };
 }
 

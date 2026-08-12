@@ -71,15 +71,25 @@ console.log(`Generated ${path.relative(process.cwd(), outputPath)}`);
 
 function writeEntry(entry: ProfileEntry) {
   ensureSpace(80);
-  doc.font("Helvetica-Bold").fontSize(10.5).fillColor("#111111").text(entry.title);
+  const entryY = doc.y;
+  const iconPath = entry.icon ? path.resolve(entry.icon.src) : undefined;
+  const textX = iconPath && fs.existsSync(iconPath) ? 90 : 48;
+  const textWidth = 547 - textX;
+
+  if (iconPath && fs.existsSync(iconPath)) {
+    doc.image(iconPath, 48, entryY, { fit: [30, 30] });
+  }
+
+  doc.font("Helvetica-Bold").fontSize(10.5).fillColor("#111111").text(entry.title, textX, entryY, { width: textWidth });
   const subtitle = [entry.fields.Role, entry.fields.Degree, entry.fields.Category, entry.fields.Language]
     .filter(Boolean)
     .join(" | ");
-  if (subtitle) doc.font("Helvetica").fontSize(9).fillColor("#333333").text(subtitle);
+  if (subtitle) doc.font("Helvetica").fontSize(9).fillColor("#333333").text(subtitle, textX, doc.y, { width: textWidth });
   const meta = [entry.fields.Period, entry.fields.Location, entry.fields.Date, entry.fields.Venue, entry.fields.Proficiency]
     .filter(Boolean)
     .join(" | ");
-  if (meta) doc.fontSize(8.5).fillColor("#666666").text(meta);
+  if (meta) doc.fontSize(8.5).fillColor("#666666").text(meta, textX, doc.y, { width: textWidth });
+  if (iconPath && fs.existsSync(iconPath)) doc.y = Math.max(doc.y, entryY + 30);
   writeBlocks(entry.blocks);
   doc.moveDown(0.35);
 }

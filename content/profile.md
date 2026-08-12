@@ -1,7 +1,7 @@
 ﻿---
 name: Damian Sińczak
 title: Modernizing legacy applications with brain-powered AI
-location: Zgierski, Łódzkie, Poland
+location: Lodz, Poland
 email: damian.sinczak@gmail.com
 phone: "+48 728 866 012"
 assets:
@@ -17,26 +17,6 @@ links:
   linkedin: https://www.linkedin.com/in/dsinczak
 pdf:
   filename: Damian_Sinczak_CV.pdf
-outputs:
-  sections:
-    bio:
-      target: all
-      web: none
-    experience:
-      target: all
-      web: collapsed
-    publications:
-      target: all
-      web: collapsed
-    skills:
-      target: all
-      web: collapsed
-    education:
-      target: all
-      web: none
-    languages:
-      target: all
-      web: none
 ---
 
 # Bio
@@ -46,8 +26,9 @@ I'm an experienced engineer with over 16 years in the IT industry, dabbling in v
 # Experience
 
 ## Vertex Inc.
-<!-- target: all; web: collapsed -->
+<!-- target: all; web: expanded -->
 
+Icon: content/vertex_inc_logo.jpeg
 Role: Senior Clojure/Java Developer - Contract
 Period: June 2021 - Present
 Location: King of Prussia, PA / Remote
@@ -63,8 +44,9 @@ The work also includes active participation in the OSeries system by Vertex Inc.
 :::
 
 ## AVILOO
-<!-- target: all; web: collapsed -->
+<!-- target: all; web: expanded -->
 
+Icon: content/aviloo_logo.jpeg
 Role: Yoda Java Engineer - Contract
 Period: October 2020 - June 2021
 Location: Vienna, Austria
@@ -80,8 +62,9 @@ Technology stack: Java 16, Project Reactor, Jooq, Postgres, Time-Series DB, Flyw
 :::
 
 ## Luminor Latvija
-<!-- target: all; web: collapsed -->
+<!-- target: all; web: expanded -->
 
+Icon: content/luminorlatvija_logo.jpeg
 Role: Technical Leader - Contract
 Period: April 2020 - October 2020
 Location: Łódź / Remote
@@ -97,8 +80,9 @@ Technology stack: Java 11, Spring Boot, Spring WebFlux, Query DSL, PostgreSQL, R
 :::
 
 ## IDEMIA
-<!-- target: all; web: collapsed -->
+<!-- target: all; web: expanded -->
 
+Icon: content/idemiagroup_logo.jpeg
 Role: System Architect
 Period: February 2019 - May 2020
 Location: Łódź, Poland
@@ -111,8 +95,9 @@ Technology stack: Java 11, Maven, Undertow, Vavr, Dropwizard, Prometheus, Spock,
 :::
 
 ## HARMAN International
-<!-- target: all; web: collapsed -->
+<!-- target: all; web: expanded -->
 
+Icon: content/harman_international_logo.jpeg
 Role: Principal Engineer
 Period: August 2018 - January 2019
 Location: Łódź, Poland
@@ -130,6 +115,7 @@ The assignment was part of the next-generation MEB platform intended to supersed
 ## IDEMIA
 <!-- target: all; web: collapsed -->
 
+Icon: content/idemiagroup_logo.jpeg
 Role: Senior Software Engineer
 Period: February 2017 - July 2018
 Location: Lodz, Lodz District, Poland
@@ -142,8 +128,9 @@ Technology stack: Scala 2.12, Akka actors, Akka Camel, Akka HTTP, Akka Persisten
 :::
 
 ## Commerzbank Digital Technology Centre Poland
-<!-- target: all; web: collapsed -->
+<!-- target: all; web: expanded -->
 
+Icon: content/commerzbank_branch_in_poland_logo.jpeg
 Role: Software Engineer
 Period: February 2015 - January 2017
 Location: Lodz, Lodz District, Poland
@@ -160,10 +147,11 @@ Technology stack: Java 6, Java 8, AspectJ, Spring Core, Spring Boot, Spring Data
 :::
 
 ## TomTom
-<!-- target: all; web: collapsed -->
+<!-- target: all; web: expanded -->
 
+Icon: content/tomtom_logo.jpeg
 Role: Senior Software Engineer
-Period: September 2013 - January 2015
+Period: August 2013 - January 2015
 
 - Contractor from Cybercom working on large-volume data processing and conversion software.
 - Worked on batch processing and geospatial data tooling.
@@ -172,18 +160,10 @@ Period: September 2013 - January 2015
 Technology stack: Spring, Apache Hadoop, Apache Crunch, Apache Commons, Apache Guava, PostgreSQL, PostGIS, JTS Topology Suite.
 :::
 
-## Cybercom
-<!-- target: all; web: collapsed -->
-
-Role: Senior Software Engineer
-Period: August 2013 - January 2015
-Location: Lodz, Lodz District, Poland
-
-- Worked as a contractor for TomTom.
-
 ## Comarch
-<!-- target: all; web: collapsed -->
+<!-- target: all; web: expanded -->
 
+Icon: content/comarch_logo.jpeg
 Role: Mobile Android Developer
 Period: January 2011 - June 2013
 
@@ -196,8 +176,9 @@ The role included on-site requirements analysis and deployment responsibilities,
 :::
 
 ## Comarch
-<!-- target: all; web: collapsed -->
+<!-- target: all; web: expanded -->
 
+Icon: content/comarch_logo.jpeg
 Role: Software Developer
 Period: March 2009 - March 2012
 
@@ -209,43 +190,6 @@ Period: March 2009 - March 2012
 The Mobile Service Delivery Platform work included R&D and local deployments across Asia and Africa. The project involved three time zones, 17 people, and cooperation with the customer's headquarters in Finland, an R&D center in India, and local offices.
 
 Technology stack: EJB, Java EE, RichFaces, JMS, AspectJ, Spring, MySQL, ESB.
-:::
-
-# Publications
-
-## Aspect oriented programming with the use of AspectJ
-<!-- target: all; web: collapsed -->
-
-:::detail target="web" web="collapsed"
-Publication listed in the LinkedIn CV. Details can be expanded in a later iteration.
-:::
-
-## Edit&Pray, how to deal with legacy code
-<!-- target: all; web: collapsed -->
-
-:::detail target="web" web="collapsed"
-Publication listed in the LinkedIn CV. Details can be expanded in a later iteration.
-:::
-
-## Clojure for brave and true
-<!-- target: all; web: collapsed -->
-
-:::detail target="web" web="collapsed"
-Publication listed in the LinkedIn CV. Details can be expanded in a later iteration.
-:::
-
-## What are DDD sagas how Event Sourcing can help us with them
-<!-- target: all; web: collapsed -->
-
-:::detail target="web" web="collapsed"
-Publication listed in the LinkedIn CV. Details can be expanded in a later iteration.
-:::
-
-## Banking of 21st century
-<!-- target: all; web: collapsed -->
-
-:::detail target="web" web="collapsed"
-Publication listed in the LinkedIn CV. Details can be expanded in a later iteration.
 :::
 
 # Skills
@@ -288,15 +232,55 @@ Add a fuller description of how this skill was acquired and used in practice.
 ## Lodz University of Technology
 <!-- target: all -->
 
+Icon: content/politechnika_lodzka_logo.jpeg
 Degree: Master of Science, Software Engineering and Artificial Intelligence
 Period: 2004 - 2009
 
 ## Warsaw University of Technology
 <!-- target: all -->
 
+Icon: content/warsaw_university_of_technology_logo.jpeg
 Degree: Graduate, IT Project Management
 Period: 2010 - 2011
 
+# Publications
+
+## Aspect oriented programming with the use of AspectJ
+<!-- target: all; web: collapsed -->
+
+:::detail target="web" web="collapsed"
+Publication listed in the LinkedIn CV. Details can be expanded in a later iteration.
+:::
+
+## Edit&Pray, how to deal with legacy code
+<!-- target: all; web: collapsed -->
+
+:::detail target="web" web="collapsed"
+Publication listed in the LinkedIn CV. Details can be expanded in a later iteration.
+:::
+
+## Clojure for brave and true
+<!-- target: all; web: collapsed -->
+
+:::detail target="web" web="collapsed"
+Publication listed in the LinkedIn CV. Details can be expanded in a later iteration.
+:::
+
+## What are DDD sagas how Event Sourcing can help us with them
+<!-- target: all; web: collapsed -->
+
+:::detail target="web" web="collapsed"
+Publication listed in the LinkedIn CV. Details can be expanded in a later iteration.
+:::
+
+## Banking of 21st century
+<!-- target: all; web: collapsed -->
+
+:::detail target="web" web="collapsed"
+Publication listed in the LinkedIn CV. Details can be expanded in a later iteration.
+:::
+
 # Languages
 
-- English
+- Polish (native)
+- English (fluent)

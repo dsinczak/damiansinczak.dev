@@ -231,6 +231,10 @@ export function parseProfileSource(source: string, sourcePath = "content/profile
     if (fieldMatch && currentEntry) {
       const fieldName = normalizeFieldName(fieldMatch[1]);
       const value = fieldMatch[2].trim();
+      if (fieldName === "Icon") {
+        currentEntry.icon = { src: value, alt: `${currentEntry.title} logo` };
+        continue;
+      }
       if (knownFieldNames.has(fieldName.toLowerCase())) {
         currentEntry.fields[fieldName] = value;
       } else {

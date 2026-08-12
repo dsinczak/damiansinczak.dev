@@ -28,6 +28,7 @@ export function validateProfile(profile: Profile, workspaceRoot = process.cwd())
   for (const section of profile.sections) {
     for (const entry of section.entries) {
       const context = `${section.title} > ${entry.title}`;
+      validateAsset(entry.icon, "Icon", profile, workspaceRoot, messages);
       const level = entry.fields.Level;
       if (section.id === "skills" && level !== undefined) {
         const parsed = Number(level);
