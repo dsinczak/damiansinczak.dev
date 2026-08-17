@@ -39,14 +39,26 @@ Role: Senior Clojure/Java Developer - Contract
 Period: June 2021 - Present
 Location: King of Prussia, PA / Remote
 
-- Contractor for an innovative fintech company focused on tax management for global online businesses.
-- Senior Clojure/Java developer working on a market-leading application for tax services for marketplaces and individual sellers involved in international trade.
-- Active participant in development of Vertex OSeries, one of the leading tax-solution products on the market.
+- Joined Taxamo as a senior engineer and quickly became productive in Clojure, contributing across the full software development lifecycle.
+- Helped integrate Taxamo’s indirect-tax product into the Vertex platform following its 2021 acquisition, including integration with the OSeries tax calculation engine.
+- Extended a high-volume reporting service to support Snowflake alongside AWS Athena, translating platform-specific behavior while preserving reporting consistency.
+- Extracted reporting capabilities from a 25-year-old monolith into a scalable, multitenant service. Delivered the first production release within six months while acting as the primary developer.
+- Currently consolidating Taxamo reporting into the shared Vertex reporting platform, giving products across the portfolio a consistent reporting experience.
 
 :::detail target="web" web="collapsed" label="More info"
-The role is fully remote and focused on building tax-management systems for global online businesses. The work includes development of a market-leading application providing comprehensive tax services to marketplaces and individual sellers engaged in international trade.
+I joined Taxamo, an Irish tax-technology company serving marketplaces and businesses selling internationally, as a senior software engineer. Its product was built in Clojure, a language I had never used professionally. My Java, JVM, and Scala background gave me a solid foundation, but learning Clojure and its ecosystem still required a significant shift in how I approached software design. I became productive quickly and eventually shared that experience with the local Java community through a talk introducing Clojure.
 
-The work also includes active participation in the OSeries system by Vertex Inc., Taxamo's parent company.
+Startup life meant working across the full SDLC rather than staying inside a narrow development role. I contributed to design, implementation, testing, delivery, production support, and whatever else was needed to move the product forward.
+
+Vertex completed its acquisition of Taxamo on June 30, 2021. We then began the long and technically demanding process of bringing Taxamo into the Vertex platform and integrating it with OSeries, Vertex’s established tax calculation engine. That work required adapting a standalone product to a much larger platform without losing the behavior its customers depended on.
+
+My systems design knowledge, Java, and JVM experience gradually took me beyond the original Taxamo product. I contributed to OSeries itself, where working through decades of accumulated business rules confirmed that legacy systems are very much my sweet spot.
+
+I later extended a high-volume reporting service built around AWS Athena to support Snowflake, Vertex’s chosen data platform. The challenge was not simply connecting another database: it required understanding Athena-specific assumptions and reproducing the relevant behavior in the Snowflake domain.
+
+My next assignment was extracting reporting functionality from a 25-year-old monolith into a standalone service. The new system had to be multitenant, scalable, backed by Snowflake rather than the monolith’s mixture of databases, and still behave exactly like the original. Acting as the primary developer for most of the project, I delivered its first production deployment within six months. The service now supports new reports, customer-facing APIs, and workflows orchestrated with Temporal.
+
+I currently work across the Taxamo and reporting teams, moving Taxamo reports onto this shared service so products throughout the Vertex platform can offer a consistent reporting experience.
 :::
 
 ## AVILOO
@@ -57,14 +69,24 @@ Role: Yoda Java Engineer - Contract
 Period: October 2020 - June 2021
 Location: Vienna, Austria
 
-- Contractor Java developer for an electric vehicle battery diagnostics company.
-- Developed an application aggregating extensive real-time data sourced from electric cars.
-- Worked on performance optimization, scalability, high availability, and user experience.
+- Built core capabilities for AVILOO’s independent EV battery diagnostic platform, working across development, analysis, deployment, and testing with real vehicles.
+- Developed mechanisms for collecting and storing vehicle data, performing multistage battery analysis, and detecting potentially fraudulent tests.
+- Delivered customer-facing and back-office interfaces supporting the complete battery-testing workflow.
+- Worked extensively with Java and Project Reactor on a reactive platform processing high-volume telemetry from electric vehicles.
+- Took end-to-end ownership across the SDLC in a fast-moving startup environment, from initial design to production operation.
 
 :::detail target="web" web="collapsed" label="More info"
-The project served as a central hub for aggregating real-time data from electric cars. It was technically demanding, with significant focus on performance optimization, scalability, high availability, and delivering a strong user experience.
+I joined AVILOO while it was still an early-stage Austrian startup working to make the condition of an electric vehicle’s most valuable component measurable and understandable. Its manufacturer-independent diagnostics transform raw battery data into an objective assessment that helps individuals and businesses make informed decisions when buying, selling, or managing electric vehicles.
 
-Technology stack: Java 16, Project Reactor, Jooq, Postgres, Time-Series DB, Flyway, RedG, Cap'n Proto, RSocket, REST, Docker, Teamapps, Ansible, private cloud, GitLab, YouTrack.
+AVILOO had the atmosphere people usually associate with startup films, except it was real. Its headquarters operated from a garage that brought together founders, office staff, software engineers, and the people physically disassembling and examining batteries. Although I worked primarily from Poland, my visits made the company’s energy tangible: the founders were deeply involved, the team understood the goal, and people genuinely believed in what they were building.
+
+My work reflected that environment. I participated in the entire product lifecycle, including requirements analysis, system design, implementation, deployment, production support, and testing with real cars. There was little separation between “writing the software” and making sure the complete product actually worked.
+
+I built several core parts of the battery-testing platform from scratch. These included vehicle-data collection, a purpose-built data store developed within the team, multistage battery analysis, and mechanisms for identifying potentially fraudulent tests. I also developed customer-facing (used to conduct tests, inspect their progress, and work with the resulting analysis) and back-office interfaces.
+
+The platform was built as a reactive system using Java and Project Reactor, processing substantial streams of telemetry generated during vehicle tests. Working deeply with this architecture taught me both the strengths and the considerable complexity of reactive systems under real production workloads.
+
+More than any specific technology, AVILOO shaped my understanding of software engineering as end-to-end ownership. A software engineer’s responsibility does not stop when the code compiles or a ticket reaches “done”; it extends through deployment, operation, and observing whether the product works in the hands of real people and, in this case, real cars.
 :::
 
 ## Luminor Latvija
@@ -75,14 +97,24 @@ Role: Technical Leader - Contract
 Period: April 2020 - October 2020
 Location: Łódź / Remote
 
-- Contractor working remotely for a major financial institution in the Baltic region.
-- Helped build a digital platform based on a microservices architecture.
-- Worked with AWS EKS, Java, Spring, PostgreSQL, Redis, Kubernetes, Terraform, Helm, and CI/CD tooling.
+- Developed retail and commercial banking services during Luminor’s consolidation of the former DNB and Nordea Baltic operations onto a shared AWS platform.
+- Worked across reactive financial workflows, integrations with mainframe transaction-processing systems, and Kubernetes-based application delivery.
+- Standardized Spring configuration and deployment practices across multiple applications, bringing them closer to the 12-factor application model.
+- Refactored Project Reactor services to establish consistent reactive-programming patterns across teams.
+- Introduced shared application-resilience standards using Resilience4j, including circuit breakers, retries, and bulkheads.
 
 :::detail target="web" web="collapsed" label="More info"
-The project focused on bringing multiple Baltic financial entities onto one digital platform. The application used a microservices architecture deployed on Amazon Web Services with Elastic Kubernetes Service.
+I joined Luminor through Tameshi, an AWS-focused cloud consultancy specializing in migration, operations, security, compliance, and platforms for financial institutions. My background was primarily in software development, but a growing interest in DevOps and cloud engineering made the assignment a natural fit.
 
-Technology stack: Java 11, Spring Boot, Spring WebFlux, Query DSL, PostgreSQL, Redis, Flyway, OAuth2, JWT, Swagger, SwaggerHub, Spock, JUnit 5, Docker, Kubernetes on AWS EKS, Jenkinsfiles, Terraform, Helm, Jira, Confluence, GitLab, Jenkins.
+Luminor had been formed by combining the Baltic operations of DNB and Nordea. I joined while the bank was still consolidating their systems and building a shared platform for retail and commercial banking on AWS. New cloud-native services had to coexist with substantial legacy infrastructure, including mainframe systems responsible for transaction processing.
+
+I worked in one of the development teams, but the transition exposed me to almost every layer of the platform. Depending on the problem, I could be working on high-volume currency-processing workflows using reactive technologies, integrating with mainframe systems, or investigating how an application behaved after deployment to Kubernetes on AWS.
+
+Because I came through a company focused on cloud platforms, I naturally became a liaison between development and DevOps teams. I understood what application developers needed, but I was equally interested in deployment, configuration, observability, and how software behaved in production. That position between the two disciplines became one of the parts of the role I enjoyed most.
+
+I standardized Spring configuration and deployment practices across multiple applications, moving them closer to the 12-factor application model and reducing differences between services and environments. I also refactored several Project Reactor applications to establish a more consistent approach to reactive programming.
+
+My largest initiative was introducing common application-level resilience patterns with Resilience4j and its Spring integration. Circuit breakers, retries, bulkheads, and related mechanisms had previously been handled inconsistently. Establishing shared patterns gave teams a clearer and more predictable way to build services that could tolerate failures across a distributed banking platform.
 :::
 
 ## IDEMIA
@@ -93,11 +125,24 @@ Role: System Architect
 Period: February 2019 - May 2020
 Location: Łódź, Poland
 
-- Worked on mobile phone operator services for device configuration and management.
-- Designed and developed systems using Java, AWS, Kubernetes, monitoring, and testing tools.
+- Led the architecture of a GSMA TS.43-aligned platform for activating and managing mobile-network services, including companion devices such as smartwatches.
+- Designed secure, operator-agnostic processes that met GSMA requirements while accommodating different mobile operator systems and integration models.
+- Helped pioneer AWS adoption within IDEMIA, shaping the application’s deployment, security, observability, and testing practices.
+- Designed an internal chaos-testing framework that injected AWS infrastructure failures and verified the platform’s resilience in lower environments.
+- Guided the project from early development toward production readiness as its system architect.
 
 :::detail target="web" web="collapsed" label="More info"
-Technology stack: Java 11, Maven, Undertow, Vavr, Dropwizard, Prometheus, Spock, Gatling, RestAssured, AWS EKS, EC2, DynamoDB, S3, ECR, KMS, ELB, ALB, Shield, Kubernetes, Jira, Bitbucket, Confluence, Git, Git Flow, Scrum.
+I returned to IDEMIA as the system architect for a project that was already under development but had not yet been tested with a real customer or deployed beyond development environments.
+
+The product implemented service-entitlement processes aligned with the GSMA TS.43 specification. It enabled mobile operators to activate and manage network services on customer devices, including companion-device scenarios such as connecting a smartwatch to a subscriber’s mobile service. Although the business workflows appeared relatively simple, integrating them securely and consistently with different operators made the system considerably more complex.
+
+My responsibility was to design processes that satisfied the GSMA specification and IDEMIA’s security requirements while keeping the platform flexible enough to integrate with operators whose infrastructure, authentication mechanisms, and operational constraints varied significantly.
+
+The project was also one of IDEMIA’s early AWS-based applications. That gave us room to explore cloud deployment, infrastructure automation, observability, security, performance testing, and resilience rather than merely moving an existing architecture onto virtual machines.
+
+We eventually developed our own chaos-testing framework for lower environments. It used AWS APIs to inject infrastructure failures and then observed how the application recovered and whether its behavior remained correct. This allowed us to test failure scenarios deliberately instead of waiting for production to teach us the hard way.
+
+The role brought together standards-driven system design, telecommunications security, cloud architecture, and production readiness. It also reinforced a lesson I have carried into later work: resilience cannot be added at the end of development; it has to be designed and tested as part of the system.
 :::
 
 ## HARMAN International
@@ -108,14 +153,24 @@ Role: Principal Engineer
 Period: August 2018 - January 2019
 Location: Łódź, Poland
 
-- Worked on a telematics device enabling secure data exchange between vehicles and backend infrastructure.
-- Contributed to next-generation architecture for Volkswagen's electric vehicle platform.
-- Used Java 8, embedded environments, Autosar, Adaptive Autosar, MQTT, and token-based authentication.
+- Led a six-person engineering team developing an in-vehicle connectivity service for Volkswagen’s MEB electric-vehicle platform.
+- Designed bidirectional communication between vehicle systems and Volkswagen’s backend, supporting remote commands and exposing vehicle status to drivers.
+- Modelled the service as a finite-state machine and designed a vehicle-independent test environment.
+- Improved communication with other ECUs to tolerate transient failures, retries, and device restarts.
+- Presented the architecture, implementation, documentation, and test strategy to Volkswagen’s infotainment architects.
 
 :::detail target="web" web="collapsed" label="More info"
-The project centered on development of a telematics device for secure data exchange between vehicles and backend systems. It covered Java development as well as embedded environments using Autosar and Adaptive Autosar frameworks.
+I joined HARMAN as a Principal Engineer leading a team of six. We worked on an infotainment-layer service running on an electronic control unit within Volkswagen’s MEB architecture, the platform developed for electric vehicles including the ID family.
 
-The assignment was part of the next-generation MEB platform intended to supersede the MQB platform for Volkswagen's electric vehicle lineup.
+Our component connected the vehicle with Volkswagen’s online services. In one direction, it received commands initiated by drivers through the user portal, such as activating heating or lights. In the other, it collected information from systems throughout the vehicle and made the resulting state available through the same portal.
+
+We designed the service from scratch around a finite-state machine. Vehicle connectivity is inherently unreliable: network access disappears, ECUs restart, messages arrive late, and dependent components may be temporarily unavailable. We therefore designed communication flows to survive retries, partial failures, interrupted operations, and device restarts without losing or corrupting state.
+
+The team also built a vehicle-independent testing approach that allowed us to exercise the service without requiring access to a physical car for every development and test cycle. We supported the design with implementation, automated tests, and documentation before presenting the complete proposal to Volkswagen’s infotainment architecture group.
+
+The architecture group ultimately chose to retain and adapt code from the established MQB platform rather than adopt our replacement. The decision prioritized continuity with the existing vehicle architecture, despite the technical and cost advantages we believed our approach offered. The team consequently shifted from developing the new design to modifying the legacy implementation.
+
+That change explains my short time at HARMAN. The role gave me valuable experience with automotive systems, AUTOSAR environments, embedded constraints, and communication between in-vehicle components. It also gave me a direct lesson in a less technical part of architecture: a sound design does not succeed on engineering merit alone. Organizational incentives, perceived migration risk, and ownership of existing systems can outweigh technical arguments.
 :::
 
 ## IDEMIA
@@ -126,11 +181,29 @@ Role: Senior Software Engineer
 Period: February 2017 - July 2018
 Location: Lodz, Lodz District, Poland
 
-- Worked on Remote SIM Provisioning for Machine to Machine systems.
-- Used Scala, Akka, Typelevel libraries, persistence, streaming, testing, and containerized infrastructure.
+- Developed SM-DP and SM-SR components implementing the GSMA M2M eSIM remote-provisioning architecture.
+- Worked on secure preparation, delivery, and lifecycle management of operator profiles for remotely deployed eUICCs.
+- Designed cryptographic and key-management workflows backed by hardware security modules in IDEMIA’s private data center.
+- Addressed HSM throughput constraints through asynchronous processing, queuing, and Akka-based concurrency.
+- Improved the resilience and recoverability of stateful provisioning workflows where data loss could leave remote devices unreachable.
+- Learned Scala and functional programming while helping move the platform onto Kubernetes in IDEMIA’s private cloud.
 
 :::detail target="web" web="collapsed" label="More info"
-Technology stack: Scala 2.12, Akka actors, Akka Camel, Akka HTTP, Akka Persistence, Akka Streams, Akka TestKit, Typelevel Cats, Monocle, Spray, Slick, ScalaTest, JBehave, Selenium, Redis, Cassandra, MariaDB, Docker, Docker Compose, Kubernetes, private cloud, Git, Jira, Confluence, Bitbucket.
+I first joined IDEMIA as an experienced Java developer hired to learn Scala for a new assignment. The project had originated in IDEMIA’s Philippine branch and was transferred to Poland when that operation was partially closed. We inherited both a working foundation and a codebase that required considerable improvement.
+
+The platform implemented the GSMA M2M architecture for remotely provisioning and managing eSIM profiles. Its SM-DP component prepared and cryptographically protected operator profiles, while SM-SR provided secure communication with eUICCs and managed profile delivery and lifecycle operations. This allowed operators to provision subscriptions and later switch them remotely without replacing a physical SIM.
+
+The project was challenging on several fronts. eSIM was only beginning to reach the wider market, the domain was governed by a detailed security specification, and the application was being deployed on Kubernetes in IDEMIA’s private data center when that technology was still relatively new in the organization.
+
+Security was part of the application’s core behavior rather than a layer added around it. Communication between operators, subscription-management services, and eUICCs involved several levels of encryption, authentication, certificate handling, and cryptographic key establishment. I worked on these flows using hardware security modules hosted in the private data center.
+
+HSM throughput became one of the system’s principal constraints. We had to design asynchronous processing and queuing mechanisms that used the available cryptographic capacity efficiently without compromising operation ordering or security. Akka and its actor model gave us a strong foundation for coordinating this concurrent, stateful work.
+
+Reliability carried unusually high stakes. Provisioning operations consisted of multiple dependent steps, and losing state at the wrong moment could leave the platform unable to communicate with an embedded SIM. For remotely deployed devices, that could ultimately require physical replacement. We therefore treated durable state, idempotency, recovery, and high availability as fundamental parts of the design.
+
+This was also my introduction to Scala and serious functional programming. After years of Java, Scala changed how I thought about state, composition, concurrency, and software design. Working with Akka reinforced that shift and influenced how I approached distributed systems long after leaving the project.
+
+Just as importantly, I worked alongside engineers who were early adopters of Scala, Akka, Kubernetes, and disciplined engineering practices in the local market. The project significantly raised my standards for problem-solving, documentation, automated testing, security, and professional software development.
 :::
 
 ## Commerzbank Digital Technology Centre Poland
@@ -141,15 +214,25 @@ Role: Software Engineer
 Period: February 2015 - January 2017
 Location: Lodz, Lodz District, Poland
 
-- Worked as a solution architect for a logistics application in the finance sector.
-- Planned transition from a legacy application to a new solution under development.
-- Maintained the existing operational environment.
-- Applied CQRS, DDD, TDD, continuous integration, and Scrum.
+- Joined CERI as the first software engineer in a pilot intended to establish software-development capabilities for Commerzbank in Poland.
+- Took ownership of a legacy cash-logistics platform supporting cash inventories, orders, deliveries, service contracts, and forecasting for German branches and self-service devices.
+- Stabilized and modernized an old Ant-based Java application, building the test coverage needed to change it safely.
+- Helped turn the pilot into a larger engineering operation by earning stakeholder trust, growing the local team, and taking ownership of additional projects from Germany.
+- Applied Domain-Driven Design to understand a complex banking domain and guide the application’s gradual modernization.
+
 
 :::detail target="web" web="collapsed" label="More info"
-The work involved planning a transition from a legacy application to a new solution while maintaining the existing operational environment. The solution used CQRS as the foundation for separating commands and queries, DDD for complex business domains, TDD for reliability, and continuous integration to keep the development workflow stable.
+I joined CERI, a Polish Commerzbank subsidiary providing back-office services, as the first software engineer in a pilot project. The immediate objective was to take ownership of a Commerzbank application, but the broader goal was to prove that the Polish organization could expand from operational services into software engineering.
 
-Technology stack: Java 6, Java 8, AspectJ, Spring Core, Spring Boot, Spring Data, Spring Web Services, Spring Integration, Guava, Apache Commons, Javaslang, Mockito, Liquibase, Team Foundation Server.
+The application managed cash logistics for Commerzbank’s German branch and self-service network. Its responsibilities included modelling ATMs, cash-deposit machines, and cash-recycling devices; tracking cash balances; coordinating deliveries and supplier contracts; and handling cash orders, including those involving the German central bank. It also forecast when and where cash would be required based on historical usage, schedules, and calendar events.
+
+The system was old, complex, and still built with Ant. Before making substantial functional changes, I had to understand undocumented business rules, stabilize the build, introduce tests around existing behavior, and create enough confidence to modernize it incrementally without disrupting critical banking operations.
+
+The effort paid off beyond the application itself. Commerzbank’s stakeholders gained confidence in the Polish team, I was able to recruit additional engineers, and we gradually took ownership of further projects from Germany. What began as a one-person experiment became evidence that CERI could provide full software-engineering services.
+
+This was also where I developed a serious interest in Domain-Driven Design. Training gave me the vocabulary, but the cash-logistics system supplied the real lesson: complex software cannot be improved safely until its business language, boundaries, and hidden rules are understood. I continued developing that approach throughout my later career.
+
+More than any clean greenfield project could have done, this system taught me how to work with legacy software: establish observable behavior, recover domain knowledge, make small defensible changes, and earn the right to modernize. It was difficult work, but it became the foundation of what is now one of my strongest engineering specialities.
 :::
 
 ## TomTom
@@ -159,11 +242,28 @@ Icon: content/tomtom_logo.jpeg
 Role: Senior Software Engineer
 Period: August 2013 - January 2015
 
-- Contractor from Cybercom working on large-volume data processing and conversion software.
-- Worked on batch processing and geospatial data tooling.
+- Developed large-scale pipelines for converting TomTom map data into automotive navigation formats.
+- Designed divide-and-conquer workflows that partitioned geographic data, processed independent layers concurrently, and merged dependent results in the correct order.
+- Worked with complex geospatial data using Java, Spring, PostgreSQL, PostGIS, and JTS.
+- Helped adapt map-conversion applications during TomTom’s transition from file-based map data toward a shared, continuously updated platform.
+- Built distributed batch-processing workflows with Hadoop and Apache Crunch for very large map datasets.
 
 :::detail target="web" web="collapsed" label="More info"
-Technology stack: Spring, Apache Hadoop, Apache Crunch, Apache Commons, Apache Guava, PostgreSQL, PostGIS, JTS Topology Suite.
+I joined TomTom as a contractor from Cybercom and worked on two projects involving large-scale map processing and conversion.
+
+The first converted maps from TomTom’s internal format into an automotive navigation format used by Harman systems. The pipeline was built primarily with Java, Spring, PostgreSQL, PostGIS, and JTS. Its central design followed divide and conquer: geographic data was repeatedly partitioned into smaller jobs, processed, and merged into the final product.
+
+Coordinating that work was more complicated than simply running every task in parallel. Some map layers could be processed independently, while others depended on completed layers or required results from neighbouring regions. The system therefore had to manage a graph of spatial and processing dependencies while handling large volumes of data efficiently.
+
+This project gave me an unexpected education in road topology, geometry, coordinate systems, and the mathematics behind digital maps. It also demonstrated how much specialist domain knowledge sits behind a navigation product that appears simple to its users.
+
+The application was developed for a tender involving a German automotive manufacturer and was designed to satisfy a demanding set of requirements. TomTom ultimately did not win the contract, so I moved to another map-processing project.
+
+I joined the second project during a significant technical transition. TomTom was moving away from exchanging large, file-based map snapshots toward a platform that supported incremental changes and consistent programmatic access. A broad collection of existing applications still converted the old source format into customer-specific products, and those pipelines had to be adapted to the new model.
+
+At the same time, TomTom was experimenting with the emerging big-data ecosystem. I worked with Hadoop and Apache Crunch to build distributed pipelines capable of processing very large map datasets. This gave me practical experience with data partitioning, dependency management, parallel execution, and failure handling long before such patterns became routine in mainstream backend development.
+
+The company was also moving toward Agile delivery at scale. Over roughly a year, I worked with experienced coaches and facilitators while teams adopted Scrum and broader scaled practices. That experience gave me a lasting understanding of both what Agile can achieve and how easily its ceremonies can become disconnected from its principles.
 :::
 
 ## Comarch
@@ -171,14 +271,24 @@ Technology stack: Spring, Apache Hadoop, Apache Crunch, Apache Commons, Apache G
 
 Icon: content/comarch_logo.jpeg
 Role: Mobile Android Developer
-Period: January 2011 - June 2013
+Period: January 2012 - June 2013
 
-- Tech lead and developer for Android corporate applications.
-- Responsible for design, architecture, and implementation.
-- Worked as project lead on client requirements analysis and deployments.
+- Researched Android as an emerging enterprise platform and built the initial native mobile application for Comarch’s Field Service Management product.
+- Led the application from proof of concept to a full-scale product for managing technicians’ work orders, resources, and on-site equipment tests.
+- Acted as technical lead and hands-on developer, owning the mobile architecture, implementation, and development planning.
+- Conducted on-site workshops with existing and prospective customers to understand field-service workflows and deployment constraints.
+- Translated customer requirements into HLD and LLD documentation and an architecture capable of supporting future implementations.
 
 :::detail target="web" web="collapsed" label="More info"
-The role included on-site requirements analysis and deployment responsibilities, in addition to technical leadership and Android development for corporate applications.
+After completing my work on Nokia Life Tools, I moved to Comarch’s Field Service Management product. The platform coordinated fleets of field technicians, the work assigned to them, and the equipment and other resources required to complete it. Its backend already existed and was being deployed for its first customer, but it did not yet have a modern mobile client.
+
+Android was still an emerging platform, and my first assignment was to research whether it could support Comarch’s enterprise mobility needs. I then built a proof of concept for a native application that field technicians could use to receive and manage work orders, track resources, and perform basic tests on equipment installed at customer sites.
+
+The application began with a limited smartphone scope, but a successful demonstration turned it into a full product initiative. As technical lead and developer, I designed its architecture, planned the work, and remained directly involved in implementation while the team built up its Android expertise.
+
+The product requirements were still evolving, so architecture could not be separated from understanding how technicians actually worked. I visited existing and prospective customers, gathered requirements on site, and translated their operational processes and deployment constraints into HLD and LLD documents. The resulting design had to satisfy the first implementations without locking the application into a single customer’s way of working.
+
+This role was my first sustained experience of connecting product discovery, customer communication, architecture, documentation, and delivery. It taught me that a useful mobile application is shaped as much by the environment in which people use it as by the technology chosen to build it.
 :::
 
 ## Comarch
@@ -188,14 +298,24 @@ Icon: content/comarch_logo.jpeg
 Role: Software Developer
 Period: March 2009 - March 2012
 
-- Developer for CRM systems using EJB, Java EE, Spring, MySQL, and ESB.
-- Project analyst and developer for a billing reconciliation system for Nokia Life Tools.
-- Project analyst, architect, and developer for a Mobile Service Delivery Platform for Nokia Life Tools.
+- Began my professional career through Comarch’s paid internship program, delivering a backend-controlled update proof of concept for a Windows Mobile CRM application.
+- Worked as a backend developer on the deployment of Comarch’s CRM platform for wRodzinie, a newly established Polish mobile virtual network operator.
+- Designed and implemented billing and reconciliation capabilities for Nokia Life Tools, supporting one-time purchases and subscriptions.
+- Integrated with widely varying mobile-operator systems through FTP and flat files, SOAP services, messaging, and synchronous and asynchronous payment workflows.
+- Combined analysis, architecture, development, and on-site delivery across Asia and Africa before expanding into the Nokia Life Tools content-management and delivery platform.
 
 :::detail target="web" web="collapsed" label="More info"
-The Mobile Service Delivery Platform work included R&D and local deployments across Asia and Africa. The project involved three time zones, 17 people, and cooperation with the customer's headquarters in Finland, an R&D center in India, and local offices.
+Comarch was my first employer. I joined through a three-month paid internship, where my assignment was to create a proof of concept for remotely updating one of Comarch’s Windows Mobile applications. The work covered the complete path from backend orchestration to installation on the device, allowing updates to be controlled by Comarch’s platform. The successful prototype informed later releases of a mobile client for the company’s CRM product.
 
-Technology stack: EJB, Java EE, RichFaces, JMS, AspectJ, Spring, MySQL, ESB.
+After the internship, I joined Comarch’s telecommunications division as a backend developer. My first commercial assignment was implementing the company’s CRM platform for wRodzinie, a newly established Polish mobile virtual network operator.
+
+I then joined a pilot project for Nokia Life Tools. We built a billing and reconciliation system for content sold through one-time purchases and subscriptions. Its business domain was relatively straightforward; integration with mobile operators was not. Depending on the operator, we exchanged FTP files, called different SOAP services, communicated through queues, or combined synchronous requests with asynchronous status checks constrained to specific processing windows.
+
+Those differences quickly made on-site collaboration necessary. I worked with operators and hosting providers in India, Indonesia, China, Nigeria, and Vietnam, establishing the initial technical communication, gathering requirements, documenting each integration, and helping implement and deploy the application locally.
+
+After several successful deployments, Nokia expanded our responsibilities to include the content-management and delivery side of Nokia Life Tools. The service delivered useful information, including local agricultural prices, to inexpensive phones without internet access through an application communicating over binary SMS. It was technically inventive, but its real value was making information accessible in places where smartphones and mobile data were not yet realistic options.
+
+The broader program involved 17 people across three time zones, with cooperation between Nokia’s headquarters in Finland, its R&D center in India, and local offices and operators. I worked across analysis, architecture, development, and deployment using Java EE, EJB, JMS, RichFaces, AspectJ, Spring, MySQL, and ESB technologies. It was an unusually broad start to my career and taught me early that successful integration work depends on understanding organizations and operational constraints, not only protocols and code.
 :::
 
 # Skills
