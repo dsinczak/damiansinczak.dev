@@ -44,6 +44,8 @@ export type ProfileLinks = {
 
 export type PdfOptions = {
   filename: string;
+  /** Rendered in the PDF contact block only; the web page never reads `pdf.*`. */
+  website?: string;
 };
 
 export type RichTextBlock = {

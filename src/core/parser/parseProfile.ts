@@ -33,7 +33,10 @@ const frontmatterSchema = z.object({
   links: z.record(z.string()).default({}),
   pdf: z
     .object({
-      filename: z.string().min(1).default("CV.pdf")
+      filename: z.string().min(1).default("CV.pdf"),
+      // Contact details that belong on the printed CV only. The web page never
+      // reads `pdf.*`, so anything here is structurally excluded from the site.
+      website: z.string().url().optional()
     })
     .default({ filename: "CV.pdf" }),
   outputs: z

@@ -370,6 +370,38 @@ h3 {
   font-size: 14px;
 }
 
+.entry__link {
+  margin-top: -4px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.entry__link a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--accent);
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.entry__link a:hover,
+.entry__link a:focus-visible {
+  color: var(--accent-dark);
+  text-decoration: underline;
+}
+
+.entry__link svg {
+  width: 15px;
+  height: 15px;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 .content p,
 .content ul {
   margin-bottom: 12px;

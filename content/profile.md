@@ -19,6 +19,7 @@ links:
   github: https://github.com/dsinczak
 pdf:
   filename: Damian_Sinczak_CV.pdf
+  website: https://www.damiansinczak.dev
 ---
 
 # Bio
@@ -597,7 +598,7 @@ The emphasis was on the REPL and what interactive development actually changes. 
 
 Date: 2018-01-24
 Venue: Java User Group Łódź
-Link: https://www.meetup.com/pl-PL/login/?returnUri=https%3A%2F%2Fwww.meetup.com%2Fjava-user-group-lodz%2Fevents%2F246675268%2F
+Link: https://www.meetup.com/java-user-group-lodz/events/246675268/
 
 :::detail target="web" web="collapsed"
 At IDEMIA I used Akka persistent actors to model long-running eSIM provisioning workflows. One example was a key-exchange protocol that allowed an eSIM profile to be transferred between two mobile network operators without either party disclosing its keys directly. A workflow of that kind spans several systems, takes an unpredictable amount of time, and has to remain auditable and recoverable after partial failure.

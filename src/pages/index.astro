@@ -47,6 +47,31 @@ function primaryRole(entry: ProfileEntry) {
   return entry.fields.Role || entry.fields.Degree || entry.fields.Language;
 }
 
+const linkLabels: Array<[RegExp, (url: URL) => string]> = [
+  [/(^|\.)youtube\.com$|(^|\.)youtu\.be$/, () => "Watch recording"],
+  [/(^|\.)meetup\.com$/, () => "Event on Meetup"],
+  [
+    /(^|\.)facebook\.com$/,
+    (url) => (url.pathname.includes("/events/") ? "Event on Facebook" : "Post on Facebook")
+  ],
+  [/(^|\.)linkedin\.com$/, () => "View on LinkedIn"],
+  [/(^|\.)github\.com$/, () => "View on GitHub"]
+];
+
+function entryLink(entry: ProfileEntry) {
+  const href = entry.fields.Link;
+  if (!href) return null;
+  let url: URL;
+  try {
+    url = new URL(href);
+  } catch {
+    return null;
+  }
+  const host = url.hostname.toLowerCase();
+  const match = linkLabels.find(([pattern]) => pattern.test(host));
+  return { href, label: match ? match[1](url) : host.replace(/^www\./, "") };
+}
+
 const navIcons: Record<string, string> = {
   bio: '<circle cx="12" cy="8" r="3.25"></circle><path d="M5.5 20a6.5 6.5 0 0 1 13 0"></path>',
   experience: '<path d="M9 7V5.75A1.75 1.75 0 0 1 10.75 4h2.5A1.75 1.75 0 0 1 15 5.75V7"></path><rect x="4" y="7" width="16" height="12" rx="2"></rect><path d="M4 12h16"></path><path d="M10 12v1.5h4V12"></path>',
@@ -159,7 +184,9 @@ function navIcon(id: string) {
             )
           )}
 
-          {section.entries.map((entry) => (
+          {section.entries.map((entry) => {
+            const link = entryLink(entry);
+            return (
             <article class="entry">
               {entry.icon?.publicPath && <img class="entry__icon" src={entry.icon.publicPath} alt={entry.icon.alt} />}
               <div class="entry__header">
@@ -170,6 +197,18 @@ function navIcon(id: string) {
                     .filter(Boolean)
                     .join(" / ")}
                 </p>
+                {link && (
+                  <p class="entry__link">
+                    <a href={link.href} target="_blank" rel="noopener noreferrer">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M14 5h5v5"></path>
+                        <path d="M19 5l-7.5 7.5"></path>
+                        <path d="M18 14v4.5A1.5 1.5 0 0 1 16.5 20h-9A1.5 1.5 0 0 1 6 18.5v-9A1.5 1.5 0 0 1 7.5 8H12"></path>
+                      </svg>
+                      <span>{link.label}</span>
+                    </a>
+                  </p>
+                )}
               </div>
               {entry.fields.Level && (
                 <div class="skill-meter" aria-label={`Skill level ${entry.fields.Level} out of 100`}>
@@ -187,7 +226,8 @@ function navIcon(id: string) {
                 )
               )}
             </article>
-          ))}
+            );
+          })}
         </section>
       ))}
 
