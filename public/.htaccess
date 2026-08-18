@@ -1,0 +1,107 @@
+# =============================================================================
+#  damiansinczak.dev - static site on OVH shared hosting (Apache)
+#  Deployed by uploading the contents of dist/ into the hosting www/ folder.
+# =============================================================================
+
+Options -Indexes
+DirectoryIndex index.html
+AddDefaultCharset UTF-8
+
+# -----------------------------------------------------------------------------
+# Canonical host and scheme
+#
+# Rule 1 catches plain HTTP and jumps straight to https://www, so an
+# http://damiansinczak.dev request resolves in a single 301 rather than
+# chaining through https://damiansinczak.dev first.
+#
+# OVH terminates TLS in front of Apache, so %{HTTPS} alone is not reliable;
+# X-Forwarded-Proto is the header that actually reflects the client scheme.
+# -----------------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+  RewriteRule ^ https://www.damiansinczak.dev%{REQUEST_URI} [R=301,L]
+
+  RewriteCond %{HTTP_HOST} !^www\.damiansinczak\.dev$ [NC]
+  RewriteRule ^ https://www.damiansinczak.dev%{REQUEST_URI} [R=301,L]
+</IfModule>
+
+# -----------------------------------------------------------------------------
+# MIME types
+# -----------------------------------------------------------------------------
+<IfModule mod_mime.c>
+  AddType application/pdf              .pdf
+  AddType image/svg+xml                .svg
+  AddType image/jpeg                   .jpg .jpeg
+  AddType text/css                     .css
+  AddType application/javascript       .js
+</IfModule>
+
+# -----------------------------------------------------------------------------
+# Compression
+# -----------------------------------------------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml
+  AddOutputFilterByType DEFLATE application/javascript application/json
+  AddOutputFilterByType DEFLATE application/xml image/svg+xml
+</IfModule>
+
+# -----------------------------------------------------------------------------
+# Caching
+#
+# Files under /_astro/ carry a content hash in the filename, so a changed file
+# gets a changed URL and can be cached forever. Everything else keeps a stable
+# filename across deploys and must revalidate, otherwise a new CV or a new
+# profile photo would sit invisible in browser caches.
+# -----------------------------------------------------------------------------
+<IfModule mod_headers.c>
+  <FilesMatch "\.(css|js|svg|woff2?|ttf)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  <FilesMatch "\.(jpg|jpeg|png|webp|ico)$">
+    Header set Cache-Control "public, max-age=86400, must-revalidate"
+  </FilesMatch>
+
+  <FilesMatch "\.pdf$">
+    Header set Cache-Control "public, max-age=3600, must-revalidate"
+  </FilesMatch>
+
+  <FilesMatch "\.html$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+# -----------------------------------------------------------------------------
+# Security headers
+#
+# The page ships no JavaScript at all, so script-src can be 'none'.
+# 'unsafe-inline' is needed only for style-src because two elements carry an
+# inline style attribute (image object-position).
+# -----------------------------------------------------------------------------
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), interest-cohort=()"
+  Header always set Content-Security-Policy "default-src 'none'; script-src 'none'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; base-uri 'self'; form-action 'none'; frame-ancestors 'self'"
+
+  # HSTS. Deliberately without includeSubDomains: the apex and www hold separate
+  # Let's Encrypt certificates renewed independently, and other subdomains are
+  # not covered at all. Start at one day; raise to 31536000 once a renewal cycle
+  # has passed without incident.
+  Header always set Strict-Transport-Security "max-age=86400" env=HTTPS
+</IfModule>
+
+# -----------------------------------------------------------------------------
+# Keep source and tooling files unreachable if they ever land on the server
+# -----------------------------------------------------------------------------
+<FilesMatch "(^\.|\.(md|ts|json|lock|yml|yaml)$)">
+  Require all denied
+</FilesMatch>
+
+<Files ".htaccess">
+  Require all denied
+</Files>

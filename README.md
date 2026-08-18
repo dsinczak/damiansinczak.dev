@@ -92,10 +92,88 @@ Longer web-only context.
 
 See [docs/content-driven-cv-site-spec.md](docs/content-driven-cv-site-spec.md) for the full content contract and [docs/web-page-design-spec.md](docs/web-page-design-spec.md) for the site design requirements.
 
-## Project Layout
+## Deploy To OVH Shared Hosting
+
+The build is fully static, so deployment is a file copy. Everything the server
+needs is inside `dist/` after `npm run build`, including `.htaccess`.
+
+Canonical address is `https://www.damiansinczak.dev`. It is set in three places
+that must stay in agreement: `astro.config.mjs` (`site`), `public/.htaccess`
+(redirect target) and `scripts/prepare-assets.ts` (`SITE_URL`, used for the
+sitemap).
+
+### One-time setup in the OVH control panel
+
+1. **Web Cloud → Hosting plans → your hosting → Multisite.** Point both
+   `damiansinczak.dev` and `www.damiansinczak.dev` at the same folder, `www`.
+   Without the apex entry the `.htaccess` redirect never runs, because the
+   request does not reach your hosting at all.
+2. **SSL certificates.** Request the free Let's Encrypt certificate and wait
+   until it covers both names. Issuance can take up to an hour.
+3. **FTP-SSH.** Note the SFTP host, user and password. Prefer SFTP on port 22
+   over plain FTP; OVH supports both, and FTP sends the password in clear text.
+
+### Every release
+
+```sh
+npm run build
+```
+
+Upload the **contents** of `dist/` into the document root. On OVH shared hosting
+the FTP root is *not* the document root; `www/` is:
+
+```text
+/                    FTP root - leave alone
+├── .htaccess        OVH's own file, not read for web requests
+├── .ovhconfig       runtime settings (PHP version, engine)
+├── cgi-bin/
+└── www/             document root - deploy here
+    ├── .htaccess    from dist/
+    ├── index.html   from dist/
+    ├── robots.txt
+    ├── sitemap.xml
+    ├── Damian_Sinczak_CV.pdf
+    ├── _astro/
+    └── assets/
+```
+
+Apache only reads `.htaccess` from the document root downwards, so the file at
+the FTP root has no effect on the site. Do not overwrite it, and do not touch
+`.ovhconfig`.
+
+If the Multisite entry points the domain at a folder other than `www`, deploy
+into that folder instead.
+
+With FileZilla or Cyberduck: connect over SFTP, open `www/`, remove the previous
+contents, drag everything from `dist/` across. Confirm that `.htaccess` came
+with it — most FTP clients hide dotfiles until you enable "show hidden files".
+
+### After the first upload
+
+Verify in this order, because each step depends on the previous one:
+
+```sh
+curl -sI http://damiansinczak.dev        | head -n 3   # expect 301 -> https://www...
+curl -sI https://damiansinczak.dev       | head -n 3   # expect 301 -> https://www...
+curl -sI https://www.damiansinczak.dev   | head -n 3   # expect 200
+curl -sI https://www.damiansinczak.dev/Damian_Sinczak_CV.pdf | head -n 3
+```
+
+Once all four behave, the site is live. `public/.htaccess` sends HSTS with a
+one-day `max-age` and no `includeSubDomains`, because the apex and `www` hold
+separate Let's Encrypt certificates that renew independently. After a renewal
+cycle has passed without incident, raise `max-age` to `31536000`.
+
+HSTS instructs browsers to refuse plain HTTP for the whole `max-age` window, so
+a broken certificate under a long policy locks visitors out until it expires.
+That is why the value starts small.
+
+
 
 ```text
 content/profile.md       Canonical CV/profile content
+assets/fonts/            Fonts embedded into the PDF (Open Sans, Archivo Black)
+public/.htaccess         Apache config shipped to OVH with the build
 src/core/                Parser, model, validation, filtering, asset preparation
 src/pages/index.astro    Static website renderer
 scripts/generate-pdf.ts  PDF renderer
@@ -103,4 +181,5 @@ scripts/build.ts         Full build orchestration
 docs/                    Content and web design specifications
 ```
 
-Generated files under `dist/`, profile assets under `public/assets/profile/`, and PDFs under `public/` are intentionally ignored by Git.
+Generated files under `dist/`, profile assets under `public/assets/profile/`,
+`public/sitemap.xml`, and PDFs under `public/` are intentionally ignored by Git.

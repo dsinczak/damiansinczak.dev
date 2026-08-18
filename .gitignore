@@ -5,3 +5,4 @@ public/*.pdf
 .astro/
 .astro-dev*.log
 coverage/
+public/sitemap.xml
