@@ -320,15 +320,76 @@ The broader program involved 17 people across three time zones, with cooperation
 
 # Skills
 
+## Java
+<!-- target: all; web: collapsed -->
+
+Category: Programming languages
+
+:::detail target="web" web="collapsed"
+Java has been a language that has accompanied me since the beginning of my career, and although I've abandoned it many times for other languages, I keep coming back to it and it's where I'm most skilled. I constantly strive to stay up-to-date on new developments, but I also maintain a solid foundational knowledge of the JVM and the language. If I had to call myself an expert in any language, it would be Java.
+:::
+
+## Clojure / ClojureScript
+<!-- target: all; web: collapsed -->
+
+Category: Programming languages
+
+:::detail target="web" web="collapsed"
+This is currently my second programming language, which I learned in Taxamo (Vertex). Learning Clojure opens up new areas of my brain when it comes to programming. It shows me that you can program differently and also think differently about code structure and flow. Interactive programming with a REPL also takes this language to a whole new level, which is worth appreciating. Because Taxamo has a stack entirely embedded in Clojure, I also have the opportunity to work with ClojureScript and Babaska.
+:::
+
+## Scala
+<!-- target: all; web: collapsed -->
+
+Category: Programming languages
+
+:::detail target="web" web="collapsed"
+I worked with Scala some time ago at Idemia. It was the first language besides Java that I learned, and right around that time. Anyone who has worked with Scala knows how rewarding the learning process is, when you start with Scala, which is similar to Java, and slowly learn the intricacies of functional programming. Scala forever changed my perception of programming and left a mark on how I program in Java.
+:::
+
 ## Snowflake
 <!-- target: all; web: collapsed -->
 
 Category: Data platforms
 
-Listed as a top skill in the LinkedIn CV.
+:::detail target="web" web="collapsed"
+I started working with Snowflake at Vertex in 2024. I had the opportunity to go through many aspects of it, from client applications (and query optimization for their SQL engine - especially translation from complex queries from Presto (AWS Athena) to Snowflake SQL) to pipeline definitions in Snowpipe and transformation definitions using DBT.
+:::
+
+## Spring
+<!-- target: all; web: collapsed -->
+
+Category: Application frameworks
 
 :::detail target="web" web="collapsed"
-Add a fuller description of how this skill was acquired and used in practice.
+I've used Spring at many companies and have quite a bit of experience with it, though it's not my first-choice framework. I always try to use it only where necessary and understandable. I've had contact with many Spring modules: core, data, JPA, batch, web, AOP, security, AI (only in private), and probably many others that were required or used in the project at some point. I'm very familiar with how Spring Boot works and how to use it in a way that's helpful rather than challenging.
+:::
+
+## Temporal
+<!-- target: all; web: collapsed -->
+
+Category: Application frameworks
+
+:::detail target="web" web="collapsed"
+I started working with Temporal at Vertex while working on the Vertex solution reporting system. This was quite an achievement, as I managed to port the code from a 25-year-old monolith to a microservice managed by Temporal. Beyond the functional requirements, we had to grapple with numerous technical challenges, such as part of the process being tied to a worker (due to the locality of the generated report file) and performance issues, where we had to manually manage the Temporal worker queue due to the limitations of the PODs in the Kubernetes cluster. Through this and many others, I had the opportunity to delve deeply into the inner workings of Temporal.
+:::
+
+## Polylith
+<!-- target: all; web: collapsed -->
+
+Category: Application frameworks
+
+:::detail target="web" web="collapsed"
+Moving our Taxamo project from a multi-repo to a monorepo using Polylith was one of the biggest challenges of my career at this company, in terms of the volume of changes I had to make to the project. I would certainly do it again. Although we don't utilize all the benefits of Polylith, using this framework significantly simplified work in a codebase that contained a huge amount of shared code across multiple distributed microservices. Polylith not only allows for structure but also streamlines code development and deployment.
+:::
+
+## Akka
+<!-- target: all; web: collapsed -->
+
+Category: Application frameworks
+
+:::detail target="web" web="collapsed"
+I first encountered actor systems in Akka (in its classic version) in the Scala project Idemia, and it was one of the best frameworks I've encountered for distributed systems. The approach of dividing work into actors was revolutionary in my opinion. Additionally, persistent actors allowed us to build a failsafe system that could resume workflows at any point. One of the elements I repeated many times (I ported this code to Java – it's available on my GitHub) was a finite state machine and DSL modeled after the Akka FSM.
 :::
 
 ## Reactor.io
@@ -336,10 +397,9 @@ Add a fuller description of how this skill was acquired and used in practice.
 
 Category: Reactive programming
 
-Listed as a top skill in the LinkedIn CV.
-
 :::detail target="web" web="collapsed"
-Add a fuller description of how this skill was acquired and used in practice.
+I had the opportunity to work with Reactor at Aviloo, where the entire application (several microservices) was based on this framework. Communication between services and devices we installed in the client's car was based on RSocket, which, together with Reactor.io, allows for incredible flexibility through the use of backpressure and reactive streams. I have great sympathy and respect for this technology; it's not simple and requires proper tuning and monitoring, but it certainly allows the system to scale beyond the limits of thread-pooled applications.
+My second encounter with reactor took place at luminor bank, where several microservices related to fx-rates and transaction processing used this technology in a rather chaotic way. I focused on unifying and tuning these applications so that the use of the library was optimal. In the next stage, I added some resilience solutions (retry, circuit breaker) using resilience4j, which is not so obvious in the case of reactive applications.
 :::
 
 ## Jooq
@@ -347,10 +407,62 @@ Add a fuller description of how this skill was acquired and used in practice.
 
 Category: Persistence and database tooling
 
-Listed as a top skill in the LinkedIn CV.
+:::detail target="web" web="collapsed"
+I encountered Jooq at Aviloo, and it immediately became my first-choice library for database access. This FRM gives you control over your code and what your application does to a degree you can only dream of with ORMs like Hibernate.
+:::
+
+## Maven
+<!-- target: all; web: collapsed -->
+
+Category: Build system
 
 :::detail target="web" web="collapsed"
-Add a fuller description of how this skill was acquired and used in practice.
+I've encountered Maven many times in numerous projects and am familiar with both its use and configuration. I've also written and modified plugins numerous times, so I'm no stranger to the Maven lifecycle.
+:::
+
+## Gradle
+<!-- target: all; web: collapsed -->
+
+Category: Build system
+
+:::detail target="web" web="collapsed"
+It's usually my first choice for Java projects, though I still feel like I'm learning the tool and rediscovering it with each new version. While I like Maven's conventions, the freedom Gradle provides appeals to me more.
+:::
+
+## AWS
+<!-- target: all; web: collapsed -->
+
+Category: Cloud provider
+
+:::detail target="web" web="collapsed"
+
+:::
+
+## Kubernetes
+<!-- target: all; web: collapsed -->
+
+Category: Container orchestration
+
+:::detail target="web" web="collapsed"
+My early contact with K8S dates back to my first stint at Idemia. It was a cluster deployed in Idemia's private DC, and later, I've primarily worked with K8S on AWS (also at Idemia, Luminor, and currently at Vertex, where it's a core solution). I'm an experienced user and understand how Kubernetes and its individual components work. I can work with it daily, deploy applications, and analyze its results. I've had the opportunity to create custom scripts and work with Helm on numerous occasions. I'm currently working with ArgoCD, but I also have experience with Flux in another cluster. I understand how manifests, config maps, secrets, operators, and many other elements a developer needs for everyday work work. However, that's where I'd end it; I've never configured, deployed, or managed K8S.
+:::
+
+## Docker
+<!-- target: all; web: collapsed -->
+
+Category: Containerization
+
+:::detail target="web" web="collapsed"
+
+:::
+
+## Docker compose
+<!-- target: all; web: collapsed -->
+
+Category: Container orchestration
+
+:::detail target="web" web="collapsed"
+
 :::
 
 # Education
