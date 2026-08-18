@@ -44,7 +44,7 @@ function renderBlocks(blocks: RichTextBlock[]) {
 }
 
 function primaryRole(entry: ProfileEntry) {
-  return entry.fields.Role || entry.fields.Degree || entry.fields.Category || entry.fields.Language;
+  return entry.fields.Role || entry.fields.Degree || entry.fields.Language;
 }
 
 const navIcons: Record<string, string> = {
@@ -166,7 +166,7 @@ function navIcon(id: string) {
                 <h3>{entry.title}</h3>
                 {primaryRole(entry) && <p class="entry__role">{primaryRole(entry)}</p>}
                 <p class="entry__meta">
-                  {[entry.fields.Period, entry.fields.Location, entry.fields.Date, entry.fields.Venue]
+                  {[entry.fields.Category, entry.fields.Period, entry.fields.Location, entry.fields.Date, entry.fields.Venue]
                     .filter(Boolean)
                     .join(" / ")}
                 </p>

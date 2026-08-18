@@ -320,13 +320,65 @@ The broader program involved 17 people across three time zones, with cooperation
 
 # Skills
 
+## Applied AI Engineering
+<!-- target: all; web: collapsed -->
+
+Category: Engineering practices
+
+:::detail target="web" web="collapsed"
+I began using generative-AI development tools at Vertex during the early-access period of GitHub Copilot and later adopted Claude Code. That early exposure gave me time to move beyond code completion and develop a practical understanding of where coding agents help, where they fail, and how strongly their results depend on the context and feedback provided to them.
+
+I now use OpenCode daily as a coding agent and pair-programming partner throughout the SDLC. My usual approach follows an explicit research, plan, and implement loop: the agent first explores the codebase and constraints, then helps evaluate a design before making and verifying changes. I create project-specific instructions, reusable skills, commands, context sources, and validation workflows that reflect each system’s architecture. One harness does not fit every repository, especially when an agent has to work safely with mature or highly constrained software.
+
+I also contributed to a custom AI workflow for analysing failures across Vertex’s large suite of system and functional tests. Many failures originate in external dependencies rather than the product under test, and distinguishing the two previously required substantial manual investigation. The workflow uses retrieval-augmented generation with historical test runs, logs, metrics, and related operational evidence to identify likely dependency failures and separate them from regressions requiring engineering attention. It allows the team to complete much of that initial triage in minutes.
+:::
+
+## Systems Design and Integration
+<!-- target: all; web: collapsed -->
+
+Category: Software architecture
+
+:::detail target="web" web="collapsed"
+I have designed systems and implemented integrations throughout my career, including mobile-operator billing, binary-SMS content delivery, eSIM provisioning, vehicle-to-cloud communication, banking mainframes, tax engines, and data platforms. Those projects involved REST and SOAP APIs, files and FTP, queues and event streams, RSocket, JMS, proprietary protocols, and third-party systems with very different operational guarantees.
+
+I put particular emphasis on what happens between applications rather than treating integration as a connector-selection exercise. The important decisions include the source of truth, synchronous versus asynchronous communication, transaction boundaries, durability, consistency, ordering, idempotency, retries, timeouts, backpressure, observability, and recovery after partial failure. I understand the convenience and immediate feedback of synchronous calls as well as the decoupling and resilience offered by asynchronous workflows, together with the additional state and failure modes each approach introduces.
+
+Much of my work has involved adding reliability to systems without changing the behaviour their customers and dependent applications already expect. I prefer explicit contracts and failure semantics, incremental changes, and designs that can explain not only the successful path but also what happens when a dependency is slow, unavailable, duplicated, or returns after an interrupted operation.
+:::
+
+## Testing and Performance Engineering
+<!-- target: all; web: collapsed -->
+
+Category: Engineering practices
+
+:::detail target="web" web="collapsed"
+Testing has been a substantial part of every stage of my career, but I do not apply one testing scheme to every system. A legacy application under maintenance needs characterization and regression tests that establish its existing behaviour before it can be changed safely. A greenfield service allows test boundaries to be designed with the architecture, while integrations with physical devices or external systems require focused contract, integration, and end-to-end testing.
+
+I introduced safety nets around Commerzbank’s legacy cash-logistics platform, helped build a vehicle-independent test environment at HARMAN, tested AVILOO’s platform with real cars, and developed resilience and chaos tests for IDEMIA’s AWS system. I have worked with JUnit, Spock, Mockito, ScalaTest, JBehave, REST Assured, Selenium, Gatling, and other JVM testing tools, but tool choice is secondary to selecting the test that exposes the relevant risk with the shortest useful feedback loop.
+
+My performance work has included high-volume map and reporting pipelines, constrained HSM throughput, reactive vehicle telemetry, database queries, and worker concurrency in Kubernetes. I approach performance through measurement and system behaviour: identify the constrained resource, reproduce the workload, observe queues and dependencies, and verify that an optimization improves the complete flow rather than moving the bottleneck elsewhere.
+:::
+
+## Infrastructure as Code and Delivery
+<!-- target: all; web: collapsed -->
+
+Category: Cloud engineering
+
+:::detail target="web" web="collapsed"
+I have worked with Terraform, Pulumi, and Ansible while developing and delivering production systems, and I have contributed to deployment configuration through Helm, Argo CD, Flux, Jenkins pipelines, and related tooling. My involvement has ranged from adapting infrastructure for an application’s requirements to diagnosing deployment behaviour and changing the code that connects an application to its runtime environment.
+
+I am strongest at the boundary between software and infrastructure: translating application needs into deployment, configuration, permissions, resources, and managed services, then understanding how those decisions affect production behaviour. I do not present myself as a dedicated infrastructure-as-code or platform-engineering specialist, but I am comfortable entering these codebases, understanding their model, making reviewed changes, and collaborating with the engineers who operate the wider platform.
+:::
+
 ## Java
 <!-- target: all; web: collapsed -->
 
 Category: Programming languages
 
 :::detail target="web" web="collapsed"
-Java has been a language that has accompanied me since the beginning of my career, and although I've abandoned it many times for other languages, I keep coming back to it and it's where I'm most skilled. I constantly strive to stay up-to-date on new developments, but I also maintain a solid foundational knowledge of the JVM and the language. If I had to call myself an expert in any language, it would be Java.
+Java has been the continuous thread through my career. I first used it professionally in Java EE systems at Comarch and later applied it to geospatial data processing, banking platforms, eSIM provisioning, reactive vehicle diagnostics, and tax-reporting services. Even when Scala or Clojure became my primary language for a project, Java and the JVM remained the foundation I returned to.
+
+My experience is not tied to one framework or generation of the language. It spans application-server-era Java, modern Spring services, concurrent and distributed systems, and the careful modernization of long-lived codebases. I continue to follow the language and platform as they evolve while maintaining the JVM fundamentals needed to understand how an application behaves beyond its source code. Java remains the language in which I have the greatest depth.
 :::
 
 ## Clojure / ClojureScript
@@ -335,7 +387,9 @@ Java has been a language that has accompanied me since the beginning of my caree
 Category: Programming languages
 
 :::detail target="web" web="collapsed"
-This is currently my second programming language, which I learned in Taxamo (Vertex). Learning Clojure opens up new areas of my brain when it comes to programming. It shows me that you can program differently and also think differently about code structure and flow. Interactive programming with a REPL also takes this language to a whole new level, which is worth appreciating. Because Taxamo has a stack entirely embedded in Clojure, I also have the opportunity to work with ClojureScript and Babaska.
+Clojure is now my principal language alongside Java. I learned it after joining Taxamo in 2021 and became productive in an established codebase while contributing across design, implementation, testing, delivery, and production support. Because the Taxamo stack extends beyond backend services, I have also worked with ClojureScript and used Babashka for scripting and development tooling.
+
+Learning Clojure changed more than my syntax. Its emphasis on immutable data, composition, and separating state from behavior gave me a different way to structure programs, while REPL-driven development made exploration and feedback part of the implementation process. Those ideas now influence how I approach code in other languages, including Java.
 :::
 
 ## Scala
@@ -344,7 +398,9 @@ This is currently my second programming language, which I learned in Taxamo (Ver
 Category: Programming languages
 
 :::detail target="web" web="collapsed"
-I worked with Scala some time ago at Idemia. It was the first language besides Java that I learned, and right around that time. Anyone who has worked with Scala knows how rewarding the learning process is, when you start with Scala, which is similar to Java, and slowly learn the intricacies of functional programming. Scala forever changed my perception of programming and left a mark on how I program in Java.
+I learned Scala at IDEMIA, where it became the first language beyond Java that I used professionally. Its familiar JVM foundation made the initial transition approachable, but the real value came from learning functional programming through production work rather than isolated exercises.
+
+Scala, together with Akka, gave practical meaning to immutability, function composition, explicit state transitions, and type-driven design. It permanently changed how I think about state and concurrency and continues to influence the Java and Clojure code I write today.
 :::
 
 ## Snowflake
@@ -353,7 +409,9 @@ I worked with Scala some time ago at Idemia. It was the first language besides J
 Category: Data platforms
 
 :::detail target="web" web="collapsed"
-I started working with Snowflake at Vertex in 2024. I had the opportunity to go through many aspects of it, from client applications (and query optimization for their SQL engine - especially translation from complex queries from Presto (AWS Athena) to Snowflake SQL) to pipeline definitions in Snowpipe and transformation definitions using DBT.
+I began working with Snowflake at Vertex in 2024 while extending a high-volume reporting service originally designed around AWS Athena. Supporting Snowflake was not a simple SQL port: complex queries and application behavior built around Athena’s Presto- and Trino-derived semantics had to be translated, tested, and tuned for Snowflake without changing report results.
+
+My work has since covered application integration, query analysis and optimization, continuous ingestion with Snowpipe, and transformation workflows defined with dbt. This has given me experience across the path from data entering the platform to applications querying it in production.
 :::
 
 ## Spring
@@ -362,53 +420,77 @@ I started working with Snowflake at Vertex in 2024. I had the opportunity to go 
 Category: Application frameworks
 
 :::detail target="web" web="collapsed"
-I've used Spring at many companies and have quite a bit of experience with it, though it's not my first-choice framework. I always try to use it only where necessary and understandable. I've had contact with many Spring modules: core, data, JPA, batch, web, AOP, security, AI (only in private), and probably many others that were required or used in the project at some point. I'm very familiar with how Spring Boot works and how to use it in a way that's helpful rather than challenging.
+I have used Spring across much of my career, from early telecommunications and map-processing systems to banking and cloud-native services. My production experience spans Spring Core, Data, JPA, Batch, Web, WebFlux, Integration, AOP, Security, and Spring Boot; I have also explored Spring AI in private projects.
+
+At Commerzbank, I used Spring Integration while modernizing a legacy banking application and connecting its internal workflows. At Luminor, I worked extensively with Spring WebFlux in reactive banking services, standardizing their configuration and Reactor usage before integrating Resilience4j into their asynchronous flows.
+
+I treat Spring as a toolbox rather than allowing it to define an application’s architecture by default. Understanding its dependency injection, configuration, auto-configuration, lifecycle, and integration points lets me use the framework where it removes useful boilerplate while keeping application behavior explicit enough to test, operate, and troubleshoot.
 :::
 
 ## Temporal
 <!-- target: all; web: collapsed -->
 
-Category: Application frameworks
+Category: Workflow orchestration
 
 :::detail target="web" web="collapsed"
-I started working with Temporal at Vertex while working on the Vertex solution reporting system. This was quite an achievement, as I managed to port the code from a 25-year-old monolith to a microservice managed by Temporal. Beyond the functional requirements, we had to grapple with numerous technical challenges, such as part of the process being tied to a worker (due to the locality of the generated report file) and performance issues, where we had to manually manage the Temporal worker queue due to the limitations of the PODs in the Kubernetes cluster. Through this and many others, I had the opportunity to delve deeply into the inner workings of Temporal.
+I began using Temporal at Vertex while extracting report-generation functionality from a 25-year-old monolith into a standalone service. Temporal orchestrated the new workflows, but the difficult part was preserving established behavior while choosing durable boundaries for work that had previously run inside one process.
+
+Some activities depended on report files local to a particular worker, so the design had to account explicitly for worker locality instead of assuming every task was location-independent. Kubernetes pod limits also required deliberate management of task queues and worker concurrency rather than relying on defaults. Solving these problems gave me practical experience with workflow and activity boundaries, retries, timeouts, determinism, worker scaling, and the operational behavior of Temporal under real workloads.
 :::
 
 ## Polylith
 <!-- target: all; web: collapsed -->
 
-Category: Application frameworks
+Category: Software architecture
 
 :::detail target="web" web="collapsed"
-Moving our Taxamo project from a multi-repo to a monorepo using Polylith was one of the biggest challenges of my career at this company, in terms of the volume of changes I had to make to the project. I would certainly do it again. Although we don't utilize all the benefits of Polylith, using this framework significantly simplified work in a codebase that contained a huge amount of shared code across multiple distributed microservices. Polylith not only allows for structure but also streamlines code development and deployment.
+At Taxamo, I helped move a large Clojure system from multiple repositories into a Polylith-based monorepo. The migration touched a substantial part of the codebase because many independently deployed services shared libraries and domain behavior that had evolved across repository boundaries.
+
+Polylith is an architectural approach rather than a framework. It gave us one development environment with explicit, composable components that could be assembled into different deployable services. We did not adopt every part of the model, but even the partial adoption made shared code easier to navigate, change, test, and release consistently. Despite the scale of the migration, I would choose the approach again for a system with similar characteristics.
 :::
 
 ## Akka
 <!-- target: all; web: collapsed -->
 
-Category: Application frameworks
+Category: Distributed systems frameworks
 
 :::detail target="web" web="collapsed"
-I first encountered actor systems in Akka (in its classic version) in the Scala project Idemia, and it was one of the best frameworks I've encountered for distributed systems. The approach of dividing work into actors was revolutionary in my opinion. Additionally, persistent actors allowed us to build a failsafe system that could resume workflows at any point. One of the elements I repeated many times (I ported this code to Java – it's available on my GitHub) was a finite state machine and DSL modeled after the Akka FSM.
+I first used the actor model through Akka Classic on IDEMIA’s Scala-based eSIM platform. Actors gave us a practical way to coordinate concurrent, stateful provisioning work around limited HSM capacity, while Akka Persistence allowed actor state to be reconstructed after restarts by replaying persisted events.
+
+Akka’s finite-state-machine model and DSL were especially influential. I later adapted a subset of those ideas into [java-fp-fsm](https://github.com/dsinczak/java-fp-fsm), a small pure-Java implementation that separates the pattern from the actor runtime. Akka left a lasting mark on how I design message-driven workflows, state transitions, and recovery in distributed systems.
 :::
 
-## Reactor.io
+## Project Reactor
 <!-- target: all; web: collapsed -->
 
 Category: Reactive programming
 
 :::detail target="web" web="collapsed"
-I had the opportunity to work with Reactor at Aviloo, where the entire application (several microservices) was based on this framework. Communication between services and devices we installed in the client's car was based on RSocket, which, together with Reactor.io, allows for incredible flexibility through the use of backpressure and reactive streams. I have great sympathy and respect for this technology; it's not simple and requires proper tuning and monitoring, but it certainly allows the system to scale beyond the limits of thread-pooled applications.
-My second encounter with reactor took place at luminor bank, where several microservices related to fx-rates and transaction processing used this technology in a rather chaotic way. I focused on unifying and tuning these applications so that the use of the library was optimal. In the next stage, I added some resilience solutions (retry, circuit breaker) using resilience4j, which is not so obvious in the case of reactive applications.
+I worked extensively with Project Reactor at AVILOO, where several services formed a reactive platform for processing electric-vehicle telemetry. Communication between services and devices installed in customers’ cars used RSocket. Together, Reactive Streams and protocol-level backpressure gave us explicit control over asynchronous data flow, but they did not remove the need for careful capacity planning, tuning, debugging, and observability.
+
+At Luminor, I inherited several Reactor-based services handling foreign-exchange rates and transaction processing with inconsistent reactive patterns. I standardized and tuned those flows, then integrated Resilience4j retries and circuit breakers into the reactive chains. The experience taught me both where non-blocking processing is valuable and how quickly it becomes difficult to reason about when concurrency, error handling, and operational behavior are not designed consistently.
 :::
 
-## Jooq
+## jOOQ
 <!-- target: all; web: collapsed -->
 
 Category: Persistence and database tooling
 
 :::detail target="web" web="collapsed"
-I encountered Jooq at Aviloo, and it immediately became my first-choice library for database access. This FRM gives you control over your code and what your application does to a degree you can only dream of with ORMs like Hibernate.
+I first used jOOQ at AVILOO, and it became my preferred approach to relational database access in Java. Its type-safe SQL DSL and generated schema model provide compiler support without hiding the query, joins, or data flow behind an object graph.
+
+That tradeoff suits the way I work: the database remains an explicit part of the system design, SQL can be reviewed and optimized directly, and application code still benefits from strong typing. I use ORM tools where their abstraction fits the domain, but I prefer jOOQ when query behavior and database control matter more than transparent object persistence.
+:::
+
+## PostgreSQL
+<!-- target: all; web: collapsed -->
+
+Category: Relational databases
+
+:::detail target="web" web="collapsed"
+I first worked extensively with PostgreSQL at TomTom, where it stored complex map data processed through PostGIS and JTS. That project required more than conventional persistence: geographic operations, spatial relationships, and large conversion pipelines made the database part of the system’s computational model.
+
+I later used PostgreSQL in AVILOO’s vehicle-diagnostics platform and in banking services at Luminor. At Vertex, it is also the core operational database behind the Taxamo product, giving me sustained experience with a mature production schema and business-critical workloads. Across these systems, I worked with schema design, application queries, migrations through Flyway and Liquibase, and data access through jOOQ, Querydsl, Spring Data, and direct SQL. My experience is application-facing rather than database administration, with an emphasis on understanding generated queries, data models, migrations, and production performance.
 :::
 
 ## Maven
@@ -417,7 +499,9 @@ I encountered Jooq at Aviloo, and it immediately became my first-choice library 
 Category: Build system
 
 :::detail target="web" web="collapsed"
-I've encountered Maven many times in numerous projects and am familiar with both its use and configuration. I've also written and modified plugins numerous times, so I'm no stranger to the Maven lifecycle.
+I have used Maven throughout my career to build and maintain Java systems across very different generations of the ecosystem. Beyond dependency and plugin configuration, I have written and modified Maven plugins and diagnosed build behavior through its lifecycle, profiles, and inheritance model.
+
+Maven’s convention-heavy structure can be restrictive, but it also makes mature builds predictable once their effective configuration is understood. That predictability remains valuable in large or long-lived Java codebases where the build itself is part of the legacy system that must be changed safely.
 :::
 
 ## Gradle
@@ -426,7 +510,9 @@ I've encountered Maven many times in numerous projects and am familiar with both
 Category: Build system
 
 :::detail target="web" web="collapsed"
-It's usually my first choice for Java projects, though I still feel like I'm learning the tool and rediscovering it with each new version. While I like Maven's conventions, the freedom Gradle provides appeals to me more.
+Gradle is usually my first choice for Java projects when the build requires more customization than Maven’s lifecycle comfortably provides. Its programmable task model offers considerable freedom, which is also its main risk: without discipline, build logic can become another application that the team has to maintain.
+
+I value that flexibility, but I do not treat familiarity with one Gradle version as permanent expertise. Its APIs, conventions, and recommended practices continue to evolve, so I approach build changes by understanding the current task graph and configuration model rather than relying on habits learned from an older release.
 :::
 
 ## AWS
@@ -435,7 +521,11 @@ It's usually my first choice for Java projects, though I still feel like I'm lea
 Category: Cloud provider
 
 :::detail target="web" web="collapsed"
+My first substantial AWS work came at IDEMIA while helping take one of the company’s early AWS-based applications toward production. The platform used EKS, EC2, DynamoDB, S3, ECR, KMS, Elastic Load Balancing, Application Load Balancers, and AWS Shield. I contributed to its deployment model, security, observability, performance testing, and resilience, including an internal chaos-testing framework that used AWS APIs to inject failures in lower environments and verify recovery.
 
+I later worked on banking services deployed to Luminor’s EKS-based AWS platform. At Vertex, my AWS work spans reporting systems built around Athena and S3 as well as production workflows using DynamoDB, DynamoDB Streams, multi-Region replication, SQS and many other services. This required understanding not only the service APIs but also event propagation, consistency, failure handling, and the operational consequences of distributing data across regions.
+
+My experience is strongest at the boundary between application architecture and cloud operation: choosing and integrating managed services, designing software for AWS, deploying and troubleshooting it, and understanding its failure modes. I do not present myself as a specialist in organization-wide AWS networking or account administration.
 :::
 
 ## Kubernetes
@@ -444,7 +534,9 @@ Category: Cloud provider
 Category: Container orchestration
 
 :::detail target="web" web="collapsed"
-My early contact with K8S dates back to my first stint at Idemia. It was a cluster deployed in Idemia's private DC, and later, I've primarily worked with K8S on AWS (also at Idemia, Luminor, and currently at Vertex, where it's a core solution). I'm an experienced user and understand how Kubernetes and its individual components work. I can work with it daily, deploy applications, and analyze its results. I've had the opportunity to create custom scripts and work with Helm on numerous occasions. I'm currently working with ArgoCD, but I also have experience with Flux in another cluster. I understand how manifests, config maps, secrets, operators, and many other elements a developer needs for everyday work work. However, that's where I'd end it; I've never configured, deployed, or managed K8S.
+I first worked with Kubernetes at IDEMIA, where the eSIM platform ran in the company’s private data center. I later used Kubernetes on AWS at IDEMIA and Luminor, and it remains part of my daily work at Vertex. I deploy and troubleshoot applications, work with manifests, ConfigMaps, Secrets, Helm, and operators, and have automated recurring tasks with custom scripts. My GitOps experience includes current work with Argo CD and earlier work with Flux.
+
+My expertise is deliberately application-facing. I understand how workloads are scheduled, configured, observed, and affected by resource limits, networking, and platform failures, but I have not provisioned or administered Kubernetes clusters themselves. That boundary matters: operating software effectively on Kubernetes is substantial experience, but it is not the same job as building and running the platform.
 :::
 
 ## Docker
@@ -453,16 +545,20 @@ My early contact with K8S dates back to my first stint at Idemia. It was a clust
 Category: Containerization
 
 :::detail target="web" web="collapsed"
+My Docker work is primarily application-focused. I use it to package JVM and Clojure services, build and inspect images, maintain Dockerfiles, and diagnose startup, configuration, filesystem, networking, and runtime problems before those images are deployed to Kubernetes.
 
+For me, Docker is not merely a final packaging step. Container boundaries affect build reproducibility, local development, security, resource usage, and what can be observed when an application fails. My experience is strongest in designing and troubleshooting those boundaries rather than administering the underlying container runtime infrastructure.
 :::
 
-## Docker compose
+## Docker Compose
 <!-- target: all; web: collapsed -->
 
 Category: Container orchestration
 
 :::detail target="web" web="collapsed"
+At AVILOO, Docker Compose was our production orchestration approach rather than merely a local development tool. We used it to run the platform’s services and supporting infrastructure as a coherent multi-container system, giving the stack a shared definition for configuration, networking, volumes, and lifecycle management.
 
+Operating Compose in production gave me direct experience of both its simplicity and its limits. It kept a relatively compact platform understandable without introducing a larger orchestration layer, but it also left the team responsible for concerns such as service health, restarts, deployments, resource constraints, and host-level resilience. I have continued to use Compose for repeatable development and integration-test environments, while using Kubernetes for systems that require broader scheduling and operational capabilities.
 :::
 
 # Education
@@ -483,39 +579,68 @@ Period: 2010 - 2011
 
 # Publications
 
-## Aspect oriented programming with the use of AspectJ
-<!-- target: all; web: collapsed -->
-
-:::detail target="web" web="collapsed"
-Publication listed in the LinkedIn CV. Details can be expanded in a later iteration.
-:::
-
-## Edit&Pray, how to deal with legacy code
-<!-- target: all; web: collapsed -->
-
-:::detail target="web" web="collapsed"
-Publication listed in the LinkedIn CV. Details can be expanded in a later iteration.
-:::
-
 ## Clojure for brave and true
 <!-- target: all; web: collapsed -->
 
+Date: 2024-01-23
+Venue: Java User Group Łódź
+Link: https://www.facebook.com/groups/juglodz/permalink/7140015136113143/
+
 :::detail target="web" web="collapsed"
-Publication listed in the LinkedIn CV. Details can be expanded in a later iteration.
+After several years of professional Clojure work at Taxamo and Vertex, I introduced the language to the Java User Group in Łódź. Rather than presenting slides about syntax, I built a small full-stack TODO application live, using Clojure on the server and ClojureScript in the browser.
+
+The emphasis was on the REPL and what interactive development actually changes. For an audience accustomed to the edit, compile, restart, and navigate-back cycle of a typical JVM application, watching state survive while functions are redefined in a running system is a more persuasive argument than any list of language features.
 :::
 
 ## What are DDD sagas how Event Sourcing can help us with them
 <!-- target: all; web: collapsed -->
 
+Date: 2018-01-24
+Venue: Java User Group Łódź
+Link: https://www.meetup.com/pl-PL/login/?returnUri=https%3A%2F%2Fwww.meetup.com%2Fjava-user-group-lodz%2Fevents%2F246675268%2F
+
 :::detail target="web" web="collapsed"
-Publication listed in the LinkedIn CV. Details can be expanded in a later iteration.
+At IDEMIA I used Akka persistent actors to model long-running eSIM provisioning workflows. One example was a key-exchange protocol that allowed an eSIM profile to be transferred between two mobile network operators without either party disclosing its keys directly. A workflow of that kind spans several systems, takes an unpredictable amount of time, and has to remain auditable and recoverable after partial failure.
+
+The presentation walked the audience through that problem and the pieces used to solve it: sagas as the Domain-Driven Design answer to coordinating work across aggregate and service boundaries, persistent actors as the runtime, and an event store as the durable record of what had happened. My aim was to show why event sourcing and sagas complement each other, rather than presenting either as an isolated pattern.
+:::
+
+## Edit&Pray, how to deal with legacy code
+<!-- target: all; web: collapsed -->
+
+Date: 2016-05-18
+Venue: Łódź ICT Claster presentation
+Link: https://www.facebook.com/events/799959023473215/
+
+:::detail target="web" web="collapsed"
+Taking ownership of Commerzbank's cash-logistics platform at CERI forced me to develop a working method for legacy software rather than a set of opinions about it. This talk covered what my team and I had actually field-tested: recovering undocumented business rules, establishing characterization tests before changing behavior, stabilizing an ageing Ant build, and making small defensible changes instead of arguing for a rewrite.
+
+The title refers to Michael Feathers' distinction between edit and pray and cover and modify. I used his work, together with Fowler's refactoring catalogue, as the framing, but the examples came from a production banking system where the cost of being wrong was measured in cash that failed to reach a branch.
+:::
+
+## Aspect oriented programming with the use of AspectJ
+<!-- target: all; web: collapsed -->
+
+Date: 2015-11-14
+Venue: Java User Group Łódź
+Link: https://www.youtube.com/watch?v=I3h-kGeAn2s
+
+:::detail target="web" web="collapsed"
+Aspect-oriented programming was the subject of my master's thesis and remained a recurring tool throughout my Java work. Most JVM developers meet it only through Spring AOP, which is built on dynamic proxies and is therefore limited to Spring-managed beans and calls that cross the proxy boundary. AspectJ works at the bytecode level through compile-time or load-time weaving and can reach constructors, field access, and code that no container manages.
+
+I presented that comparison to the Java User Group in Łódź: what aspect-oriented programming solves, where AspectJ's additional reach is worth its complexity, and what weaving does to build times, debugging, testability, and the ability of the next engineer to understand why a method behaves differently from the way it reads.
 :::
 
 ## Banking of 21st century
 <!-- target: all; web: collapsed -->
 
+Date: 2015-11-07
+Venue: Careercon.pl
+
 :::detail target="web" web="collapsed"
-Publication listed in the LinkedIn CV. Details can be expanded in a later iteration.
+I gave this talk at a careers fair on behalf of CERI, Commerzbank's Polish subsidiary, while we were building the engineering team in Łódź. It was a direct account of what banking software involves: long-lived systems that cannot be switched off, mainframe integration, regulatory and security constraints, performance requirements driven by settlement windows rather than user impatience, and the fact that most of the work modernizes existing systems rather than starting new ones.
+
+The recruitment purpose was explicit, but the argument was not that banking is glamorous. It was that engineers who want problems with real consequences, and who are willing to work inside constraints they did not choose, find more of both here than in most greenfield projects.
 :::
 
 # Languages
