@@ -18,6 +18,11 @@ if (messages.some((message) => message.severity === "error")) {
 const pdf = runNpmScript("generate:pdf");
 if (pdf !== 0) process.exit(pdf);
 
+// Share card and favicons. Runs before build:web so that `prepare:assets` and
+// Astro both see the generated files already sitting in public/.
+const images = runNpmScript("generate:images");
+if (images !== 0) process.exit(images);
+
 const web = runNpmScript("build:web");
 if (web !== 0) process.exit(web);
 

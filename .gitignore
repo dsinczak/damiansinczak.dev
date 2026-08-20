@@ -5,4 +5,18 @@ public/*.pdf
 .astro/
 .astro-dev*.log
 coverage/
+.DS_Store
+
+# Generated on every build from content/profile.md and src/assets/web/ds-mark.svg.
+# Committing them would let them drift from the content they are derived from.
 public/sitemap.xml
+public/llms.txt
+public/llms-full.txt
+public/og-image.png
+public/favicon.ico
+public/favicon.svg
+public/favicon-32.png
+public/apple-touch-icon.png
+public/icon-192.png
+public/icon-512.png
+public/.well-known/

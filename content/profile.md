@@ -20,6 +20,22 @@ links:
 pdf:
   filename: Damian_Sinczak_CV.pdf
   website: https://www.damiansinczak.dev
+seo:
+  # `title` above is a positioning tagline. This is the occupation a person
+  # actually types into a search box, and it is what lands in <title>,
+  # og:title and schema.org Person.jobTitle.
+  jobTitle: Senior Software Engineer & Architect
+  # <meta name="description">. Google truncates around 155 characters, so this
+  # is written to fit rather than being cut mid-sentence from headlineInfo.
+  description: Senior software engineer and architect. 17 years modernizing legacy JVM systems — Java, Clojure, Scala — with AI-assisted engineering. Łódź, Poland.
+  # Broader topics for schema.org Person.knowsAbout. Merged ahead of the
+  # concrete technologies listed in the Skills section.
+  knowsAbout:
+    - Legacy system modernization
+    - Software architecture
+    - Distributed systems
+    - AI-assisted software engineering
+    - LLM tooling and agents
 ---
 
 # Bio

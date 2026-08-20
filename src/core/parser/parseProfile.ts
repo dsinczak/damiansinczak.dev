@@ -39,6 +39,15 @@ const frontmatterSchema = z.object({
       website: z.string().url().optional()
     })
     .default({ filename: "CV.pdf" }),
+  seo: z
+    .object({
+      jobTitle: z.string().min(1).optional(),
+      description: z.string().min(1).optional(),
+      pageTitle: z.string().min(1).optional(),
+      sameAs: z.array(z.string().url()).optional(),
+      knowsAbout: z.array(z.string().min(1)).optional()
+    })
+    .optional(),
   outputs: z
     .object({
       sections: z.record(
@@ -92,6 +101,7 @@ export function parseProfileSource(source: string, sourcePath = "content/profile
     assets: frontmatter.data.assets,
     links: frontmatter.data.links,
     pdf: frontmatter.data.pdf,
+    seo: frontmatter.data.seo,
     sections: [],
     sourcePath
   };

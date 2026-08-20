@@ -1,0 +1,84 @@
+---
+import type { Profile } from "../core/model/profile";
+import { buildJsonLd } from "../core/seo/jsonLd";
+import { buildSeoMeta } from "../core/seo/meta";
+import { absoluteUrl, siteConfig } from "../core/site/config";
+
+/**
+ * Everything a search engine, a social card renderer or an AI crawler reads.
+ *
+ * All values are derived from content/profile.md via `buildSeoMeta`, so the
+ * page description, share card text and structured data cannot drift away from
+ * the CV itself. Overrides live in the `seo:` frontmatter block, not here.
+ */
+
+type Props = {
+  profile: Profile;
+  /** ISO date (YYYY-MM-DD) of the last content change, from git. */
+  dateModified: string;
+};
+
+const { profile, dateModified } = Astro.props;
+
+const meta = buildSeoMeta(profile);
+const jsonLd = buildJsonLd(profile, meta, dateModified);
+
+// Astro.site is set in astro.config.mjs from siteConfig.url, so the canonical
+// URL follows the config rather than repeating the origin a fourth time.
+const canonical = new URL(Astro.url.pathname, Astro.site ?? `${siteConfig.url}/`).toString();
+const ogImage = absoluteUrl(siteConfig.ogImage.path);
+---
+
+<link rel="canonical" href={canonical} />
+
+<title>{meta.pageTitle}</title>
+<meta name="description" content={meta.description} />
+<meta name="author" content={profile.name} />
+
+{/* max-image-preview:large is what lets Google show the share card in results. */}
+<meta
+  name="robots"
+  content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+/>
+
+{/* Open Graph: LinkedIn, Slack and Facebook read these. */}
+<meta property="og:type" content="profile" />
+<meta property="og:site_name" content={`${profile.name} — CV`} />
+<meta property="og:locale" content={siteConfig.ogLocale} />
+<meta property="og:url" content={canonical} />
+<meta property="og:title" content={meta.pageTitle} />
+<meta property="og:description" content={meta.description} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:type" content={siteConfig.ogImage.type} />
+<meta property="og:image:width" content={String(siteConfig.ogImage.width)} />
+<meta property="og:image:height" content={String(siteConfig.ogImage.height)} />
+<meta property="og:image:alt" content={`${profile.name} — ${meta.jobTitle ?? profile.title}`} />
+{profile.name.split(" ")[0] && <meta property="profile:first_name" content={profile.name.split(" ")[0]} />}
+{profile.name.split(" ").slice(1).join(" ") && (
+  <meta property="profile:last_name" content={profile.name.split(" ").slice(1).join(" ")} />
+)}
+
+{/* Twitter/X falls back to Open Graph, but only if the card type is declared. */}
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={meta.pageTitle} />
+<meta name="twitter:description" content={meta.description} />
+<meta name="twitter:image" content={ogImage} />
+<meta name="twitter:image:alt" content={`${profile.name} — ${meta.jobTitle ?? profile.title}`} />
+
+<link rel="alternate" hreflang={siteConfig.lang} href={canonical} />
+<link rel="alternate" hreflang="x-default" href={canonical} />
+
+{/*
+  Machine-readable mirrors. `alternate type="text/markdown"` is how an agent that
+  has fetched the HTML discovers there is a cleaner version of the same content.
+*/}
+<link rel="alternate" type="text/markdown" href={absoluteUrl(siteConfig.llms.full)} title={`${profile.name} — profile as Markdown`} />
+<link rel="alternate" type="application/pdf" href={absoluteUrl(`/${profile.pdf.filename}`)} title={`${profile.name} — CV (PDF)`} />
+
+<link rel="icon" href="/favicon.ico" sizes="32x32" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />
+<meta name="theme-color" content="#0a66c2" />
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />

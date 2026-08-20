@@ -48,6 +48,30 @@ export type PdfOptions = {
   website?: string;
 };
 
+/**
+ * Optional overrides for what search engines, social cards and AI crawlers see.
+ *
+ * Every field has a fallback derived from the profile itself (see
+ * `src/core/seo/meta.ts`), so omitting this block entirely still produces a
+ * complete, valid head. Set a field only when the derived value is wrong.
+ */
+export type SeoOptions = {
+  /**
+   * Occupation as a person would search for it, e.g. "Senior Software Engineer".
+   * Distinct from `Profile.title`, which is a positioning tagline and makes a
+   * poor `jobTitle` in structured data.
+   */
+  jobTitle?: string;
+  /** <meta name="description">. Keep under ~155 characters. */
+  description?: string;
+  /** <title>. Overrides the derived "Name - Job Title | CV" form. */
+  pageTitle?: string;
+  /** Extra schema.org Person.sameAs URLs beyond the ones already in `links`. */
+  sameAs?: string[];
+  /** Topics for schema.org Person.knowsAbout, merged with the Skills section. */
+  knowsAbout?: string[];
+};
+
 export type RichTextBlock = {
   kind: "paragraph" | "list" | "detail";
   markdown: string;
@@ -95,6 +119,7 @@ export type Profile = {
   assets?: ProfileAssets;
   links: ProfileLinks;
   pdf: PdfOptions;
+  seo?: SeoOptions;
   sections: ProfileSection[];
   sourcePath: string;
 };

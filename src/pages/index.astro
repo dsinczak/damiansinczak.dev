@@ -5,6 +5,9 @@ import type { ProfileEntry, ProfileSection, RichTextBlock } from "../core/model/
 import { parseProfileFile } from "../core/parser/parseProfile";
 import { renderMarkdown } from "../core/rendering/markdown";
 import { validateProfile } from "../core/validation/validateProfile";
+import { lastModified } from "../core/site/lastModified";
+import { siteConfig } from "../core/site/config";
+import Seo from "../components/Seo.astro";
 import githubMarkUrl from "../assets/web/github-mark.svg";
 import linkedinMarkUrl from "../assets/web/linkedin-mark.svg";
 import "../styles/global.css";
@@ -23,6 +26,7 @@ const profile = prepareProfileAssets(filterProfileForTarget(parsed.profile, "web
 const contactAvailable = Boolean(profile.email || profile.phone || profile.links.linkedin || profile.links.github);
 const navSections = profile.sections.filter((section) => section.blocks.length > 0 || section.entries.length > 0);
 const pdfHref = `/${profile.pdf.filename}`;
+const dateModified = lastModified("content/profile.md");
 
 function sectionHref(section: ProfileSection) {
   return `#${section.id}`;
@@ -90,11 +94,11 @@ function navIcon(id: string) {
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={siteConfig.lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{profile.name} | CV</title>
+    <Seo profile={profile} dateModified={dateModified} />
   </head>
   <body>
     <header class="topbar">

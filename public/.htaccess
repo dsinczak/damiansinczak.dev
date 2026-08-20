@@ -35,8 +35,18 @@ AddDefaultCharset UTF-8
   AddType application/pdf              .pdf
   AddType image/svg+xml                .svg
   AddType image/jpeg                   .jpg .jpeg
+  AddType image/png                    .png
+  AddType image/x-icon                 .ico
   AddType text/css                     .css
   AddType application/javascript       .js
+  AddType application/xml              .xml
+  AddType application/manifest+json    .webmanifest
+
+  # robots.txt, llms.txt, llms-full.txt and security.txt. Without an explicit
+  # charset the Polish diacritics in llms-full.txt arrive as mojibake for any
+  # client that trusts the header over the bytes.
+  AddType text/plain                   .txt
+  AddCharset UTF-8                     .txt .xml .css .svg
 </IfModule>
 
 # -----------------------------------------------------------------------------
@@ -46,6 +56,7 @@ AddDefaultCharset UTF-8
   AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml
   AddOutputFilterByType DEFLATE application/javascript application/json
   AddOutputFilterByType DEFLATE application/xml image/svg+xml
+  AddOutputFilterByType DEFLATE application/manifest+json
 </IfModule>
 
 # -----------------------------------------------------------------------------
@@ -69,6 +80,13 @@ AddDefaultCharset UTF-8
     Header set Cache-Control "public, max-age=3600, must-revalidate"
   </FilesMatch>
 
+  # robots.txt, sitemap.xml, llms*.txt and security.txt are the crawler-facing
+  # surface. They must revalidate, or a fixed robots policy sits stale in an
+  # intermediary cache for as long as it feels like.
+  <FilesMatch "\.(txt|xml|webmanifest)$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+
   <FilesMatch "\.html$">
     Header set Cache-Control "public, max-age=0, must-revalidate"
   </FilesMatch>
@@ -80,13 +98,20 @@ AddDefaultCharset UTF-8
 # The page ships no JavaScript at all, so script-src can be 'none'.
 # 'unsafe-inline' is needed only for style-src because two elements carry an
 # inline style attribute (image object-position).
+#
+# manifest-src is spelled out because default-src 'none' does not grant it:
+# without this line the browser blocks /site.webmanifest outright.
+#
+# The JSON-LD block is <script type="application/ld+json">. CSP does not apply
+# to it — it carries data, not executable code — so script-src stays 'none'.
 # -----------------------------------------------------------------------------
 <IfModule mod_headers.c>
   Header always set X-Content-Type-Options "nosniff"
   Header always set X-Frame-Options "SAMEORIGIN"
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
   Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), interest-cohort=()"
-  Header always set Content-Security-Policy "default-src 'none'; script-src 'none'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; base-uri 'self'; form-action 'none'; frame-ancestors 'self'"
+  Header always set Content-Security-Policy "default-src 'none'; script-src 'none'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; manifest-src 'self'; base-uri 'self'; form-action 'none'; frame-ancestors 'self'"
+
 
   # HSTS. Deliberately without includeSubDomains: the apex and www hold separate
   # Let's Encrypt certificates renewed independently, and other subdomains are
@@ -97,6 +122,11 @@ AddDefaultCharset UTF-8
 
 # -----------------------------------------------------------------------------
 # Keep source and tooling files unreachable if they ever land on the server
+#
+# FilesMatch tests the basename only, so `/.well-known/security.txt` is matched
+# as "security.txt" and stays reachable despite the leading-dot rule. The rule
+# blocks .json, which is why the web app manifest uses the .webmanifest
+# extension rather than manifest.json.
 # -----------------------------------------------------------------------------
 <FilesMatch "(^\.|\.(md|ts|json|lock|yml|yaml)$)">
   Require all denied
