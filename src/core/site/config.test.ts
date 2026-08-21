@@ -37,6 +37,25 @@ describe(".htaccess", () => {
     expect(htaccess).toContain(`RewriteCond %{HTTP_HOST} !^${escapedHost}$ [NC]`);
   });
 
+  it("answers 404 rather than 403 for directories with no index file", () => {
+    // Options -Indexes makes Apache send 403 for a bare directory request.
+    // Googlebot truncates URLs to probe parent paths, so /assets/ and /_astro/
+    // would otherwise be reported in Search Console as access-forbidden errors.
+    expect(htaccess).toContain("RewriteCond %{REQUEST_FILENAME} -d");
+    expect(htaccess).toContain("RewriteCond %{REQUEST_FILENAME}/index.html !-f");
+    expect(htaccess).toContain("RewriteRule ^ - [R=404,L]");
+  });
+
+  it("does not let the directory rule fire before the canonical host redirect", () => {
+    // Both rules end in [L]. If the 404 came first, a request to the apex for a
+    // directory path would 404 instead of redirecting to www.
+    const hostRedirect = htaccess.indexOf("RewriteCond %{HTTP_HOST}");
+    const directory404 = htaccess.indexOf("RewriteCond %{REQUEST_FILENAME} -d");
+
+    expect(hostRedirect).toBeGreaterThan(-1);
+    expect(directory404).toBeGreaterThan(hostRedirect);
+  });
+
   it("grants manifest-src, which default-src 'none' does not imply", () => {
     // Without this the browser blocks /site.webmanifest outright.
     expect(htaccess).toMatch(/Content-Security-Policy "[^"]*manifest-src 'self'/);

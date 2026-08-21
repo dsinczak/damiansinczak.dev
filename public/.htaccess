@@ -26,6 +26,20 @@ AddDefaultCharset UTF-8
 
   RewriteCond %{HTTP_HOST} !^www\.damiansinczak\.dev$ [NC]
   RewriteRule ^ https://www.damiansinczak.dev%{REQUEST_URI} [R=301,L]
+
+  # Directory requests with no index file: answer 404, not 403.
+  #
+  # `Options -Indexes` above makes Apache reject a bare directory request with
+  # 403 Forbidden. That is technically true but semantically wrong — /assets/
+  # is not forbidden, it simply has no page — and Googlebot tries parent paths
+  # by truncating URLs it has already seen. Left alone, /assets/ and /_astro/
+  # show up in Search Console as "Blocked due to access forbidden (403)", which
+  # reads like a misconfigured server rather than an empty directory.
+  #
+  # 404 is the honest answer and Search Console treats it as unremarkable.
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteCond %{REQUEST_FILENAME}/index.html !-f
+  RewriteRule ^ - [R=404,L]
 </IfModule>
 
 # -----------------------------------------------------------------------------
