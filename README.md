@@ -1,5 +1,7 @@
 # Damian Sińczak CV Site
 
+> This project was fully vibecoded.
+
 A static personal website and PDF CV generated from one canonical Markdown profile:
 
 ```text
@@ -292,4 +294,3 @@ assets under `public/assets/profile/`, the PDF, and the derived discoverability
 artefacts (`sitemap.xml`, `llms*.txt`, `og-image.png`, the favicon set,
 `.well-known/`). Committing them would let them drift from the content they are
 derived from.
-
