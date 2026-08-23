@@ -119,6 +119,30 @@ function navIcon(id: string) {
             </a>
           )}
         </div>
+        <details class="topbar__menu">
+          <summary aria-label="Open profile navigation">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 7h16M4 12h16M4 17h16"></path>
+            </svg>
+            <span>Menu</span>
+          </summary>
+          <div class="topbar__menu-panel">
+            {
+              navSections.map((section) => (
+                <a href={sectionHref(section)}>
+                  <svg viewBox="0 0 24 24" aria-hidden="true" set:html={navIcon(section.id)} />
+                  <span>{section.title}</span>
+                </a>
+              ))
+            }
+            {contactAvailable && (
+              <a href="#contact">
+                <svg viewBox="0 0 24 24" aria-hidden="true" set:html={navIcon("contact")} />
+                <span>Contact</span>
+              </a>
+            )}
+          </div>
+        </details>
       </nav>
     </header>
 
@@ -273,4 +297,19 @@ function navIcon(id: string) {
       )}
     </main>
   </body>
+    <script>
+      const mobileMenu = document.querySelector<HTMLDetailsElement>(".topbar__menu");
+
+      if (mobileMenu) {
+        document.addEventListener("click", (event) => {
+          if (mobileMenu.open && event.target instanceof Node && !mobileMenu.contains(event.target)) {
+            mobileMenu.open = false;
+          }
+        });
+
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") mobileMenu.open = false;
+        });
+      }
+    </script>
 </html>

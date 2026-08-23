@@ -68,6 +68,18 @@ a:hover {
   font-weight: 400;
 }
 
+
+.topbar__menu {
+  display: none;
+}
+
+.topbar__menu summary {
+  list-style: none;
+}
+
+.topbar__menu summary::-webkit-details-marker {
+  display: none;
+}
 .topbar__link {
   min-width: 64px;
   min-height: 48px;
@@ -476,11 +488,83 @@ h3 {
 
 @media (max-width: 760px) {
   .topbar__inner {
-    gap: 10px;
+    justify-content: flex-start;
   }
 
   .topbar__links {
     display: none;
+  }
+
+
+  .topbar__menu {
+    position: relative;
+    display: block;
+  }
+
+  .topbar__menu summary {
+    min-height: 48px;
+    padding: 0 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .topbar__menu summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: -2px;
+  }
+
+  .topbar__menu summary svg {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-width: 2;
+  }
+
+  .topbar__menu-panel {
+    position: absolute;
+    top: calc(100% + 1px);
+    right: auto;
+    left: -16px;
+    width: min(280px, calc(100vw - 16px));
+    padding: 6px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.14);
+  }
+
+  .topbar__menu-panel a {
+    min-height: 44px;
+    padding: 8px 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--text);
+    border-radius: 5px;
+    font-weight: 600;
+  }
+
+  .topbar__menu-panel a:hover {
+    background: var(--page);
+    text-decoration: none;
+  }
+
+  .topbar__menu-panel svg {
+    width: 22px;
+    height: 22px;
+    flex: 0 0 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.8;
   }
 
   .topbar .button {
