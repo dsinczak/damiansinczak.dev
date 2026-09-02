@@ -1,0 +1,33 @@
+---
+import BlogShell from "../../components/BlogShell.astro";
+import { getPublishedBlogPosts } from "../../core/blog/posts";
+import "../../styles/global.css";
+
+export async function getStaticPaths() {
+  const posts = getPublishedBlogPosts();
+  return posts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+}
+
+const { post } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{post.title} | Blog</title>
+    <meta name="description" content={post.description} />
+  </head>
+  <body>
+    <BlogShell currentSlug={post.slug}>
+      <article class="blog-article">
+        <header>
+          <h1>{post.title}</h1>
+          <p class="blog-article__description">{post.description}</p>
+        </header>
+        <div class="blog-article__content" set:html={post.html} />
+      </article>
+    </BlogShell>
+  </body>
+</html>

@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { prepareProfileAssets } from "../src/core/assets/prepareAssets";
+import { prepareBlogAssets } from "../src/core/blog/posts";
 import { filterProfileForTarget } from "../src/core/filtering/filterProfileForTarget";
 import type { Profile } from "../src/core/model/profile";
 import { parseProfileFile } from "../src/core/parser/parseProfile";
@@ -27,10 +28,11 @@ if (validationErrors.length > 0) {
 const dateModified = lastModified(PROFILE_SOURCE);
 
 prepareProfileAssets(parsed.profile);
+await prepareBlogAssets();
 writeSitemap(parsed.profile.pdf.filename, dateModified);
 writeLlmsFiles(parsed.profile, dateModified);
 writeSecurityTxt();
-console.log(`Prepared profile assets, sitemap, llms.txt and security.txt (lastmod ${dateModified}).`);
+console.log(`Prepared profile and blog assets, sitemap, llms.txt and security.txt (lastmod ${dateModified}).`);
 
 /** One page plus a handful of documents: hand-rolling the sitemap beats pulling in a plugin. */
 function writeSitemap(pdfFilename: string, lastmod: string) {

@@ -1,0 +1,52 @@
+---
+import { getPublishedBlogPosts } from "../core/blog/posts";
+import dsMarkUrl from "../assets/web/ds-mark.svg";
+
+type Props = {
+  currentSlug?: string;
+};
+
+const { currentSlug } = Astro.props;
+const posts = getPublishedBlogPosts();
+const dateFormat = new Intl.DateTimeFormat("en", { day: "numeric", month: "short", year: "numeric" });
+---
+
+<header class="topbar">
+  <nav class="topbar__inner blog-nav" aria-label="Site navigation">
+    <a class="blog-home-link" href="/blog/" aria-label="Blog home">
+      <img src={dsMarkUrl.src ?? dsMarkUrl} alt="" />
+    </a>
+    <a class="blog-profile-link" href="/">
+      <img src="/assets/profile/profile_pic.jpg" alt="" />
+      <span>Profile</span>
+    </a>
+  </nav>
+</header>
+
+<main class="blog-layout">
+  <aside class="blog-sidebar section-card" aria-label="Blog posts">
+    <h2>Posts</h2>
+    {
+      posts.length ? (
+        <div class="blog-post-menu">
+          {posts.map((post) => (
+            <a
+              class:list={["blog-post-menu__item", { "blog-post-menu__item--current": post.slug === currentSlug }]}
+              href={`/blog/${post.slug}/`}
+              aria-current={post.slug === currentSlug ? "page" : undefined}
+            >
+              <h2>{post.title}</h2>
+              <p class="blog-post-menu__date">{dateFormat.format(post.publishedAt)}</p>
+              <p class="blog-post-menu__description">{post.description}</p>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <p class="blog-sidebar__empty">Articles will appear here soon.</p>
+      )
+    }
+  </aside>
+  <section class="blog-reader section-card">
+    <slot />
+  </section>
+</main>
