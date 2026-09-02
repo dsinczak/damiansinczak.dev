@@ -27,6 +27,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@mermaid-js/mermaid-cli": "^11.17.0",
     "@types/node": "^22.10.1",
     "@types/pdfkit": "^0.13.8",
     "@types/sanitize-html": "^2.13.0",

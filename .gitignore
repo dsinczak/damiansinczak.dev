@@ -1,6 +1,7 @@
 node_modules/
 dist/
 public/assets/profile/
+public/blog-assets/
 public/*.pdf
 .astro/
 .astro-dev*.log

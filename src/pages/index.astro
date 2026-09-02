@@ -10,6 +10,7 @@ import { siteConfig } from "../core/site/config";
 import Seo from "../components/Seo.astro";
 import githubMarkUrl from "../assets/web/github-mark.svg";
 import linkedinMarkUrl from "../assets/web/linkedin-mark.svg";
+import dsMarkUrl from "../assets/web/ds-mark.svg";
 import "../styles/global.css";
 
 const parsed = parseProfileFile("content/profile.md");
@@ -85,7 +86,8 @@ const navIcons: Record<string, string> = {
   education: '<path d="m3.5 8.5 8.5-4 8.5 4-8.5 4Z"></path><path d="M6.5 10.25V15c1.8 1.6 3.65 2.4 5.5 2.4s3.7-.8 5.5-2.4v-4.75"></path><path d="M20.5 8.5v6"></path>',
   languages: '<circle cx="12" cy="12" r="8.5"></circle><path d="M3.75 12h16.5"></path><path d="M12 3.5c2.15 2.3 3.2 5.15 3.2 8.5s-1.05 6.2-3.2 8.5"></path><path d="M12 3.5C9.85 5.8 8.8 8.65 8.8 12s1.05 6.2 3.2 8.5"></path>',
   interests: '<path d="M12 20s-7-4.4-7-10a3.8 3.8 0 0 1 6.8-2.35A3.8 3.8 0 0 1 18.6 10c0 5.6-6.6 10-6.6 10Z"></path>',
-  contact: '<rect x="4" y="6" width="16" height="12" rx="2"></rect><path d="m5 8 7 5 7-5"></path>'
+  contact: '<rect x="4" y="6" width="16" height="12" rx="2"></rect><path d="m5 8 7 5 7-5"></path>',
+  blog: '<path d="M7 3.5h8a2 2 0 0 1 2 2v5.75M7 3.5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h5.5"></path><path d="M8.5 8.5h5M8.5 12h4M8.5 15.5h2"></path><path d="m14 18.75.6-2.4 5.2-5.2a1.7 1.7 0 0 1 2.4 2.4L17 18.75Z"></path><path d="m18.3 12.65 2.4 2.4"></path>'
 };
 
 function navIcon(id: string) {
@@ -103,7 +105,10 @@ function navIcon(id: string) {
   </head>
   <body>
     <header class="topbar">
-      <nav class="topbar__inner" aria-label="Profile sections">
+      <nav class="topbar__inner profile-nav" aria-label="Profile sections and blog">
+        <a class="profile-home-link" href="#top" aria-label="Profile home">
+          <img src={dsMarkUrl.src ?? dsMarkUrl} alt="" />
+        </a>
         <div class="topbar__links">
           {
             navSections.map((section) => (
@@ -119,6 +124,11 @@ function navIcon(id: string) {
               <span>Contact</span>
             </a>
           )}
+          <span class="topbar__separator" aria-hidden="true"></span>
+          <a class="topbar__link" href="/blog/">
+            <svg viewBox="0 0 24 24" aria-hidden="true" set:html={navIcon("blog")} />
+            <span>Blog</span>
+          </a>
         </div>
         <details class="topbar__menu">
           <summary aria-label="Open profile navigation">
@@ -142,6 +152,11 @@ function navIcon(id: string) {
                 <span>Contact</span>
               </a>
             )}
+            <span class="topbar__menu-separator" aria-hidden="true"></span>
+            <a href="/blog/">
+              <svg viewBox="0 0 24 24" aria-hidden="true" set:html={navIcon("blog")} />
+              <span>Blog</span>
+            </a>
           </div>
         </details>
       </nav>
