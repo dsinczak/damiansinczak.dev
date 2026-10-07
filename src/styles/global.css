@@ -107,14 +107,8 @@ a:hover {
 .theme-menu {
   position: absolute;
   top: 0;
-  right: -8px;
+  right: 8px;
   z-index: 1;
-}
-
-@media (min-width: 761px) {
-  .theme-menu {
-    right: min(0px, calc((1472px - 100vw) / 2));
-  }
 }
 
 .theme-menu summary {
