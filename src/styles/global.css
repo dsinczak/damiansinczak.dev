@@ -111,6 +111,13 @@ a:hover {
   z-index: 1;
 }
 
+@media (min-width: 761px) {
+  .theme-menu {
+    position: fixed;
+    right: 16px;
+  }
+}
+
 .theme-menu summary {
   width: 48px;
   height: 48px;
