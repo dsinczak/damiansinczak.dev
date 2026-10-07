@@ -109,7 +109,8 @@ AddDefaultCharset UTF-8
 # -----------------------------------------------------------------------------
 # Security headers
 #
-# The page ships no JavaScript at all, so script-src can be 'none'.
+# The page executes only same-origin JavaScript from /site.js; inline and remote
+# scripts remain blocked.
 # 'unsafe-inline' is needed only for style-src because two elements carry an
 # inline style attribute (image object-position).
 #
@@ -117,14 +118,14 @@ AddDefaultCharset UTF-8
 # without this line the browser blocks /site.webmanifest outright.
 #
 # The JSON-LD block is <script type="application/ld+json">. CSP does not apply
-# to it — it carries data, not executable code — so script-src stays 'none'.
+# to it — it carries data, not executable code.
 # -----------------------------------------------------------------------------
 <IfModule mod_headers.c>
   Header always set X-Content-Type-Options "nosniff"
   Header always set X-Frame-Options "SAMEORIGIN"
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
   Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), interest-cohort=()"
-  Header always set Content-Security-Policy "default-src 'none'; script-src 'none'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; manifest-src 'self'; base-uri 'self'; form-action 'none'; frame-ancestors 'self'"
+  Header always set Content-Security-Policy "default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; manifest-src 'self'; base-uri 'self'; form-action 'none'; frame-ancestors 'self'"
 
 
   # HSTS. Deliberately without includeSubDomains: the apex and www hold separate

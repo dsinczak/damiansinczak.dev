@@ -61,9 +61,9 @@ describe(".htaccess", () => {
     expect(htaccess).toMatch(/Content-Security-Policy "[^"]*manifest-src 'self'/);
   });
 
-  it("still ships no JavaScript", () => {
-    // The JSON-LD block is data, not code, so this property survives it.
-    expect(htaccess).toMatch(/Content-Security-Policy "[^"]*script-src 'none'/);
+  it("allows only same-origin JavaScript", () => {
+    // The interactive theme menu uses /site.js; inline and remote scripts remain blocked.
+    expect(htaccess).toMatch(/Content-Security-Policy "[^"]*script-src 'self'/);
   });
 
   it("declares a charset for .txt, so diacritics in llms-full.txt survive", () => {

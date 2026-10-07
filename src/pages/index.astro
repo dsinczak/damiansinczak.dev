@@ -98,16 +98,7 @@ function navIcon(id: string) {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script is:inline>
-      (() => {
-        try {
-          const preference = localStorage.getItem("theme-preference");
-          if (preference === "light" || preference === "dark") document.documentElement.dataset.theme = preference;
-        } catch {
-          // Storage can be unavailable; CSS then follows the system preference.
-        }
-      })();
-    </script>
+    <script is:inline src="/site.js"></script>
     <Seo profile={profile} dateModified={dateModified} />
   </head>
   <body>
@@ -319,61 +310,4 @@ function navIcon(id: string) {
       )}
     </main>
   </body>
-    <script>
-      const mobileMenu = document.querySelector<HTMLDetailsElement>(".topbar__menu");
-
-      if (mobileMenu) {
-        document.addEventListener("click", (event) => {
-          if (mobileMenu.open && event.target instanceof Node && !mobileMenu.contains(event.target)) {
-            mobileMenu.open = false;
-          }
-        });
-
-        document.addEventListener("keydown", (event) => {
-          if (event.key === "Escape") mobileMenu.open = false;
-        });
-      }
-
-      const themeMenu = document.querySelector<HTMLDetailsElement>(".theme-menu");
-      const themeOptions = document.querySelectorAll<HTMLButtonElement>("[data-theme-option]");
-      const root = document.documentElement;
-
-      function selectedTheme() {
-        return root.dataset.theme === "light" || root.dataset.theme === "dark" ? root.dataset.theme : "system";
-      }
-
-      function updateThemeControls() {
-        const selected = selectedTheme();
-        themeOptions.forEach((option) => option.setAttribute("aria-pressed", String(option.dataset.themeOption === selected)));
-      }
-
-      updateThemeControls();
-
-      themeOptions.forEach((option) => {
-        option.addEventListener("click", () => {
-          const preference = option.dataset.themeOption;
-          if (preference !== "light" && preference !== "dark" && preference !== "system") return;
-          if (preference === "system") delete root.dataset.theme;
-          else root.dataset.theme = preference;
-
-          try {
-            localStorage.setItem("theme-preference", preference);
-          } catch {
-            // The selected theme still applies for the current page view.
-          }
-          updateThemeControls();
-          if (themeMenu) themeMenu.open = false;
-        });
-      });
-
-      if (themeMenu) {
-        document.addEventListener("click", (event) => {
-          if (themeMenu.open && event.target instanceof Node && !themeMenu.contains(event.target)) themeMenu.open = false;
-        });
-
-        document.addEventListener("keydown", (event) => {
-          if (event.key === "Escape") themeMenu.open = false;
-        });
-      }
-    </script>
 </html>
