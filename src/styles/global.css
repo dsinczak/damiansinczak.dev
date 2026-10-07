@@ -113,8 +113,7 @@ a:hover {
 
 @media (min-width: 761px) {
   .theme-menu {
-    position: fixed;
-    right: 16px;
+    right: min(0px, calc((1472px - 100vw) / 2));
   }
 }
 
