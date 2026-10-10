@@ -37,6 +37,7 @@
         }
         updateThemeControls();
         if (themeMenu) themeMenu.open = false;
+        if (mobileMenu) mobileMenu.open = false;
       });
     });
 

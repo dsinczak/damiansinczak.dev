@@ -14,15 +14,15 @@ const dateFormat = new Intl.DateTimeFormat("en", { day: "numeric", month: "short
 
 <header class="topbar">
   <nav class="topbar__inner blog-nav" aria-label="Site navigation">
-    <a class="blog-home-link" href="/blog/" aria-label="Blog home">
+    <a class="blog-home-link" href="/" aria-label="Damian Sińczak, home">
       <img src={dsMarkUrl.src ?? dsMarkUrl} alt="" />
     </a>
     <a class="blog-profile-link" href="/">
       <img src="/assets/profile/profile_pic.jpg" alt="" />
       <span>Profile</span>
     </a>
+    <ThemeMenu />
   </nav>
-  <ThemeMenu />
 </header>
 
 <main class="blog-layout">
