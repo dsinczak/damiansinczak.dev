@@ -16,6 +16,7 @@ const { post } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script is:inline src="/site.js"></script>
     <title>{post.title} | Blog</title>
     <meta name="description" content={post.description} />
   </head>

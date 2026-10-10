@@ -1,6 +1,7 @@
 ---
 import { getPublishedBlogPosts } from "../core/blog/posts";
 import dsMarkUrl from "../assets/web/ds-mark.svg";
+import ThemeMenu from "./ThemeMenu.astro";
 
 type Props = {
   currentSlug?: string;
@@ -21,6 +22,7 @@ const dateFormat = new Intl.DateTimeFormat("en", { day: "numeric", month: "short
       <span>Profile</span>
     </a>
   </nav>
+  <ThemeMenu />
 </header>
 
 <main class="blog-layout">
