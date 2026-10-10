@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { blogToLlmsSection } from "./llms";
-import { blogPostPath, blogSitemapEntries, buildSitemap, type BlogListing } from "./sitemap";
+import { blogOgImagePath, blogPostPath, blogSitemapEntries, buildSitemap, type BlogListing } from "./sitemap";
 
 const posts: BlogListing[] = [
   {
@@ -62,5 +62,11 @@ describe("blogToLlmsSection", () => {
     expect(section.startsWith("## Blog\n\n")).toBe(true);
     expect(section).toContain("- [Edited later](https://www.damiansinczak.dev/blog/edited/): Has an updatedAt.");
     expect(section).toContain("- [Nested](https://www.damiansinczak.dev/blog/series/part-one/): Lives in a folder.");
+  });
+});
+
+describe("blogOgImagePath", () => {
+  it("mirrors the slug folders and encodes each segment", () => {
+    expect(blogOgImagePath("2026/zażółć gęślą")).toBe("/og/blog/2026/za%C5%BC%C3%B3%C5%82%C4%87%20g%C4%99%C5%9Bl%C4%85.png");
   });
 });

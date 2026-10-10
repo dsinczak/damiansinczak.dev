@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { parseProfileSource } from "../parser/parseProfile";
-import { buildSeoMeta, truncateAtWord } from "./meta";
+import { buildBlogIndexMeta, buildBlogPostMeta, buildSeoMeta, truncateAtWord } from "./meta";
 
 const source = `---
 name: Ada Lovelace
@@ -111,5 +111,25 @@ describe("buildSeoMeta", () => {
     );
 
     expect(buildSeoMeta(profile).knowsAbout).toEqual(["Computing", "Algorithms", "Mathematics"]);
+  });
+});
+
+describe("blog meta", () => {
+  it("uses the same 'Name — Thing' shape as the profile title", () => {
+    expect(buildBlogIndexMeta("Damian Sińczak").pageTitle).toBe("Damian Sińczak — Blog");
+  });
+
+  it("prefixes the post title and marks the page as an article", () => {
+    const meta = buildBlogPostMeta("Damian Sińczak", {
+      slug: "hello",
+      title: "Hello",
+      description: "World",
+      publishedAt: new Date("2026-01-02")
+    });
+    expect(meta.pageTitle).toBe("Hello | Damian Sińczak — Blog");
+    expect(meta.ogType).toBe("article");
+    expect(meta.ogImage).toBe("/og/blog/hello.png");
+    expect(meta.ogImage).toBe("/og/blog/hello.png");
+    expect(meta.publishedAt?.toISOString().slice(0, 10)).toBe("2026-01-02");
   });
 });

@@ -1,6 +1,7 @@
 import type { Profile, ProfileEntry } from "../model/profile";
 import { siteConfig, absoluteUrl } from "../site/config";
-import { currentExperienceEntry, findSection, stripMarkdown, type SeoMeta } from "./meta";
+import { currentExperienceEntry, findSection, stripMarkdown, type PageMeta, type SeoMeta } from "./meta";
+import { blogIndexPath, blogPostPath, postLastmod, type BlogListing } from "./sitemap";
 
 /**
  * schema.org JSON-LD for the profile page.
@@ -12,9 +13,10 @@ import { currentExperienceEntry, findSection, stripMarkdown, type SeoMeta } from
  * is derived from content/profile.md — nothing is hardcoded.
  */
 
-const PERSON_ID = `${siteConfig.url}/#person`;
+export const PERSON_ID = `${siteConfig.url}/#person`;
 const PAGE_ID = `${siteConfig.url}/#profilepage`;
-const WEBSITE_ID = `${siteConfig.url}/#website`;
+export const WEBSITE_ID = `${siteConfig.url}/#website`;
+const BLOG_ID = `${siteConfig.url}/blog/#blog`;
 
 type JsonLdNode = Record<string, unknown>;
 
@@ -242,7 +244,7 @@ export function buildJsonLd(profile: Profile, meta: SeoMeta, dateModified: strin
         "@type": "WebSite",
         "@id": WEBSITE_ID,
         url: `${siteConfig.url}/`,
-        name: `${profile.name} — CV`,
+        name: siteConfig.name,
         inLanguage: siteConfig.lang,
         publisher: { "@id": PERSON_ID }
       },
@@ -275,4 +277,54 @@ export function buildJsonLd(profile: Profile, meta: SeoMeta, dateModified: strin
       ...creativeWorks(profile)
     ]
   };
+}
+
+/**
+ * Blog pages do not repeat the Person node. They reference it by `@id`, and the
+ * crawler resolves that against the profile page where the full node lives.
+ */
+export function buildBlogIndexJsonLd(meta: PageMeta, posts: BlogListing[]): JsonLdNode {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "@id": BLOG_ID,
+    url: absoluteUrl(blogIndexPath),
+    name: meta.pageTitle,
+    description: meta.description,
+    inLanguage: siteConfig.lang,
+    isPartOf: { "@id": WEBSITE_ID },
+    author: { "@id": PERSON_ID },
+    publisher: { "@id": PERSON_ID },
+    blogPost: posts.map((post) => ({
+      "@type": "BlogPosting",
+      "@id": `${absoluteUrl(blogPostPath(post.slug))}#article`,
+      url: absoluteUrl(blogPostPath(post.slug)),
+      headline: post.title,
+      datePublished: isoDay(post.publishedAt)
+    }))
+  };
+}
+
+export function buildBlogPostJsonLd(meta: PageMeta, post: BlogListing): JsonLdNode {
+  const url = absoluteUrl(blogPostPath(post.slug));
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "@id": `${url}#article`,
+    url,
+    mainEntityOfPage: url,
+    headline: post.title,
+    description: meta.description,
+    inLanguage: siteConfig.lang,
+    image: absoluteUrl(meta.ogImage ?? siteConfig.ogImage.path),
+    datePublished: isoDay(post.publishedAt),
+    dateModified: postLastmod(post),
+    author: { "@id": PERSON_ID },
+    publisher: { "@id": PERSON_ID },
+    isPartOf: { "@id": BLOG_ID }
+  };
+}
+
+function isoDay(date: Date): string {
+  return date.toISOString().slice(0, 10);
 }

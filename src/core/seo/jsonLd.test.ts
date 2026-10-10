@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { parseProfileSource } from "../parser/parseProfile";
-import { buildJsonLd } from "./jsonLd";
-import { buildSeoMeta } from "./meta";
+import { buildBlogIndexJsonLd, buildBlogPostJsonLd, buildJsonLd, PERSON_ID } from "./jsonLd";
+import { buildBlogIndexMeta, buildBlogPostMeta, buildSeoMeta } from "./meta";
 
 const source = `---
 name: Ada Lovelace
@@ -157,5 +157,24 @@ describe("buildJsonLd", () => {
 
   it("serialises to valid JSON, since it is injected into a script tag", () => {
     expect(() => JSON.parse(JSON.stringify({ "@graph": graph() }))).not.toThrow();
+  });
+});
+
+describe("blog JSON-LD", () => {
+  const post = { slug: "a/b", title: "T", description: "D", publishedAt: new Date("2026-01-02"), updatedAt: new Date("2026-02-03") };
+
+  it("links a post to the profile Person by @id instead of repeating it", () => {
+    const node = buildBlogPostJsonLd(buildBlogPostMeta("X", post), post);
+    expect(node["@type"]).toBe("BlogPosting");
+    expect(node.author).toEqual({ "@id": PERSON_ID });
+    expect(node.datePublished).toBe("2026-01-02");
+    expect(node.dateModified).toBe("2026-02-03");
+    expect(node.url).toBe("https://www.damiansinczak.dev/blog/a/b/");
+  });
+
+  it("lists posts on the blog index", () => {
+    const node = buildBlogIndexJsonLd(buildBlogIndexMeta("X"), [post]);
+    expect(node["@type"]).toBe("Blog");
+    expect(node.blogPost).toHaveLength(1);
   });
 });

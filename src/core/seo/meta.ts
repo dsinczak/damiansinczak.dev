@@ -1,4 +1,5 @@
 import type { Profile, ProfileEntry, ProfileSection, SectionId } from "../model/profile";
+import { blogOgImagePath } from "./sitemap";
 
 /** Everything the document head needs, derived once from the profile. */
 export type SeoMeta = {
@@ -105,6 +106,54 @@ export function stripMarkdown(markdown: string): string {
     .replace(/^>\s?/gm, "")
     .replace(/\s+/g, " ")
     .trim();
+}
+
+/**
+ * What BaseHead needs for any page. The profile page derives one from SeoMeta;
+ * blog pages build theirs from frontmatter. Keeping every title format in this
+ * file is what stops the pages drifting apart again.
+ */
+export type PageMeta = {
+  pageTitle: string;
+  description: string;
+  ogType: "profile" | "website" | "article";
+  /** Alt text for the share card. */
+  ogImageAlt: string;
+  /** Site-root-relative share card path. Defaults to siteConfig.ogImage.path. */
+  ogImage?: string;
+  publishedAt?: Date;
+  updatedAt?: Date;
+};
+
+/** Blog section title, same "Name — Thing" shape as the profile title. */
+export function blogTitle(name: string): string {
+  return `${name} — Blog`;
+}
+
+const BLOG_DESCRIPTION = "Writing on software engineering, architecture, and modernizing legacy systems.";
+
+export function buildBlogIndexMeta(name: string): PageMeta {
+  return {
+    pageTitle: blogTitle(name),
+    description: BLOG_DESCRIPTION,
+    ogType: "website",
+    ogImageAlt: blogTitle(name)
+  };
+}
+
+export function buildBlogPostMeta(
+  name: string,
+  post: { slug: string; title: string; description: string; publishedAt: Date; updatedAt?: Date }
+): PageMeta {
+  return {
+    pageTitle: `${post.title} | ${blogTitle(name)}`,
+    description: truncateAtWord(post.description),
+    ogType: "article",
+    ogImageAlt: post.title,
+    ogImage: blogOgImagePath(post.slug),
+    publishedAt: post.publishedAt,
+    ...(post.updatedAt ? { updatedAt: post.updatedAt } : {})
+  };
 }
 
 export function buildSeoMeta(profile: Profile): SeoMeta {
