@@ -10,6 +10,8 @@
   --banner-fallback: #d7e0ea;
   --photo-fallback: #eef3f8;
   --meter-track: #e6e6e6;
+  --surface-hover: #f7f9fb;
+  --surface-selected: #edf5fe;
   --shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
   --font-sans: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", Arial, sans-serif;
 }
@@ -26,6 +28,8 @@
   --banner-fallback: #334657;
   --photo-fallback: #2b3947;
   --meter-track: #3a4653;
+  --surface-hover: #26313c;
+  --surface-selected: #273b50;
   --shadow: 0 1px 3px rgba(0, 0, 0, 0.32);
 }
 
@@ -42,6 +46,8 @@
     --banner-fallback: #334657;
     --photo-fallback: #2b3947;
     --meter-track: #3a4653;
+    --surface-hover: #26313c;
+    --surface-selected: #273b50;
     --shadow: 0 1px 3px rgba(0, 0, 0, 0.32);
   }
 }
@@ -395,15 +401,21 @@ a:hover {
   border-bottom: 0;
 }
 
-.blog-post-menu__item:hover,
-.blog-post-menu__item--current {
-  background: #f7f9fb;
+.blog-post-menu__item:hover {
+  background: var(--surface-hover);
   color: var(--text);
   text-decoration: none;
 }
 
 .blog-post-menu__item--current {
+  background: var(--surface-selected);
+  color: var(--text);
+  text-decoration: none;
   box-shadow: inset 3px 0 0 var(--accent);
+}
+
+.blog-post-menu__item--current:hover {
+  background: var(--surface-selected);
 }
 
 .blog-post-menu__item h2 {
