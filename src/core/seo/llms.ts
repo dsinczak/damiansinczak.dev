@@ -1,6 +1,7 @@
 import type { Profile, ProfileEntry, RichTextBlock } from "../model/profile";
 import { siteConfig, absoluteUrl } from "../site/config";
 import { buildSeoMeta, findSection, stripMarkdown } from "./meta";
+import { blogPostPath, type BlogListing } from "./sitemap";
 
 /**
  * Generators for the llms.txt convention (https://llmstxt.org).
@@ -142,4 +143,16 @@ export function profileToLlmsIndex(profile: Profile, dateModified: string): stri
   }
 
   return `${out.join("\n").replace(/\n{3,}/g, "\n\n").trim()}\n`;
+}
+
+/**
+ * Optional `## Blog` section for llms.txt, appended after the profile index.
+ * Kept out of llms-full.txt on purpose: that file is "the whole CV in one
+ * request", and articles would dilute it. Empty string when there are no posts.
+ */
+export function blogToLlmsSection(posts: BlogListing[]): string {
+  if (posts.length === 0) return "";
+
+  const lines = posts.map((post) => `- [${post.title}](${absoluteUrl(blogPostPath(post.slug))}): ${post.description}`);
+  return `## Blog\n\n${lines.join("\n")}\n`;
 }

@@ -1,11 +1,12 @@
 import fs from "node:fs";
 import path from "node:path";
 import { prepareProfileAssets } from "../src/core/assets/prepareAssets";
-import { prepareBlogAssets } from "../src/core/blog/posts";
+import { getPublishedBlogPosts, prepareBlogAssets } from "../src/core/blog/posts";
 import { filterProfileForTarget } from "../src/core/filtering/filterProfileForTarget";
 import type { Profile } from "../src/core/model/profile";
 import { parseProfileFile } from "../src/core/parser/parseProfile";
-import { profileToLlmsIndex, profileToMarkdown } from "../src/core/seo/llms";
+import { blogToLlmsSection, profileToLlmsIndex, profileToMarkdown } from "../src/core/seo/llms";
+import { blogSitemapEntries, buildSitemap, type BlogListing } from "../src/core/seo/sitemap";
 import { siteConfig } from "../src/core/site/config";
 import { lastModified } from "../src/core/site/lastModified";
 import { validateProfile } from "../src/core/validation/validateProfile";
@@ -26,42 +27,40 @@ if (validationErrors.length > 0) {
 }
 
 const dateModified = lastModified(PROFILE_SOURCE);
+const posts = getPublishedBlogPosts();
 
 prepareProfileAssets(parsed.profile);
 await prepareBlogAssets();
-writeSitemap(parsed.profile.pdf.filename, dateModified);
-writeLlmsFiles(parsed.profile, dateModified);
+writeSitemap(parsed.profile.pdf.filename, dateModified, posts);
+writeLlmsFiles(parsed.profile, dateModified, posts);
 writeSecurityTxt();
-console.log(`Prepared profile and blog assets, sitemap, llms.txt and security.txt (lastmod ${dateModified}).`);
+console.log(`Prepared profile and blog assets, sitemap (${posts.length} posts), llms.txt and security.txt (lastmod ${dateModified}).`);
 
-/** One page plus a handful of documents: hand-rolling the sitemap beats pulling in a plugin. */
-function writeSitemap(pdfFilename: string, lastmod: string) {
+/** A profile, a few documents and the blog: hand-rolling the sitemap beats pulling in a plugin. */
+function writeSitemap(pdfFilename: string, lastmod: string, blogPosts: BlogListing[]) {
   // Google has ignored <priority> and <changefreq> since ~2015; <lastmod> is the
-  // only hint it still reads, and only while it stays honest. Hence git dates.
-  const urls = [
-    `${siteConfig.url}/`,
-    `${siteConfig.url}/${encodeURIComponent(pdfFilename)}`,
-    `${siteConfig.url}${siteConfig.llms.index}`,
-    `${siteConfig.url}${siteConfig.llms.full}`
-  ];
+  // only hint it still reads, and only while it stays honest. Profile documents
+  // use the git date of profile.md; blog entries use their frontmatter dates.
+  const profileEntries = [
+    "/",
+    `/${encodeURIComponent(pdfFilename)}`,
+    siteConfig.llms.index,
+    siteConfig.llms.full
+  ].map((entryPath) => ({ path: entryPath, lastmod }));
 
-  const body = urls
-    .map((loc) => `  <url>\n    <loc>${loc}</loc>\n    <lastmod>${lastmod}</lastmod>\n  </url>`)
-    .join("\n");
-
-  writePublicFile(
-    "sitemap.xml",
-    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${body}\n</urlset>\n`
-  );
+  writePublicFile("sitemap.xml", buildSitemap([...profileEntries, ...blogSitemapEntries(blogPosts)]));
 }
 
 /**
  * Agent-facing Markdown mirrors. Generated from the same web-filtered profile the
  * page renders, so `target: pdf` and `target: hidden` content stays out of both.
+ * The blog is listed in llms.txt only; llms-full.txt stays profile-only.
  */
-function writeLlmsFiles(profile: Profile, lastmod: string) {
+function writeLlmsFiles(profile: Profile, lastmod: string, blogPosts: BlogListing[]) {
   const webProfile = filterProfileForTarget(profile, "web");
-  writePublicFile(path.basename(siteConfig.llms.index), profileToLlmsIndex(webProfile, lastmod));
+  const blogSection = blogToLlmsSection(blogPosts);
+  const index = profileToLlmsIndex(webProfile, lastmod);
+  writePublicFile(path.basename(siteConfig.llms.index), blogSection ? `${index}\n${blogSection}` : index);
   writePublicFile(path.basename(siteConfig.llms.full), profileToMarkdown(webProfile, lastmod));
 }
 

@@ -1,0 +1,62 @@
+import { absoluteUrl } from "../site/config";
+
+/**
+ * sitemap.xml generation, kept free of filesystem and git access so it can be
+ * tested. The build script gathers the dates; this module only shapes the XML.
+ */
+
+export type SitemapEntry = {
+  /** Site-root-relative path, e.g. "/blog/my-article/". */
+  path: string;
+  /** YYYY-MM-DD. */
+  lastmod: string;
+};
+
+/** The blog fields the sitemap and llms.txt need; avoids importing the Markdown pipeline. */
+export type BlogListing = {
+  slug: string;
+  title: string;
+  description: string;
+  publishedAt: Date;
+  updatedAt?: Date;
+};
+
+export const blogIndexPath = "/blog/";
+
+export function blogPostPath(slug: string): string {
+  return `${blogIndexPath}${slug.split("/").map(encodeURIComponent).join("/")}/`;
+}
+
+/** Last meaningful change to a post: the author's `updatedAt`, else `publishedAt`. */
+export function postLastmod(post: BlogListing): string {
+  return isoDate(post.updatedAt ?? post.publishedAt);
+}
+
+/**
+ * Sitemap entries for the blog. Frontmatter dates rather than git dates: a typo
+ * fix is a commit but not a content update, and the author decides which is which.
+ * Returns nothing when there are no posts, so an empty blog is not advertised.
+ */
+export function blogSitemapEntries(posts: BlogListing[]): SitemapEntry[] {
+  if (posts.length === 0) return [];
+
+  const entries = posts.map((post) => ({ path: blogPostPath(post.slug), lastmod: postLastmod(post) }));
+  const newest = entries.map((entry) => entry.lastmod).sort().at(-1)!;
+  return [{ path: blogIndexPath, lastmod: newest }, ...entries];
+}
+
+export function buildSitemap(entries: SitemapEntry[]): string {
+  const body = entries
+    .map((entry) => `  <url>\n    <loc>${escapeXml(absoluteUrl(entry.path))}</loc>\n    <lastmod>${entry.lastmod}</lastmod>\n  </url>`)
+    .join("\n");
+
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${body}\n</urlset>\n`;
+}
+
+function isoDate(date: Date): string {
+  return date.toISOString().slice(0, 10);
+}
+
+function escapeXml(value: string): string {
+  return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&apos;");
+}
