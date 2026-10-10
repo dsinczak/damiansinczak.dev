@@ -147,6 +147,37 @@ function mermaidDiagram(code: string, sourcePath: string, sourceDirectory: strin
   return { code: code.trim(), filename: `${hash}.svg` };
 }
 
+/**
+ * Diagrams are static SVGs shown on both the light and the dark page, so they use
+ * a transparent background and mid-tone colours that stay readable on either.
+ * Text inside nodes sits on the solid node fill; lines and free text sit on the page.
+ */
+const diagramTheme = {
+  theme: "base",
+  themeVariables: {
+    background: "transparent",
+    fontFamily: "inherit",
+    primaryColor: "#d0d7de",
+    primaryTextColor: "#1f2328",
+    primaryBorderColor: "#6e7781",
+    secondaryColor: "#b6d4f2",
+    tertiaryColor: "#e6d5b8",
+    lineColor: "#8b949e",
+    textColor: "#8b949e",
+    edgeLabelBackground: "#d0d7de",
+    clusterBkg: "transparent",
+    clusterBorder: "#8b949e",
+    noteBkgColor: "#e6d5b8",
+    noteTextColor: "#1f2328",
+    actorBkg: "#d0d7de",
+    actorTextColor: "#1f2328",
+    actorLineColor: "#8b949e",
+    signalColor: "#8b949e",
+    signalTextColor: "#8b949e",
+    labelTextColor: "#1f2328"
+  }
+} as const;
+
 async function renderDiagram(code: string, outputPath: `${string}.svg`): Promise<void> {
   const temporaryDirectory = fs.mkdtempSync(path.join(os.tmpdir(), "damiansinczak-mermaid-"));
   const inputPath = path.join(temporaryDirectory, "diagram.mmd");
@@ -156,6 +187,7 @@ async function renderDiagram(code: string, outputPath: `${string}.svg`): Promise
     fs.writeFileSync(inputPath, code, "utf8");
     await renderMermaid(inputPath, outputPath, {
       quiet: true,
+      parseMMDOptions: { backgroundColor: "transparent", mermaidConfig: diagramTheme },
       ...(executablePath ? { puppeteerConfig: { executablePath } } : {})
     });
   } catch (error) {
