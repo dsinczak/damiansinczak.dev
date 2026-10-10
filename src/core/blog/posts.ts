@@ -9,6 +9,15 @@ import { renderMarkdown } from "../rendering/markdown";
 
 const blogDirectory = "content/blog";
 const blogAssetsDirectory = "public/blog-assets";
+const browserExecutablePaths = process.platform === "win32"
+  ? [
+      process.env.PUPPETEER_EXECUTABLE_PATH,
+      "C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe",
+      "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+      "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+      "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
+    ]
+  : [process.env.PUPPETEER_EXECUTABLE_PATH];
 
 const frontmatterSchema = z.object({
   title: z.string().min(1),
@@ -141,10 +150,14 @@ function mermaidDiagram(code: string, sourcePath: string, sourceDirectory: strin
 async function renderDiagram(code: string, outputPath: string): Promise<void> {
   const temporaryDirectory = fs.mkdtempSync(path.join(os.tmpdir(), "damiansinczak-mermaid-"));
   const inputPath = path.join(temporaryDirectory, "diagram.mmd");
+  const executablePath = browserExecutablePaths.find((candidate) => candidate && fs.existsSync(candidate));
 
   try {
     fs.writeFileSync(inputPath, code, "utf8");
-    await renderMermaid(inputPath, outputPath, { quiet: true });
+    await renderMermaid(inputPath, outputPath, {
+      quiet: true,
+      ...(executablePath ? { puppeteerConfig: { executablePath } } : {})
+    });
   } catch (error) {
     throw new Error(`Could not render Mermaid diagram for ${outputPath}: ${error instanceof Error ? error.message : String(error)}`);
   } finally {
