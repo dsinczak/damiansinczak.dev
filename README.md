@@ -29,7 +29,7 @@ Start the local Astro server:
 npm run dev
 ```
 
-This first copies the profile assets to `public/assets/profile/`, then starts Astro. The terminal prints the local URL, normally `http://localhost:4321`.
+This first generates the share card and favicons, copies the profile assets to `public/assets/profile/` and the blog assets (including rendered Mermaid diagrams) to `public/blog-assets/`, and writes the sitemap and llms files, then starts Astro. The terminal prints the local URL, normally `http://localhost:4321`.
 
 Stop the server with `Ctrl+C` in the terminal where it is running.
 
@@ -116,8 +116,8 @@ template to keep in sync.
 | JSON-LD `Person` + `ProfilePage` | `src/core/seo/jsonLd.ts` | Lets search engines treat the profile as an entity rather than a string. `sameAs` links it to the LinkedIn and GitHub accounts they already know. |
 | `og-image.png` (1200×630) | `scripts/generate-images.ts` | Share card, rendered from the profile with Satori. Regenerated on every build, so it cannot go stale. |
 | `favicon.*`, `icon-*.png`, `apple-touch-icon.png` | `src/assets/web/ds-mark.svg` | Icon set, rasterised from the one monogram. |
-| `llms.txt`, `llms-full.txt` | `src/core/seo/llms.ts` | Curated Markdown mirror for LLM crawlers. |
-| `sitemap.xml` | `scripts/prepare-assets.ts` | `lastmod` comes from the git commit date of `content/profile.md`, not the file mtime, which git does not preserve. |
+| `llms.txt`, `llms-full.txt` | `src/core/seo/llms.ts` | Curated Markdown mirror for LLM crawlers. `llms.txt` ends with a `## Blog` section listing published posts (omitted when there are none); `llms-full.txt` stays profile-only. |
+| `sitemap.xml` | `src/core/seo/sitemap.ts`, written by `scripts/prepare-assets.ts` | Profile URLs take `lastmod` from the git commit date of `content/profile.md`, not the file mtime, which git does not preserve. Blog posts take it from frontmatter (`updatedAt`, else `publishedAt`), and `/blog/` from its newest post. Drafts are never listed. |
 | `.well-known/security.txt` | `scripts/prepare-assets.ts` | Regenerated because RFC 9116 requires a non-expired `Expires` field. |
 | `robots.txt` | committed in `public/` | Crawler policy. Kept in git rather than generated, because it is a decision that should show up in a diff. |
 
@@ -155,10 +155,18 @@ Intelligence. Allowing the crawler does not allow the AI use.
 These cannot be done from the repository:
 
 1. **Google Search Console** — add `https://www.damiansinczak.dev` as a *Domain*
-   property and verify with the DNS TXT record OVH gives you. Use DNS rather than the
-   HTML-file or meta-tag method: the site sends `script-src 'none'`, and DNS
-   verification avoids touching the CSP at all. Then submit
-   `https://www.damiansinczak.dev/sitemap.xml`.
+   property and verify with the DNS TXT record OVH gives you. A Domain property
+   covers the apex, `www`, HTTP and HTTPS at once, and DNS verification cannot be
+   lost by a deploy. Then submit `https://www.damiansinczak.dev/sitemap.xml`.
+
+   The HTML-file method is what is in use today: `public/google246b12b9f7dc9eb4.html`
+   (Google) and `public/BingSiteAuth.xml` (Bing) verify a *URL-prefix* property for
+   `https://www.damiansinczak.dev/` only. They must ship with every deploy —
+   removing them, or clearing `www/` without re-uploading them, drops the
+   verification. Remove them only once the DNS record is in place.
+
+   Neither method interacts with the Content Security Policy: verifiers fetch the
+   file or read the tag, they do not execute scripts.
 2. **Bing Webmaster Tools** — import the Search Console property rather than
    re-verifying from scratch.
 3. **Validate the structured data** once after the first deploy:
@@ -279,18 +287,20 @@ public/.htaccess            Apache config shipped to OVH with the build
 public/robots.txt           Crawler policy, including the AI-crawler stance
 src/core/                   Parser, model, validation, filtering, asset preparation
 src/core/site/config.ts     Canonical origin and site identity - single source of truth
-src/core/seo/               Meta derivation, schema.org JSON-LD, llms.txt generation
+content/blog/               Blog posts (Markdown) and their assets
+src/core/blog/posts.ts      Blog loading, frontmatter schema, Mermaid rendering
+src/core/seo/               Meta derivation, schema.org JSON-LD, llms.txt and sitemap generation
 src/components/Seo.astro    Document head: meta, Open Graph, favicons, JSON-LD
 src/pages/index.astro       Static website renderer
 scripts/generate-pdf.ts     PDF renderer
 scripts/generate-images.ts  Share card and favicon set
-scripts/prepare-assets.ts   Profile images, sitemap, llms.txt, security.txt
+scripts/prepare-assets.ts   Profile and blog assets, sitemap, llms.txt, security.txt
 scripts/build.ts            Full build orchestration
 docs/                       Content and web design specifications
 ```
 
 Generated files are intentionally ignored by Git: everything under `dist/`, profile
-assets under `public/assets/profile/`, the PDF, and the derived discoverability
+assets under `public/assets/profile/`, blog assets under `public/blog-assets/`, the PDF, and the derived discoverability
 artefacts (`sitemap.xml`, `llms*.txt`, `og-image.png`, the favicon set,
 `.well-known/`). Committing them would let them drift from the content they are
 derived from.
