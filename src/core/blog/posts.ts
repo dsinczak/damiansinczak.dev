@@ -125,7 +125,7 @@ async function prepareMermaidDiagrams(sourceDirectory: string, outputDirectory: 
     const diagrams = diagramsIn(content, sourcePath, sourceDirectory);
 
     for (const diagram of diagrams) {
-      const outputPath = path.join(outputDirectory, "diagrams", diagram.filename);
+      const outputPath = path.join(outputDirectory, "diagrams", diagram.filename) as `${string}.svg`;
       fs.mkdirSync(path.dirname(outputPath), { recursive: true });
       await renderDiagram(diagram.code, outputPath);
     }
@@ -147,7 +147,7 @@ function mermaidDiagram(code: string, sourcePath: string, sourceDirectory: strin
   return { code: code.trim(), filename: `${hash}.svg` };
 }
 
-async function renderDiagram(code: string, outputPath: string): Promise<void> {
+async function renderDiagram(code: string, outputPath: `${string}.svg`): Promise<void> {
   const temporaryDirectory = fs.mkdtempSync(path.join(os.tmpdir(), "damiansinczak-mermaid-"));
   const inputPath = path.join(temporaryDirectory, "diagram.mmd");
   const executablePath = browserExecutablePaths.find((candidate) => candidate && fs.existsSync(candidate));

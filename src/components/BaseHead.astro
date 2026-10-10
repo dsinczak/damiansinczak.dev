@@ -1,0 +1,77 @@
+---
+import type { PageMeta } from "../core/seo/meta";
+import { absoluteUrl, siteConfig } from "../core/site/config";
+
+/**
+ * The part of <head> every page needs: document basics, canonical, title,
+ * share cards and icons. Page-specific tags (profile:*, JSON-LD, alternates)
+ * go in the default slot so they land inside the same <head>.
+ */
+
+type Props = {
+  meta: PageMeta;
+};
+
+const { meta } = Astro.props;
+
+// Astro.site is set in astro.config.mjs from siteConfig.url, so the canonical
+// URL follows the config rather than repeating the origin.
+const canonical = new URL(Astro.url.pathname, Astro.site ?? `${siteConfig.url}/`).toString();
+const ogImage = absoluteUrl(meta.ogImage ?? siteConfig.ogImage.path);
+const isoDate = (date: Date) => date.toISOString();
+---
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script is:inline src="/site.js"></script>
+
+<link rel="canonical" href={canonical} />
+
+<title>{meta.pageTitle}</title>
+<meta name="description" content={meta.description} />
+<meta name="author" content={siteConfig.name} />
+
+{/* max-image-preview:large is what lets Google show the share card in results. */}
+<meta
+  name="robots"
+  content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+/>
+
+{/* Open Graph: LinkedIn, Slack and Facebook read these. */}
+<meta property="og:type" content={meta.ogType} />
+<meta property="og:site_name" content={siteConfig.name} />
+<meta property="og:locale" content={siteConfig.ogLocale} />
+<meta property="og:url" content={canonical} />
+<meta property="og:title" content={meta.pageTitle} />
+<meta property="og:description" content={meta.description} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:type" content={siteConfig.ogImage.type} />
+<meta property="og:image:width" content={String(siteConfig.ogImage.width)} />
+<meta property="og:image:height" content={String(siteConfig.ogImage.height)} />
+<meta property="og:image:alt" content={meta.ogImageAlt} />
+{meta.ogType === "article" && meta.publishedAt && (
+  <meta property="article:published_time" content={isoDate(meta.publishedAt)} />
+)}
+{meta.ogType === "article" && (meta.updatedAt ?? meta.publishedAt) && (
+  <meta property="article:modified_time" content={isoDate((meta.updatedAt ?? meta.publishedAt)!)} />
+)}
+{meta.ogType === "article" && <meta property="article:author" content={absoluteUrl("/")} />}
+
+{/* Twitter/X falls back to Open Graph, but only if the card type is declared. */}
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={meta.pageTitle} />
+<meta name="twitter:description" content={meta.description} />
+<meta name="twitter:image" content={ogImage} />
+<meta name="twitter:image:alt" content={meta.ogImageAlt} />
+
+<link rel="alternate" hreflang={siteConfig.lang} href={canonical} />
+<link rel="alternate" hreflang="x-default" href={canonical} />
+
+<link rel="icon" href="/favicon.ico" sizes="32x32" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />
+<meta name="theme-color" content="#f3f2ef" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#161b22" media="(prefers-color-scheme: dark)" />
+
+<slot />
