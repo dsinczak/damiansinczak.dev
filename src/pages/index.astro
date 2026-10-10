@@ -9,6 +9,7 @@ import { lastModified } from "../core/site/lastModified";
 import { siteConfig } from "../core/site/config";
 import Seo from "../components/Seo.astro";
 import ThemeMenu from "../components/ThemeMenu.astro";
+import ThemeOptions from "../components/ThemeOptions.astro";
 import githubMarkUrl from "../assets/web/github-mark.svg";
 import linkedinMarkUrl from "../assets/web/linkedin-mark.svg";
 import dsMarkUrl from "../assets/web/ds-mark.svg";
@@ -155,10 +156,15 @@ function navIcon(id: string) {
               <svg viewBox="0 0 24 24" aria-hidden="true" set:html={navIcon("blog")} />
               <span>Blog</span>
             </a>
+            <span class="topbar__menu-separator" aria-hidden="true"></span>
+            <div class="topbar__menu-group" role="group" aria-labelledby="menu-theme-label">
+              <p id="menu-theme-label" class="topbar__menu-label">Theme</p>
+              <ThemeOptions />
+            </div>
           </div>
         </details>
+        <ThemeMenu />
       </nav>
-      <ThemeMenu />
     </header>
 
     <main id="top" class="page">

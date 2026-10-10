@@ -1,12 +1,15 @@
+---
+import ThemeOptions from "./ThemeOptions.astro";
+---
+
 <details class="theme-menu">
-  <summary aria-label="Change colour theme" title="Change colour theme">
+  <summary title="Change colour theme">
     <svg class="theme-menu__icon theme-menu__icon--light" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5"></circle><path d="M12 2.5v2M12 19.5v2M21.5 12h-2M4.5 12h-2M18.72 5.28l-1.42 1.42M6.7 17.3l-1.42 1.42M18.72 18.72 17.3 17.3M6.7 6.7 5.28 5.28"></path></svg>
     <svg class="theme-menu__icon theme-menu__icon--dark" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.6A8.5 8.5 0 0 1 9.4 3.5 8.5 8.5 0 1 0 20.5 14.6Z"></path></svg>
     <svg class="theme-menu__icon theme-menu__icon--system" viewBox="0 0 24 24" aria-hidden="true"><path class="theme-icon__half" d="M12 3.5a8.5 8.5 0 0 0 0 17Z"></path><circle cx="12" cy="12" r="8.5"></circle><path d="M12 3.5v17"></path></svg>
+    <span>Theme</span>
   </summary>
   <div class="theme-menu__panel" role="group" aria-label="Colour theme">
-    <button type="button" data-theme-option="light"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5"></circle><path d="M12 2.5v2M12 19.5v2M21.5 12h-2M4.5 12h-2M18.72 5.28l-1.42 1.42M6.7 17.3l-1.42 1.42M18.72 18.72 17.3 17.3M6.7 6.7 5.28 5.28"></path></svg><span>Light</span></button>
-    <button type="button" data-theme-option="dark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.6A8.5 8.5 0 0 1 9.4 3.5 8.5 8.5 0 1 0 20.5 14.6Z"></path></svg><span>Dark</span></button>
-    <button type="button" data-theme-option="system"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="theme-icon__half" d="M12 3.5a8.5 8.5 0 0 0 0 17Z"></path><circle cx="12" cy="12" r="8.5"></circle><path d="M12 3.5v17"></path></svg><span>System</span></button>
+    <ThemeOptions />
   </div>
 </details>
