@@ -48,7 +48,58 @@ const dateFormat = new Intl.DateTimeFormat("en", { day: "numeric", month: "short
       )
     }
   </aside>
+  {
+    currentSlug && (
+      <div class="blog-mobile-context">
+        <a href="/blog/" class="blog-mobile-context__back">Blog</a>
+        <button type="button" class="blog-mobile-context__picker" data-post-picker-open aria-haspopup="dialog">
+          All posts <span>({posts.length})</span>
+        </button>
+      </div>
+    )
+  }
   <section class="blog-reader section-card">
     <slot />
   </section>
 </main>
+
+{
+  currentSlug && (
+    <dialog class="blog-post-picker" data-post-picker aria-label="Blog posts">
+      <div class="blog-post-picker__header">
+        <div>
+          <span class="blog-post-picker__handle" aria-hidden="true"></span>
+          <h2>All posts</h2>
+        </div>
+        <button type="button" class="blog-post-picker__close" data-post-picker-close aria-label="Close posts">×</button>
+      </div>
+      <nav class="blog-post-picker__list" aria-label="Blog posts">
+        {posts.map((post) => (
+          <a
+            class:list={[
+              "blog-post-picker__item",
+              { "blog-post-picker__item--current": post.slug === currentSlug }
+            ]}
+            href={`/blog/${post.slug}/`}
+            aria-current={post.slug === currentSlug ? "page" : undefined}
+          >
+            <span>{post.title}</span>
+            <small>{dateFormat.format(post.publishedAt)}</small>
+          </a>
+        ))}
+      </nav>
+    </dialog>
+  )
+}
+
+<script>
+  const picker = document.querySelector<HTMLDialogElement>("[data-post-picker]");
+  const openPicker = document.querySelector<HTMLButtonElement>("[data-post-picker-open]");
+  const closePicker = document.querySelector<HTMLButtonElement>("[data-post-picker-close]");
+
+  openPicker?.addEventListener("click", () => picker?.showModal());
+  closePicker?.addEventListener("click", () => picker?.close());
+  picker?.addEventListener("click", (event) => {
+    if (event.target === picker) picker.close();
+  });
+</script>

@@ -6,13 +6,25 @@ import { buildBlogIndexMeta } from "../../core/seo/meta";
 import { siteConfig } from "../../core/site/config";
 
 const meta = buildBlogIndexMeta(siteConfig.name);
-const jsonLd = buildBlogIndexJsonLd(meta, getPublishedBlogPosts());
+const posts = getPublishedBlogPosts();
+const jsonLd = buildBlogIndexJsonLd(meta, posts);
 ---
 
 <BlogLayout meta={meta} jsonLd={jsonLd}>
   <article class="blog-welcome">
-    <h1>Welcome</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non massa at arcu tincidunt posuere. Donec in est vel lectus vehicula luctus.</p>
-    <p>Integer euismod, justo at aliquet viverra, libero massa tincidunt urna, at hendrerit orci mauris a erat. New articles will be listed on the left.</p>
+    <header>
+      <h1>Welcome</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non massa at arcu tincidunt posuere. Donec in est vel lectus vehicula luctus.</p>
+    </header>
+    <div class="blog-index-list">
+      {posts.map((post) => (
+        <a class="blog-index-list__item" href={`/blog/${post.slug}/`}>
+          <p>{post.publishedAt.toLocaleDateString("en", { day: "numeric", month: "short", year: "numeric" })}</p>
+          <h2>{post.title}</h2>
+          <span>{post.description}</span>
+        </a>
+      ))}
+    </div>
+    <p class="blog-welcome__desktop-copy">Integer euismod, justo at aliquet viverra, libero massa tincidunt urna, at hendrerit orci mauris a erat. New articles will be listed on the left.</p>
   </article>
 </BlogLayout>
