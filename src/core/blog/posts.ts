@@ -9,15 +9,10 @@ import { renderMarkdown } from "../rendering/markdown";
 
 const blogDirectory = "content/blog";
 const blogAssetsDirectory = "public/blog-assets";
-const browserExecutablePaths = process.platform === "win32"
-  ? [
-      process.env.PUPPETEER_EXECUTABLE_PATH,
-      "C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe",
-      "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
-      "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
-      "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
-    ]
-  : [process.env.PUPPETEER_EXECUTABLE_PATH];
+// Let Puppeteer use its managed Chrome by default.  In particular, a detected
+// Windows Edge installation can exit immediately when launched by Puppeteer.
+// An explicit override remains available for environments that need it.
+const browserExecutablePath = process.env.PUPPETEER_EXECUTABLE_PATH;
 
 const frontmatterSchema = z.object({
   title: z.string().min(1),
@@ -181,7 +176,9 @@ const diagramTheme = {
 async function renderDiagram(code: string, outputPath: `${string}.svg`): Promise<void> {
   const temporaryDirectory = fs.mkdtempSync(path.join(os.tmpdir(), "damiansinczak-mermaid-"));
   const inputPath = path.join(temporaryDirectory, "diagram.mmd");
-  const executablePath = browserExecutablePaths.find((candidate) => candidate && fs.existsSync(candidate));
+  const executablePath = browserExecutablePath && fs.existsSync(browserExecutablePath)
+    ? browserExecutablePath
+    : undefined;
 
   try {
     fs.writeFileSync(inputPath, code, "utf8");
