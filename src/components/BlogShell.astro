@@ -102,4 +102,14 @@ const dateFormat = new Intl.DateTimeFormat("en", { day: "numeric", month: "short
   picker?.addEventListener("click", (event) => {
     if (event.target === picker) picker.close();
   });
+
+  document.addEventListener("click", async (event) => {
+    const button = (event.target as Element).closest<HTMLButtonElement>("[data-copy-code]");
+    const code = button?.closest(".code-block")?.querySelector("code");
+    if (!button || !code) return;
+
+    await navigator.clipboard.writeText(code.textContent ?? "");
+    button.textContent = "Copied";
+    window.setTimeout(() => { button.textContent = "Copy"; }, 1800);
+  });
 </script>
