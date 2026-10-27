@@ -105,6 +105,7 @@ export type SectionId =
   | "projects"
   | "skills"
   | "education"
+  | "recommendations"
   | "publications"
   | "languages"
   | "interests";
@@ -141,6 +142,7 @@ export const sectionIdsByTitle: Record<string, SectionId> = {
   projects: "projects",
   skills: "skills",
   education: "education",
+  recommendations: "recommendations",
   publications: "publications",
   languages: "languages",
   interests: "interests"

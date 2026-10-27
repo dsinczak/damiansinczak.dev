@@ -594,6 +594,59 @@ Icon: content/warsaw_university_of_technology_logo.jpeg
 Degree: Graduate, IT Project Management
 Period: 2010 - 2011
 
+# Recommendations
+<!-- target: web -->
+
+Unabridged recommendations can be found on [my LinkedIn profile](https://www.linkedin.com/in/dsinczak/details/recommendations/).
+
+## Dan Polenik
+
+Role: Principal Software Engineer
+
+> What stands out most is how close his architectural thinking stays to execution. He has a rare ability to look at the environment that actually exists, legacy constraints and all, and find a practical path toward a much more modern architecture.
+
+## Bartosz Przygoda
+
+Role: Principal Software Engineer at Vertex Inc.
+
+> His assignments were where the heavy work was, and he always delivered.
+
+## Piotr Bzdyl
+
+Role: Software Engineer & DevOps at Taxamo
+
+> Some engineers just get things done. Others challenge the way things are done and help everyone around them think a little bigger. Damian is one of those rare people who do both.
+
+## Adam Bober
+
+Role: Senior Software Engineer
+
+> If I had to describe Damian’s role in the team in one phrase, I’d probably call him the team’s nuclear-powered engine — I was constantly impressed by how much he was able to get done, always delivering high-quality work with remarkable consistency and speed.
+
+## Michael Reilly
+
+Role: Senior Software Engineer and Technical Architect
+
+> Damian is exactly the kind of engineer you want in the room when designing a new system. He sees the shape of a design early, spots the pitfalls, and guides the design towards something simpler, more robust, more supportable.
+
+## Kamil Leszczuk
+
+Role: Team Leader at Vertex Inc.
+
+> He’s never intimidated by a large task. His extensive experience and knowledge allow him to design entire features, splitting the work into digestible chunks, presenting them to the team and, crucially, taking responsibility for the entire deliverable from start to finish.
+
+## Michał Mela
+
+Role: Software Generalist
+
+> He is the kind of colleague I would want by my side whenever I had to face the most difficult challenges of my career.
+
+## Błażej Stokwisz
+
+Role: Software Engineer
+
+> Damian played a key role in replacing our old, hard-to-manage banking system with a more modern one. He led the team in adopting CQRS and event sourcing, which significantly reshaped the architecture.
+
 # Publications
 
 ## Clojure for brave and true

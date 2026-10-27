@@ -104,6 +104,7 @@ Supported top-level sections:
 - `# Projects`
 - `# Skills`
 - `# Education`
+- `# Recommendations`
 - `# Publications`
 - `# Languages`
 - `# Interests`
@@ -195,6 +196,7 @@ The parser should assign stable section IDs from supported section names:
 - `Projects` -> `projects`
 - `Skills` -> `skills`
 - `Education` -> `education`
+- `Recommendations` -> `recommendations`
 - `Publications` -> `publications`
 - `Languages` -> `languages`
 - `Interests` -> `interests`

@@ -45,6 +45,16 @@ Category: Programming languages
 Level: 90
 
 Shared skill summary.
+
+# Recommendations
+<!-- target: web -->
+
+## Professional recommendations
+<!-- target: web -->
+
+Available on LinkedIn.
+
+Link: https://www.linkedin.com/in/test-person
 `;
 
 describe("parseProfileSource", () => {
@@ -53,7 +63,7 @@ describe("parseProfileSource", () => {
 
     expect(result.errors).toEqual([]);
     expect(result.profile?.name).toBe("Test Person");
-    expect(result.profile?.sections.map((section) => section.id)).toEqual(["bio", "experience", "skills"]);
+    expect(result.profile?.sections.map((section) => section.id)).toEqual(["bio", "experience", "skills", "recommendations"]);
 
     const experience = result.profile?.sections.find((section) => section.id === "experience");
     expect(experience?.metadata.web).toBe("collapsed");
@@ -71,6 +81,7 @@ describe("parseProfileSource", () => {
     const experience = pdfProfile.sections.find((section) => section.id === "experience");
 
     expect(experience?.entries[0].blocks.map((block) => block.markdown)).toEqual(["- Shared bullet."]);
+    expect(pdfProfile.sections.find((section) => section.id === "recommendations")).toBeUndefined();
   });
 
   it("reports unsupported metadata values", () => {

@@ -240,6 +240,12 @@ a:hover {
   stroke-linejoin: round;
 }
 
+/* The heart path has more whitespace in its 24px view box than the other nav icons. */
+.topbar__link[href="#recommendations"] svg,
+.topbar__menu-panel a[href="#recommendations"] svg {
+  transform: scale(1.18);
+}
+
 .topbar__link span {
   max-width: 72px;
   overflow: hidden;
@@ -558,6 +564,24 @@ h3 {
   padding-left: 22px;
 }
 
+.section-card--recommendations .entry {
+  padding-block: 20px;
+}
+
+.section-card--recommendations blockquote {
+  margin: 12px 0 0;
+  padding: 2px 0 2px 18px;
+  border-left: 3px solid var(--accent);
+  color: var(--text);
+  font-size: 16px;
+  font-style: italic;
+  line-height: 1.55;
+}
+
+.section-card--recommendations blockquote p:last-child {
+  margin-bottom: 0;
+}
+
 .detail {
   margin-top: 12px;
 }
@@ -654,8 +678,8 @@ h3 {
   }
 
   .topbar__menu summary svg {
-    width: 22px;
-    height: 22px;
+    width: 26px;
+    height: 26px;
     fill: none;
     stroke: currentColor;
     stroke-linecap: round;

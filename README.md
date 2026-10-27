@@ -81,7 +81,7 @@ npm test
 
 Edit [content/profile.md](content/profile.md). Frontmatter holds identity, contacts, links, asset metadata, output defaults, and the PDF file name. The Markdown body holds profile sections and entries.
 
-Supported top-level sections are `Bio`, `Experience`, `Projects`, `Skills`, `Education`, `Publications`, `Languages`, and `Interests`. Use `##` headings for repeated entries. Common entry fields include `Role`, `Period`, `Location`, `Category`, `Level`, `Tech`, and `Link`.
+Supported top-level sections are `Bio`, `Experience`, `Projects`, `Skills`, `Education`, `Recommendations`, `Publications`, `Languages`, and `Interests`. Use `##` headings for repeated entries. Common entry fields include `Role`, `Period`, `Location`, `Category`, `Level`, `Tech`, and `Link`.
 
 Control where a section, entry, or detail block appears with metadata comments:
 
