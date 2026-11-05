@@ -573,6 +573,19 @@ a:hover {
   margin-bottom: 16px;
 }
 
+.blog-article__content blockquote {
+  margin: 24px 0;
+  padding: 16px 20px;
+  border-left: 4px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  background: var(--surface-hover);
+  color: var(--text);
+}
+
+.blog-article__content blockquote p:last-child {
+  margin-bottom: 0;
+}
+
 .blog-article__content :not(pre) > code {
   padding: 0.12em 0.34em;
   border: 1px solid var(--border);

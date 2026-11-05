@@ -10,3 +10,18 @@ I got these scars?") - and it’s probably time for me to exit the stage. The cu
 a perfect moment to finally pursue my dream of taking up farming, like this guy:
 
 ![goose-farmer](./no-ai-fridays/goose-farming-light.webp){width=60% align=center}
+
+Actually, maybe not just yet - let my farm wait a little longer... I’m having quite a good time as it is.
+
+And while I do feel a touch of longing for "the old days" (there was something inherently fulfilling about the skill of programming and solving problems through code), there’s no denying that the capabilities offered today by AI agents and LLMs are truly incredible. I’m now able to revisit many old ideas I never previously had the time for; the current phase of experimentation - especially with new technologies - is nothing short of poetic.
+
+In my day-to-day work, beyond the speed at which I can deliver added value (analysis, modeling, design, research, development - you name it), there’s a far greater reward: a much deeper understanding of the problem itself. When programming, it was often all too easy to mentally retreat into the code, pushing a thorough grasp of the domain or business problem into the background - after all, the code was what excited us, along with new languages ​​and libraries (I’ll never forget the massive boost I got from learning functional programming in Scala; it was as if a whole new space had opened up in my mind - I couldn’t wait for each new day to sit down at my IDE).
+
+Today, to effectively solve a problem using an AI agent, you have to invest significantly more time and energy into planning and designing changes - after all, as many posts on X proclaim, "code is cheap now" - which leads to a much deeper understanding of the domain, business requirements, and the product's actual needs. And the agent doesn't know anything - or rather, they only know as much as you provide them with - so if you can't explain or describe something precisely, it’s highly likely that you don’t actually understand it yourself.
+
+However, there is a certain phenomenon that is beginning to bother me, and it is the subject of this post—which has had a rather long-winded introduction. Namely, it is this:
+
+## Slow atrophy of skills
+
+> I used the word "atrophy" quite deliberately. I am a sports fan—particularly of boxing, and more recently, kickboxing—and a regular at the gym; I’ve been training since I was very young and always strive to stay in good shape. My constant adversary in this regard is muscular atrophy, which inevitably sets in with age and can lead to a significant decline in one’s physical condition and quality of life, even in early old age. And while aging itself cannot be reversed (at least not yet—though AI enthusiasts promise a solution to this problem is just around the corner), atrophy can be combated through daily activity and resistance training.
+
