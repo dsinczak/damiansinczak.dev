@@ -5,7 +5,7 @@ import path from "node:path";
 import { run as renderMermaid } from "@mermaid-js/mermaid-cli";
 import matter from "gray-matter";
 import { z } from "zod";
-import { renderMarkdown } from "../rendering/markdown";
+import { imageMargin, imageWidth, renderMarkdown } from "../rendering/markdown";
 
 const blogDirectory = "content/blog";
 const blogAssetsDirectory = "public/blog-assets";
@@ -93,8 +93,118 @@ function parseBlogPost(sourcePath: string, sourceDirectory: string): BlogPost {
   return {
     slug: path.relative(sourceDirectory, sourcePath).replace(/\\/g, "/").replace(/\.md$/i, ""),
     ...metadata.data,
-    html: renderMarkdown(rewriteLocalLinks(replaceMermaidFences(parsed.content, sourcePath, sourceDirectory), sourcePath, sourceDirectory))
+    html: renderMarkdown(
+      rewriteLocalLinks(
+        expandImages(replaceMermaidFences(parsed.content, sourcePath, sourceDirectory), sourcePath, sourceDirectory),
+        sourcePath,
+        sourceDirectory
+      )
+    )
   };
+}
+
+const markdownImage = /!\[([^\]]*)\]\(([^\s)]+)\)(?:\{([^}]*)\})?/g;
+const lightVariant = /-light(\.[a-z\d]+)$/i;
+
+/**
+ * Images that need more than Markdown can express become raw <img> elements:
+ * - `{width=50% align=center margin=16px}` right after the image sets its size,
+ *   alignment and spacing (see parseImageStyle);
+ * - a local `*-light.<ext>` image with a `*-dark.<ext>` sibling becomes a pair of
+ *   <img> elements and CSS shows the one matching the active theme. Without a dark
+ *   sibling the light image is used alone and a warning is printed.
+ * Everything else is left for marked.
+ */
+function expandImages(markdown: string, sourcePath: string, sourceDirectory: string): string {
+  const file = path.relative(process.cwd(), sourcePath);
+
+  return markdown.replace(markdownImage, (match, alt: string, href: string, attributes: string | undefined) => {
+    const style = attributes === undefined ? "" : parseImageStyle(attributes, `${file}: ${match}`);
+    const src = publicAssetPath(href, sourcePath, sourceDirectory);
+    let darkSrc: string | undefined;
+
+    if (src && lightVariant.test(href)) {
+      const darkHref = href.replace(lightVariant, "-dark$1");
+      if (fs.existsSync(path.resolve(path.dirname(sourcePath), darkHref))) {
+        darkSrc = publicAssetPath(darkHref, sourcePath, sourceDirectory);
+      } else {
+        console.warn(`WARN ${file}: ${href} has no dark variant (${darkHref})`);
+      }
+    }
+
+    if (!style && !darkSrc) return match;
+
+    const image = (url: string, className?: string) => [
+      "<img",
+      className ? ` class="${className}"` : "",
+      ` src="${escapeAttribute(url)}"`,
+      ` alt="${escapeAttribute(alt)}"`,
+      style ? ` style="${style}"` : "",
+      ">"
+    ].join("");
+
+    return darkSrc
+      ? image(src!, "themed-img themed-img--light") + image(darkSrc, "themed-img themed-img--dark")
+      : image(src ?? href);
+  });
+}
+
+const marginSides = ["margin", "margin-top", "margin-right", "margin-bottom", "margin-left"] as const;
+const alignments: Record<string, string[]> = {
+  left: ["margin-right: auto"],
+  right: ["margin-left: auto"],
+  center: ["margin-left: auto", "margin-right: auto"]
+};
+
+/**
+ * Supported attributes:
+ * - width=<length>                       px, %, rem or em; a bare number means px
+ * - align=left|right|center              places the image on its own line
+ * - margin=<length>                      all sides; margin-top/-right/-bottom/-left for one side
+ * Alignment wins over the horizontal margin on the side(s) it pushes away from.
+ */
+function parseImageStyle(attributes: string, context: string): string {
+  const declarations: string[] = [];
+  let alignment: string[] = [];
+
+  for (const attribute of attributes.trim().split(/\s+/).filter(Boolean)) {
+    const [key, value = ""] = attribute.split("=");
+
+    if (key === "width") {
+      declarations.push(`width: ${cssLength(value, imageWidth, `width "${value}" in ${context}. Use e.g. width=50% or width=320px.`)}`);
+    } else if (key === "align") {
+      if (!alignments[value]) throw new Error(`Invalid image align "${value}" in ${context}. Use left, right or center.`);
+      alignment = alignments[value];
+    } else if ((marginSides as readonly string[]).includes(key)) {
+      declarations.push(`${key}: ${cssLength(value, imageMargin, `${key} "${value}" in ${context}. Use e.g. ${key}=16px or ${key}=1rem.`)}`);
+    } else {
+      throw new Error(`Unknown image attribute "${key}" in ${context}. Supported: width, align, ${marginSides.join(", ")}.`);
+    }
+  }
+
+  if (alignment.length) declarations.push("display: block", ...alignment);
+  return declarations.join("; ");
+}
+
+function cssLength(value: string, pattern: RegExp, error: string): string {
+  const length = /^\d+(?:\.\d+)?$/.test(value) && value !== "0" ? `${value}px` : value;
+  if (!pattern.test(length)) throw new Error(`Invalid image ${error}`);
+  return length;
+}
+
+function escapeAttribute(value: string): string {
+  return value.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+/** Public /blog-assets URL for a link relative to the article, or undefined when it is not a local asset. */
+function publicAssetPath(href: string, sourcePath: string, sourceDirectory: string): string | undefined {
+  if (/^(?:[a-z][a-z\d+.-]*:|\/|#)/i.test(href)) return undefined;
+
+  const absoluteTarget = path.resolve(path.dirname(sourcePath), href);
+  const relativeTarget = path.relative(path.resolve(sourceDirectory), absoluteTarget);
+
+  if (relativeTarget.startsWith("..") || path.isAbsolute(relativeTarget)) return undefined;
+  return `/blog-assets/${relativeTarget.replace(/\\/g, "/")}`;
 }
 
 const mermaidFence = /^\s*```mermaid\s*\r?\n([\s\S]*?)^\s*```\s*$/gm;
@@ -201,13 +311,6 @@ async function renderDiagram(code: string, outputPath: `${string}.svg`): Promise
  */
 function rewriteLocalLinks(markdown: string, sourcePath: string, sourceDirectory: string): string {
   return markdown.replace(/(!?\[[^\]]*\]\()([^\s)]+)([^)]*\))/g, (_, opening, href, closing) => {
-    if (/^(?:[a-z][a-z\d+.-]*:|\/|#)/i.test(href)) return `${opening}${href}${closing}`;
-
-    const absoluteTarget = path.resolve(path.dirname(sourcePath), href);
-    const absoluteSource = path.resolve(sourceDirectory);
-    const relativeTarget = path.relative(absoluteSource, absoluteTarget);
-
-    if (relativeTarget.startsWith("..") || path.isAbsolute(relativeTarget)) return `${opening}${href}${closing}`;
-    return `${opening}/blog-assets/${relativeTarget.replace(/\\/g, "/")}${closing}`;
+    return `${opening}${publicAssetPath(href, sourcePath, sourceDirectory) ?? href}${closing}`;
   });
 }

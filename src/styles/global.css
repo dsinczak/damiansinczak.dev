@@ -514,6 +514,14 @@ a:hover {
   margin-top: 32px;
 }
 
+.blog-welcome__image {
+  display: block;
+  width: 85%;
+  max-width: 59.5ch;
+  height: auto;
+  margin: 24px auto 0;
+}
+
 .blog-index-list {
   display: none;
   margin-top: 30px;
@@ -699,6 +707,25 @@ a:hover {
 .blog-article__content img {
   max-width: 100%;
   height: auto;
+}
+
+/* Light/dark image pairs: show only the variant matching the active theme.
+   !important because align=... in a post puts an inline display: block on the image. */
+:root[data-theme="light"] .themed-img--dark,
+:root[data-theme="dark"] .themed-img--light {
+  display: none !important;
+}
+
+@media not (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .themed-img--dark {
+    display: none !important;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .themed-img--light {
+    display: none !important;
+  }
 }
 
 .page {
@@ -1247,8 +1274,14 @@ h3 {
     display: block;
   }
 
-  .blog-welcome__desktop-copy {
-    display: none;
+  /* On mobile the image belongs under the intro, above the post list. */
+  .blog-welcome {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .blog-index-list {
+    order: 1;
   }
 
   .blog-mobile-context {

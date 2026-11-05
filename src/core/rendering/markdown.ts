@@ -27,6 +27,10 @@ marked.use({
   }
 });
 
+export const imageWidth = /^\d+(?:\.\d+)?(?:px|%|rem|em)$/;
+export const imageMargin = /^(?:0|\d+(?:\.\d+)?(?:px|%|rem|em))$/;
+const imageMarginOrAuto = new RegExp(`${imageMargin.source}|^auto$`);
+
 export function renderMarkdown(markdown: string): string {
   const html = marked.parse(markdown, { async: false }) as string;
   return sanitizeHtml(html, {
@@ -35,8 +39,19 @@ export function renderMarkdown(markdown: string): string {
       ...sanitizeHtml.defaults.allowedAttributes,
       "*": ["class", "data-language"],
       a: ["href", "name", "target", "rel"],
-      img: ["src", "alt"],
+      img: ["src", "alt", "style"],
       button: ["type", "class", "data-copy-code", "aria-label"]
+    },
+    allowedStyles: {
+      img: {
+        width: [imageWidth],
+        display: [/^block$/],
+        margin: [imageMargin],
+        "margin-top": [imageMargin],
+        "margin-right": [imageMarginOrAuto],
+        "margin-bottom": [imageMargin],
+        "margin-left": [imageMarginOrAuto]
+      }
     }
   });
 }

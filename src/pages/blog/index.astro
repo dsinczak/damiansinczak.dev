@@ -4,6 +4,7 @@ import { getPublishedBlogPosts } from "../../core/blog/posts";
 import { buildBlogIndexJsonLd } from "../../core/seo/jsonLd";
 import { buildBlogIndexMeta } from "../../core/seo/meta";
 import { siteConfig } from "../../core/site/config";
+import danteHellEntry from "../../../content/dante_hell_entry.webp";
 
 const meta = buildBlogIndexMeta(siteConfig.name);
 const posts = getPublishedBlogPosts();
@@ -14,7 +15,7 @@ const jsonLd = buildBlogIndexJsonLd(meta, posts);
   <article class="blog-welcome">
     <header>
       <h1>All hope abandon, ye who enter in</h1>
-      <p>Thanks to the wonders of AI, I finally found the time and headspace to start a blog. Whether that counts as a point for or against AI depends on how the next few posts go.</p>
+      <p>Finally, I have my own little corner of the internet where I can show off, vent, or simply do a "brain dump." The topics I’ll be touching upon will certainly include the JVM (as I’ve been working with it for years), software architecture and system design in the broad sense, as well as the use of AI and its impact on our work. All of this is interwoven with my twisted sense of humor and a ton of memes.</p>
     </header>
     <div class="blog-index-list">
       {posts.map((post) => (
@@ -25,8 +26,8 @@ const jsonLd = buildBlogIndexJsonLd(meta, posts);
         </a>
       ))}
     </div>
-    <p class="blog-welcome__desktop-copy">It’s my blog, so I’ll write about whatever I want. That’ll probably mean the JVM, software architecture, and AI in all sorts of contexts. I’ll write about what AI helps me do, where it gets in the way, and whatever rabbit hole I fall down next.</p>
-    <p class="blog-welcome__desktop-copy">I’ll do my best to respect your time. I’ll even write the posts myself. At least 80% of each one, anyway.</p>
-    <p class="blog-welcome__desktop-copy">If you still want to read after that warning, welcome in.</p>
+    <p>I won’t waste your time with AI-generated slop; I promise that at least 80% of every post consists of my own writing, my own thoughts, and my own opinions..</p>
+    <p>If you still want to read after that warning, welcome in.</p>
+    <img class="blog-welcome__image" src={danteHellEntry.src} width={danteHellEntry.width} height={danteHellEntry.height} alt="The gate of Hell from Dante's Inferno, inscribed “Abandon every hope, all you who enter”" />
   </article>
 </BlogLayout>
