@@ -2,6 +2,7 @@
 title: Diagrams that stay with the article
 description: A Mermaid flowchart rendered to a static SVG during the site build.
 publishedAt: 2026-09-04
+draft: true
 ---
 
 This article demonstrates a diagram written directly in Markdown. The build

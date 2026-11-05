@@ -2,7 +2,7 @@
 title: Code snippets, from shell commands to TypeScript
 description: A visual test page for inline code, fenced blocks, long lines, and common programming languages.
 publishedAt: 2026-10-15
-draft: false
+draft: true
 ---
 
 This post is a visual test bed for code. It includes inline code such as

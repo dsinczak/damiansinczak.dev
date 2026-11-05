@@ -2,7 +2,7 @@
 title: Your first blog post
 description: This is my firstr awsome article.
 publishedAt: 2026-09-02
-draft: false
+draft: true
 ---
 
 This draft exists only to establish the blog directory. Set `draft` to `false`

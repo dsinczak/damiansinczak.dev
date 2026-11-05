@@ -13,8 +13,8 @@ const jsonLd = buildBlogIndexJsonLd(meta, posts);
 <BlogLayout meta={meta} jsonLd={jsonLd}>
   <article class="blog-welcome">
     <header>
-      <h1>Welcome</h1>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non massa at arcu tincidunt posuere. Donec in est vel lectus vehicula luctus.</p>
+      <h1>All hope abandon, ye who enter in</h1>
+      <p>Thanks to the wonders of AI, I finally found the time and headspace to start a blog. Whether that counts as a point for or against AI depends on how the next few posts go.</p>
     </header>
     <div class="blog-index-list">
       {posts.map((post) => (
@@ -25,6 +25,8 @@ const jsonLd = buildBlogIndexJsonLd(meta, posts);
         </a>
       ))}
     </div>
-    <p class="blog-welcome__desktop-copy">Integer euismod, justo at aliquet viverra, libero massa tincidunt urna, at hendrerit orci mauris a erat. New articles will be listed on the left.</p>
+    <p class="blog-welcome__desktop-copy">It’s my blog, so I’ll write about whatever I want. That’ll probably mean the JVM, software architecture, and AI in all sorts of contexts. I’ll write about what AI helps me do, where it gets in the way, and whatever rabbit hole I fall down next.</p>
+    <p class="blog-welcome__desktop-copy">I’ll do my best to respect your time. I’ll even write the posts myself. At least 80% of each one, anyway.</p>
+    <p class="blog-welcome__desktop-copy">If you still want to read after that warning, welcome in.</p>
   </article>
 </BlogLayout>
