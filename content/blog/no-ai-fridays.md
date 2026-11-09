@@ -42,3 +42,24 @@ long-winded introduction. Namely, it is this:
 > quality of life, even in early old age. And while aging itself cannot be reversed (at least not yet - though AI enthusiasts promise
 > a solution to this problem is just around the corner), atrophy can be combated through daily activity and resistance training.
 
+With every new piece of code generated, and with every passing day spent solely on code reviews, I have an overwhelming sense that I am
+losing the very things that brought me to where I am today - in terms of my career, my technical knowledge, and my judgment. There is so
+much talk these days about how a key part of our work is providing a clear, coherent - and, most importantly, professional and
+objective - assessment of what AI generates. The entire "human-in-the-loop" concept relies on our ability to evaluate the output produced
+by AI. Yet, with each passing day, I feel that skill slipping away; I’m starting to see myself as little more than an increasingly
+redundant "flesh-and-blood" component wedged between the agent and the code. One might be tempted to use a term that has become quite 
+meat-popular lately:
+
+![meat-proxy](./no-ai-fridays/meat-proxy.png){width=80% align=center}
+
+It’s not that AI is producing such brilliant solutions - far
+from it - but rather that, by losing touch with how the software is actually built, I’m also losing my sense for it, along with the
+intuition I’ve cultivated over the years. Worse still, that natural drive - so common in our field - to dig into the details and "get our
+hands dirty" is slowly withering away, simply because no one values ​​it anymore (there is no reward, what’s more, you could get reprimanded
+at work for this, as it lowers your KPIs—just use Claudius.). In a world obsessed with delivery speed and satisfying requirements via a
+"black box", the innate curiosity that once defined our profession is being stifled at the very root. I have always believed that good
+engineers are forged in the heat of battle—by spending years solving hundreds of problems across various domains (programming languages,
+frameworks, libraries, infrastructure, etc.), you develop an intuition that simply cannot be acquired by reading literature (or even sites
+like Stack Overflow, which are already fading into obsolescence). This, in turn, enables you to work faster, better, and more efficiently
+in your day-to-day tasks.
+
