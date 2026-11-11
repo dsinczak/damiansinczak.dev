@@ -92,6 +92,15 @@ const dateFormat = new Intl.DateTimeFormat("en", { day: "numeric", month: "short
   )
 }
 
+{
+  currentSlug && (
+    <dialog class="image-lightbox" data-image-lightbox aria-label="Image preview">
+      <button type="button" class="image-lightbox__close" aria-label="Close image">×</button>
+      <img class="image-lightbox__img" alt="" />
+    </dialog>
+  )
+}
+
 <script>
   const picker = document.querySelector<HTMLDialogElement>("[data-post-picker]");
   const openPicker = document.querySelector<HTMLButtonElement>("[data-post-picker-open]");
@@ -102,6 +111,20 @@ const dateFormat = new Intl.DateTimeFormat("en", { day: "numeric", month: "short
   picker?.addEventListener("click", (event) => {
     if (event.target === picker) picker.close();
   });
+
+  const lightbox = document.querySelector<HTMLDialogElement>("[data-image-lightbox]");
+  const lightboxImage = lightbox?.querySelector("img");
+
+  document.querySelector(".blog-article__content")?.addEventListener("click", (event) => {
+    const image = (event.target as Element).closest<HTMLImageElement>("img");
+    if (!image || image.closest("a") || !lightbox || !lightboxImage) return;
+
+    lightboxImage.src = image.currentSrc || image.src;
+    lightboxImage.alt = image.alt;
+    lightbox.showModal();
+  });
+  // Any click inside closes it: the backdrop, the image or the × button.
+  lightbox?.addEventListener("click", () => lightbox.close());
 
   document.addEventListener("click", async (event) => {
     const button = (event.target as Element).closest<HTMLButtonElement>("[data-copy-code]");

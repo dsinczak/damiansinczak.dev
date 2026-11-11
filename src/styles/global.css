@@ -722,6 +722,57 @@ a:hover {
   height: auto;
 }
 
+.blog-article__content img:not(a img) {
+  cursor: zoom-in;
+}
+
+.image-lightbox {
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 16px;
+  border: 0;
+  background: rgb(0 0 0 / 90%);
+  cursor: zoom-out;
+}
+
+.image-lightbox[open] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-lightbox::backdrop {
+  background: transparent;
+}
+
+.image-lightbox__img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.image-lightbox__close {
+  position: fixed;
+  top: max(12px, env(safe-area-inset-top));
+  right: max(12px, env(safe-area-inset-right));
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 15%);
+  color: #fff;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+:root:has(.image-lightbox[open]) {
+  overflow: hidden;
+}
+
 /* Light/dark image pairs: show only the variant matching the active theme.
    !important because align=... in a post puts an inline display: block on the image. */
 :root[data-theme="light"] .themed-img--dark,

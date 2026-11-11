@@ -102,3 +102,6 @@ number of posts of this kind:
 admits to "cognitive surrender": *"Just let it do it, just let it do it."*
 
 All of this leads me to a question:
+
+## How to be good "human in the loop" when working with AI?
+
