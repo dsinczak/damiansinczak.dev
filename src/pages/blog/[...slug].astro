@@ -1,0 +1,26 @@
+---
+import BlogLayout from "../../layouts/BlogLayout.astro";
+import { getPublishedBlogPosts } from "../../core/blog/posts";
+import { buildBlogPostJsonLd } from "../../core/seo/jsonLd";
+import { buildBlogPostMeta } from "../../core/seo/meta";
+import { siteConfig } from "../../core/site/config";
+
+export async function getStaticPaths() {
+  const posts = getPublishedBlogPosts();
+  return posts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const meta = buildBlogPostMeta(siteConfig.name, post);
+const jsonLd = buildBlogPostJsonLd(meta, post);
+---
+
+<BlogLayout meta={meta} jsonLd={jsonLd} currentSlug={post.slug}>
+  <article class="blog-article">
+    <header>
+      <h1>{post.title}</h1>
+      <p class="blog-article__description">{post.description}</p>
+    </header>
+    <div class="blog-article__content" set:html={post.html} />
+  </article>
+</BlogLayout>

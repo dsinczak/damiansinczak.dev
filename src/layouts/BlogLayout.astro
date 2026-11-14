@@ -1,0 +1,31 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import BlogShell from "../components/BlogShell.astro";
+import type { PageMeta } from "../core/seo/meta";
+import { siteConfig } from "../core/site/config";
+import "../styles/global.css";
+
+/** Document shell for every blog page, so none of them can forget the head. */
+
+type Props = {
+  meta: PageMeta;
+  jsonLd: Record<string, unknown>;
+  currentSlug?: string;
+};
+
+const { meta, jsonLd, currentSlug } = Astro.props;
+---
+
+<!doctype html>
+<html lang={siteConfig.lang}>
+  <head>
+    <BaseHead meta={meta}>
+      <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
+    </BaseHead>
+  </head>
+  <body>
+    <BlogShell currentSlug={currentSlug}>
+      <slot />
+    </BlogShell>
+  </body>
+</html>
