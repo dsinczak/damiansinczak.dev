@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { buildFeed, entryId, feedHtml, type FeedPost } from "./feed";
+import { renderMarkdown } from "../rendering/markdown";
 
 const posts: FeedPost[] = [
   {
@@ -73,5 +74,12 @@ describe("feedHtml", () => {
 
   it("drops the copy buttons", () => {
     expect(feedHtml(`<div><button type="button" data-copy-code>Copy</button><pre>x</pre></div>`)).toBe("<div><pre>x</pre></div>");
+  });
+
+  it("reduces a rendered code block to a plain pre/code without line numbers", () => {
+    const html = feedHtml(`<p>a</p>${renderMarkdown("```java\nint a = 1;\nint b = 2;\n```")}<p>b</p>`);
+    expect(html).toMatch(/^<p>a<\/p><pre><code class="hljs language-java">[\s\S]*int[\s\S]*<\/code><\/pre>\s*<p>b<\/p>$/);
+    expect(html).not.toContain("code-block");
+    expect(html).not.toContain("JAVA");
   });
 });

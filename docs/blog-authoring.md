@@ -72,6 +72,30 @@ takes both), so `align=right margin-right=32px` keeps 32px from the right edge.
 The image still shrinks on narrow screens. An invalid value fails the build.
 Works for light/dark pairs too.
 
+Clicking any article image opens it full size in a lightbox; any click closes
+it. Images wrapped in a link keep following the link instead.
+
+## Side stories (asides)
+
+Put an optional detour - a case study, a war story, background - in a boxed
+side story so readers can skip it while skimming:
+
+```md
+:::aside Case study: Athena → Snowflake
+Any **Markdown**, including multiple paragraphs, lists and code.
+:::
+```
+
+The text after `:::aside` is an optional title. The closing `:::` must be on
+its own line. Leave a sentence or two in the main text that carries the point,
+so skipping the box loses nothing.
+
+## Code blocks
+
+Fenced code blocks get syntax highlighting, line numbers, a language label and
+a Copy button. Name the language after the opening fence (` ```java `); an
+unknown or missing language is shown as plain text.
+
 ## Mermaid diagrams
 
 Use a fenced `mermaid` block directly in an article. The build turns it into a

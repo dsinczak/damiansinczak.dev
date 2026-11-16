@@ -2,7 +2,33 @@ import { marked } from "marked";
 import hljs from "highlight.js";
 import sanitizeHtml from "sanitize-html";
 
+/**
+ * Optional side story, rendered as a boxed <aside>:
+ *
+ *   :::aside Case study
+ *   Any **markdown**, multiple paragraphs.
+ *   :::
+ */
 marked.use({
+  extensions: [{
+    name: "aside",
+    level: "block",
+    start: (src) => src.match(/^:::aside/m)?.index,
+    tokenizer(src) {
+      const match = /^:::aside[ \t]*([^\n]*)\n([\s\S]*?)\n:::[ \t]*(?:\n|$)/.exec(src);
+      if (!match) return undefined;
+      return {
+        type: "aside",
+        raw: match[0],
+        title: match[1].trim(),
+        tokens: this.lexer.blockTokens(match[2])
+      };
+    },
+    renderer(token) {
+      const title = token.title ? `<p class="post-aside__title">${escapeHtml(token.title)}</p>` : "";
+      return `<aside class="post-aside">${title}${this.parser.parse(token.tokens ?? [])}</aside>\n`;
+    }
+  }],
   renderer: {
     code({ text, lang }) {
       const requestedLanguage = lang?.trim().split(/\s+/)[0].toLowerCase() || "text";

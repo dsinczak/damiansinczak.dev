@@ -102,6 +102,8 @@ Longer web-only context.
 
 See [docs/content-driven-cv-site-spec.md](docs/content-driven-cv-site-spec.md) for the full content contract and [docs/web-page-design-spec.md](docs/web-page-design-spec.md) for the site design requirements.
 
+Blog posts live in `content/blog/`. Everything beyond plain Markdown - frontmatter, light/dark images, image size and alignment, side-story boxes (`:::aside`), code blocks and Mermaid diagrams - is documented in [docs/blog-authoring.md](docs/blog-authoring.md).
+
 ## Discoverability
 
 Everything a search engine, a social card renderer or an AI crawler sees is derived

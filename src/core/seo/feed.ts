@@ -63,15 +63,20 @@ export function entryId(post: BlogListing): string {
 /**
  * Readers drop the site CSS and resolve relative URLs unreliably, so:
  * - only the light half of a themed image pair is kept (both would show);
- * - the code-block "Copy" buttons are removed (they need the site script);
+ * - code blocks lose their site chrome (header, Copy button, line-number column)
+ *   and become a plain <pre><code>;
  * - root-relative src/href become absolute.
  */
 export function feedHtml(html: string): string {
   return html
     .replace(/<img\b[^>]*\bthemed-img--dark\b[^>]*>/g, "")
+    .replace(codeBlock, (_, code: string) => `<pre>${code}</pre>`)
     .replace(/<button\b[^>]*>[\s\S]*?<\/button>/g, "")
     .replace(/\b(src|href)="\/(?!\/)([^"]*)"/g, (_, attribute: string, rest: string) => `${attribute}="${absoluteUrl(`/${rest}`)}"`);
 }
+
+// Matches the markup of the code renderer in core/rendering/markdown.ts; code text is HTML-escaped, so </pre> cannot occur inside.
+const codeBlock = /<div class="code-block"[^>]*>[\s\S]*?<pre class="code-block__pre">(<code\b[\s\S]*?<\/code>)<\/pre>\s*<\/div>\s*<\/div>/g;
 
 function lastChange(post: BlogListing): string {
   return (post.updatedAt ?? post.publishedAt).toISOString();
