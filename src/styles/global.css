@@ -421,9 +421,22 @@ a:hover {
   padding: 18px 0 8px;
 }
 
-.blog-sidebar > h2 {
+.blog-sidebar__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
   padding: 0 18px;
   margin-bottom: 12px;
+}
+
+.blog-sidebar__header > h2 {
+  margin-bottom: 0;
+}
+
+.blog-sidebar__feed {
+  color: var(--muted);
+  font-size: 13px;
 }
 
 .blog-post-menu {

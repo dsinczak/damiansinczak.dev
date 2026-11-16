@@ -31,6 +31,16 @@ export const siteConfig = {
     index: "/llms.txt",
     full: "/llms-full.txt"
   },
+  /**
+   * Atom feed of the blog. Never move it: readers that do not follow the 301
+   * from the old URL silently stop receiving posts.
+   */
+  feed: {
+    path: "/blog/feed.xml",
+    type: "application/atom+xml",
+    /** Newest posts kept in the feed; older ones stay reachable via the sitemap. */
+    limit: 20
+  },
   /** Where security researchers should write. Published at /.well-known/security.txt */
   securityContact: "mailto:damian.sinczak@gmail.com"
 } as const;

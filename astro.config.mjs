@@ -6,5 +6,11 @@ export default defineConfig({
   // the sitemap generator and this file cannot drift apart. Setting `site`
   // is what makes `Astro.site` available for canonical/OG URL construction.
   site: siteConfig.url,
-  output: "static"
+  output: "static",
+  // The production CSP is `script-src 'self'`, which blocks inline scripts.
+  // Astro inlines small hoisted <script> blocks below this limit, so force
+  // every script into an external file.
+  vite: {
+    build: { assetsInlineLimit: 0 }
+  }
 });

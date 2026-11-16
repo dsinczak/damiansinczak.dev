@@ -1,4 +1,5 @@
 import { absoluteUrl } from "../site/config";
+import { escapeXml } from "./xml";
 
 /**
  * sitemap.xml generation, kept free of filesystem and git access so it can be
@@ -63,8 +64,4 @@ export function buildSitemap(entries: SitemapEntry[]): string {
 
 function isoDate(date: Date): string {
   return date.toISOString().slice(0, 10);
-}
-
-function escapeXml(value: string): string {
-  return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&apos;");
 }

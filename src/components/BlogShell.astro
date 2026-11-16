@@ -2,6 +2,7 @@
 import { getPublishedBlogPosts } from "../core/blog/posts";
 import dsMarkUrl from "../assets/web/ds-mark.svg";
 import ThemeMenu from "./ThemeMenu.astro";
+import { siteConfig } from "../core/site/config";
 
 type Props = {
   currentSlug?: string;
@@ -27,7 +28,10 @@ const dateFormat = new Intl.DateTimeFormat("en", { day: "numeric", month: "short
 
 <main class="blog-layout">
   <aside class="blog-sidebar section-card" aria-label="Blog posts">
-    <h2>Posts</h2>
+    <div class="blog-sidebar__header">
+      <h2>Posts</h2>
+      <a class="blog-sidebar__feed" href={siteConfig.feed.path} type={siteConfig.feed.type}>Subscribe (RSS/Atom)</a>
+    </div>
     {
       posts.length ? (
         <div class="blog-post-menu">

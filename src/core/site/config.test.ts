@@ -114,6 +114,27 @@ describe("robots.txt", () => {
   });
 });
 
+describe("built HTML", () => {
+  const dist = path.resolve("dist");
+  const htmlFiles = fs.existsSync(dist)
+    ? (fs.readdirSync(dist, { recursive: true }) as string[])
+        .filter((file) => file.endsWith(".html"))
+        .map((file) => path.join(dist, file))
+    : [];
+
+  it.skipIf(htmlFiles.length === 0)("contains no inline executable scripts, which the CSP would block", () => {
+    // script-src 'self' only runs external files. Astro inlines small hoisted
+    // scripts unless vite.build.assetsInlineLimit is 0 — works in dev, dead in prod.
+    for (const file of htmlFiles) {
+      const inline = [...fs.readFileSync(file, "utf8").matchAll(/<script(?![^>]*\bsrc=)([^>]*)>/g)]
+        .map((match) => match[1])
+        .filter((attrs) => !attrs.includes("application/ld+json"));
+
+      expect(inline, file).toEqual([]);
+    }
+  });
+});
+
 describe("site.webmanifest", () => {
   it("is valid JSON with icons that the build actually produces", () => {
     const manifest = JSON.parse(readPublic("site.webmanifest")) as {

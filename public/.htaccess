@@ -27,6 +27,10 @@ AddDefaultCharset UTF-8
   RewriteCond %{HTTP_HOST} !^www\.damiansinczak\.dev$ [NC]
   RewriteRule ^ https://www.damiansinczak.dev%{REQUEST_URI} [R=301,L]
 
+  # The feed lives at /blog/feed.xml. Send readers that guess the conventional
+  # root locations there instead of answering 404.
+  RewriteRule ^(feed|rss|atom)\.xml$ /blog/feed.xml [R=301,L]
+
   # Directory requests with no index file: answer 404, not 403.
   #
   # `Options -Indexes` above makes Apache reject a bare directory request with
@@ -63,13 +67,18 @@ AddDefaultCharset UTF-8
   AddCharset UTF-8                     .txt .xml .css .svg
 </IfModule>
 
+# The blog feed is .xml like the sitemap, but readers expect the Atom type.
+<Files "feed.xml">
+  ForceType "application/atom+xml; charset=utf-8"
+</Files>
+
 # -----------------------------------------------------------------------------
 # Compression
 # -----------------------------------------------------------------------------
 <IfModule mod_deflate.c>
   AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml
   AddOutputFilterByType DEFLATE application/javascript application/json
-  AddOutputFilterByType DEFLATE application/xml image/svg+xml
+  AddOutputFilterByType DEFLATE application/xml application/atom+xml image/svg+xml
   AddOutputFilterByType DEFLATE application/manifest+json
 </IfModule>
 

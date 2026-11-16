@@ -1,7 +1,7 @@
 ---
 title: AI-Induced skill atrophy
 description:  Are We Getting Worse at What AI Does for Us?
-publishedAt: 2026-11-30
+publishedAt: 2026-11-11
 draft: false
 ---
 
@@ -158,6 +158,23 @@ And these small battles I wage, in order to push the front line even a little bi
   sense that we don’t have to interact with it manually - we often stop feeling the pain caused by various shortcomings. In my view, this frequently
   leads us into the trap of "good enough." Therefore, whenever I see any opportunity to improve the code structure, I make an effort to carry out
   those changes myself.
+- Some time ago I added this to my system prompt:
+  
+  ```markdown
+  # Be my teacher
+  When you see an opportunity to teach me something, please do, always try to rise my curiosity, e.g.
+  - If there is a piece of library that is new in project
+  - If there is an interesting architectural solution that is used or can be used
+  - If you know ANY alternatives (even if there is no point doing any changes in certain place) to the current solution
+  - If you see places where usage of diffferent technology would fit better
+  Be my guide in the world of things I do not know i do not know
+  Put those teachings as last paragraph (“Did you know?” section) of your answer if you have anything for me
+  ```
+
+  At first, I really enjoyed the things agent provided in that final paragraph. Furthermore, thanks to the advice and tips I received, I made quite
+  a few changes across many of my projects. Over time, however, I began to ignore that section, and now I’m looking for a new way to make my day-to-day
+  work more enjoyable. And yes, I’m aware that I’m cluttering my context, but I’m tackling that on a different front (perhaps material for another
+  post) - and this small section within the agent’s response is, IMO, worth it.
 
 Or maybe I’m looking at this the wrong way...
 

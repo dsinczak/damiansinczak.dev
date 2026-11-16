@@ -66,6 +66,8 @@ const isoDate = (date: Date) => date.toISOString();
 
 <link rel="alternate" hreflang={siteConfig.lang} href={canonical} />
 <link rel="alternate" hreflang="x-default" href={canonical} />
+{/* Feed autodiscovery: readers pasting any page URL find the blog feed through this. */}
+<link rel="alternate" type={siteConfig.feed.type} title={`${siteConfig.name} — Blog`} href={absoluteUrl(siteConfig.feed.path)} />
 
 <link rel="icon" href="/favicon.ico" sizes="32x32" />
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
